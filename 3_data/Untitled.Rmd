@@ -1,0 +1,11 @@
+---
+title: "Untitled"
+author: "Steven Moran"
+date: "2023-01-31"
+output: html_document
+---
+
+```{r}
+help(AirPassengers)
+```
+
