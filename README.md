@@ -18,7 +18,7 @@ Steven Moran
 - **Instructor**: [Steven
   Moran](https://people.miami.edu/profile/6addca1358c4387543a61194863933df)
   (he/him) \<<steven.moran@miami.edu>\>
-- **Office**: Merrick Anthropology Department
+- **Office**: Merrick Building, Anthropology Department
 - **Office hours**: By appointment via email
 
 # Course description
