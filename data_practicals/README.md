@@ -181,6 +181,7 @@ R also has built in data sets:
 
 Here are some data practicals from former students:
 
+- <https://github.com/gyhhuang/cbb_freshman_project/blob/main/CBB%20Project%20Text.pdf>
 - <https://github.com/ymijsters/My_Data_Practical>
 - <https://github.com/alex-ro96/ADHD_in_women>
 - <https://github.com/DidierYourassoff/IntroDataScience>
