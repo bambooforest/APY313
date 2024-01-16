@@ -1,7 +1,7 @@
 Anthropology 313: Data science of culture and language
 ================
 Steven Moran
-(15 January, 2024)
+(16 January, 2024)
 
 - [Overview](#overview)
 - [Course description](#course-description)
@@ -48,7 +48,7 @@ assessment.
 - Completion of all homework assignment in
   [DataCamp](https://www.datacamp.com) (pass/fail)
 - Presentation of material in the weekly reading / data practical (30%)
-- [Data practical](data_practical.md) (70%)
+- [Data practical](data_praticals/README.md) (70%)
 
 Graduate students will have additional readings and an in-class
 presentation.
@@ -63,7 +63,8 @@ will be used, in that values \>0.5% will be rounded up.
 The
 [schedule](https://docs.google.com/spreadsheets/d/1uSFHedR_jn_bk9Ds29WcneffBbRcHR3-x-hYtJF5_uQ/edit?usp=sharing)
 is subject to change, but the most up to date schedule is always
-available under the Syllabus tab on Blackboard.
+available under the Syllabus tab on Blackboard. (If you do not have
+access to the schedule, email me and I will give you access.)
 
 **Weekly Topics**
 
