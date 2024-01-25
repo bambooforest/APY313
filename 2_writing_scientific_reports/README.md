@@ -1,22 +1,18 @@
 Writing scientific reports
 ================
 Steven Moran
-(24 January, 2023)
+(25 January, 2024)
 
-- <a href="#scientific-reports-why"
-  id="toc-scientific-reports-why">Scientific reports: why?</a>
-- <a href="#r-markdown-overview" id="toc-r-markdown-overview">R Markdown:
-  overview</a>
-- <a href="#title" id="toc-title">Title</a>
-  - <a href="#subtitle" id="toc-subtitle">Subtitle</a>
-- <a href="#automatic-referencing"
-  id="toc-automatic-referencing">Automatic referencing</a>
-- <a href="#additional-resources" id="toc-additional-resources">Additional
-  resources</a>
-  - <a href="#r-markdown" id="toc-r-markdown">R Markdown</a>
-  - <a href="#reference-management-software"
-    id="toc-reference-management-software">Reference management software</a>
-- <a href="#references" id="toc-references">References</a>
+- [Scientific reports: why?](#scientific-reports-why)
+- [R Markdown: overview](#r-markdown-overview)
+- [Title](#title)
+  - [Subtitle](#subtitle)
+- [Cheat sheets](#cheat-sheets)
+- [Automatic referencing](#automatic-referencing)
+- [Additional resources](#additional-resources)
+  - [R Markdown](#r-markdown)
+  - [Reference management software](#reference-management-software)
+- [References](#references)
 
 This report uses the [R programming
 language](https://cran.r-project.org/doc/FAQ/R-FAQ.html) (R Core Team
@@ -53,7 +49,11 @@ Do you follow a particular
 [IMRAD](https://en.wikipedia.org/wiki/IMRAD) organizational structure
 for the systematic organization of a research paper:
 
-![IMRAD workflow.](figures/Wineglass_model_for_IMRaD_structure.png)
+<figure>
+<img src="figures/Wineglass_model_for_IMRaD_structure.png"
+alt="IMRAD workflow." />
+<figcaption aria-hidden="true">IMRAD workflow.</figcaption>
+</figure>
 
 If so, let’s take a minute and discuss how we can organize ourselves.
 
@@ -257,7 +257,7 @@ file should be generated, e.g., I am telling it to produce a
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(24 January, 2023)"
+    date: "(25 January, 2024)"
     output:
       github_document
     ---
@@ -274,7 +274,7 @@ document](https://bookdown.org/yihui/rmarkdown/html-document.html):
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(24 January, 2023)"
+    date: "(25 January, 2024)"
     output:
       html_document
     ---
@@ -286,7 +286,7 @@ this report, e.g., so that you can submit it for publication?
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(24 January, 2023)"
+    date: "(25 January, 2024)"
     output:
       pdf_document
     ---
@@ -299,7 +299,7 @@ one of my old professors):
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(24 January, 2023)"
+    date: "(25 January, 2024)"
     output:
       word_document
     ---
@@ -310,7 +310,7 @@ You can even create for example slides, such as in
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(24 January, 2023)"
+    date: "(25 January, 2024)"
     output:
       powerpoint_presentation
     ---
@@ -324,7 +324,7 @@ below). So, for example, this file specifies the header as:
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(24 January, 2023)"
+    date: "(25 January, 2024)"
     output:
       github_document:
           toc: true
@@ -364,6 +364,8 @@ and a [hyperlink](https://en.wikipedia.org/wiki/Hyperlink) is written
 like this in R Markdown\]:
 
     For example, this sentence formatted with **bold** and *italicized* text and a [hyperlink](https://en.wikipedia.org/wiki/Hyperlink) is written like this in R Markdown]:
+
+# Cheat sheets
 
 A good thing to keep near when you are learning R Markdown are [cheat
 sheets](https://en.wikipedia.org/wiki/Cheat_sheet). [Let me google some
@@ -582,7 +584,7 @@ header in the .Rmd file:
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(24 January, 2023)"
+    date: "(25 January, 2024)"
     output:
       github_document
     bibliography: 'references.bib'
@@ -675,7 +677,8 @@ Lastly, don’t hesitate to ask me if you have any questions! (:
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-Barnes2010" class="csl-entry">
 
@@ -717,8 +720,8 @@ Language Science Press. <https://doi.org/10.5281/zenodo.773250>.
 
 <div id="ref-Moran_etal2012" class="csl-entry">
 
-Moran, Steven, Daniel McCloy, and Richard Wright. 2012. “<span
-class="nocase">Revisiting Population Size vs. Phoneme Inventory
+Moran, Steven, Daniel McCloy, and Richard Wright. 2012.
+“<span class="nocase">Revisiting Population Size vs. Phoneme Inventory
 Size</span>.” *Language* 88 (4): 877–93.
 https://doi.org/<https://doi.org/10.1353/lan.2012.0087>.
 

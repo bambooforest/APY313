@@ -246,6 +246,8 @@ For example, this sentence formatted with **bold** and *italicized* text and a [
 For example, this sentence formatted with **bold** and *italicized* text and a [hyperlink](https://en.wikipedia.org/wiki/Hyperlink) is written like this in R Markdown]:
 ```
 
+# Cheat sheets
+
 A good thing to keep near when you are learning R Markdown are [cheat sheets](https://en.wikipedia.org/wiki/Cheat_sheet). [Let me google some for you](https://www.dictionary.com/e/slang/lmgtfy/):
 
 * https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf
