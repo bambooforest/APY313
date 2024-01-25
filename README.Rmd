@@ -36,7 +36,7 @@ Continuous assessment with data science exercises (graded). Work not submitted b
 
 * Completion of all homework assignment in [DataCamp](https://www.datacamp.com) (pass/fail)
 * Presentation of material in the weekly reading / data practical (30%)
-* [Data practical](data_praticals/README.md) (70%)
+* [Data practical](data_practicals/README.md) (70%)
 
 Graduate students will have additional readings and an in-class presentation.
 
