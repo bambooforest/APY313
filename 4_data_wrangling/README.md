@@ -2,7 +2,7 @@ Data wrangling
 ================
 Steven Moran
 
-29 January, 2023
+08 February, 2024
 
 - [Overview](#overview)
 - [Data wrangling in R](#data-wrangling-in-r)
@@ -12,8 +12,9 @@ Steven Moran
     - [`select()`](#select)
     - [`arrange()`](#arrange)
     - [`mutate()`](#mutate)
-    - [`filter()`](#filter)
     - [`summarize()`](#summarize)
+    - [`group_by()`](#group_by)
+    - [`filter()`](#filter)
 - [Databases (advanced)](#databases-advanced)
   - [Overview](#overview-1)
   - [Joining tables](#joining-tables)
@@ -356,7 +357,7 @@ data1[data1$height > 160, ] # grab height greater than 160 -- DON'T FORGET COMMA
 ```
 
     ## # A tibble: 0 × 3
-    ## # … with 3 variables: height <dbl>, weight <dbl>, animal <chr>
+    ## # ℹ 3 variables: height <dbl>, weight <dbl>, animal <chr>
 
 ``` r
 # data1[data1$height > 160] # this fails and makes one pull their hair out
@@ -364,7 +365,7 @@ data1[data1$height > 160 & data1$animal == 'cat', ] # cats over 160cm
 ```
 
     ## # A tibble: 0 × 3
-    ## # … with 3 variables: height <dbl>, weight <dbl>, animal <chr>
+    ## # ℹ 3 variables: height <dbl>, weight <dbl>, animal <chr>
 
 With dplyr you would do this:
 
@@ -373,14 +374,14 @@ data1 %>% filter(height > 160) %>% filter(animal == 'cat')
 ```
 
     ## # A tibble: 0 × 3
-    ## # … with 3 variables: height <dbl>, weight <dbl>, animal <chr>
+    ## # ℹ 3 variables: height <dbl>, weight <dbl>, animal <chr>
 
 ``` r
 data1 %>% filter(animal == 'cat') %>% filter(height > 160)
 ```
 
     ## # A tibble: 0 × 3
-    ## # … with 3 variables: height <dbl>, weight <dbl>, animal <chr>
+    ## # ℹ 3 variables: height <dbl>, weight <dbl>, animal <chr>
 
 They are two different approaches to data wrangling. Given its ease of
 use, we will focus here on the tidyverse approach.
@@ -571,13 +572,16 @@ basics](https://r4ds.had.co.nz/transform.html?q=dplyr#dplyr-basics).
 `dplyr` is super-fast on data frames. Essentially, one works with five
 basic “verbs” or functions:
 
-- `select()`: for subsetting variables/columns
+- `select()`: for selecting (“subsetting”) variables/columns
 - `arrange()`: for re-ordering rows
 - `mutate()`: for adding new columns
-- `filter()`: for subsetting rows
 - `summarize()` (or `summarise()` if you prefer [British
   spelling](https://en.wikipedia.org/wiki/American_and_British_English_spelling_differences)):
   for reducing each group to a smaller number of summary statistics
+- `group_by()`: group an existing table into a grouped table, where
+  operations are applied to each group (usually used in conjunction with
+  another function, such as `summarize()`)
+- `filter()`: for filtering (“subsetting”) rows
 
 Let’s try them out!
 
@@ -805,7 +809,7 @@ select(athletes, name, height, weight)
     ##  8 Adam Zampa          1.78     80
     ##  9 Adelina Sotnikova   1.63     NA
     ## 10 Adeline Baud        1.62     56
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 - You can use `:` to select all columns in a range between two specified
   columns (inclusively):
@@ -827,7 +831,7 @@ select(athletes, age:weight)
     ##  8    23 1990-09-13 Male     1.78 Adam Zampa            80
     ##  9    17 1996-07-01 Female   1.63 Adelina Sotnikova     NA
     ## 10    21 1992-09-28 Female   1.62 Adeline Baud          56
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 - You can exclude a variable with the help of `-`.
 
@@ -836,20 +840,20 @@ select(athletes, -birthdate, -age)
 ```
 
     ## # A tibble: 2,859 × 10
-    ##    gender height name       weight gold_…¹ silve…² bronz…³ total…⁴ sport country
-    ##    <fct>   <dbl> <chr>       <dbl>   <dbl>   <dbl>   <dbl>   <dbl> <fct> <chr>  
-    ##  1 Male     1.72 Aaron Blu…     68       0       0       0       0 Free… United…
-    ##  2 Male     1.85 Aaron Mar…     85       0       0       0       0 Snow… Italy  
-    ##  3 Male     1.78 Abzal Azh…     68       0       0       0       0 Shor… Kazakh…
-    ##  4 Male     1.68 Abzal Rak…     NA       0       0       0       0 Figu… Kazakh…
-    ##  5 Male     1.86 Adam Barw…     82       0       0       0       0 Alpi… New Ze…
-    ##  6 Male     1.75 Adam Cies…     57       0       0       0       0 Nord… Poland 
-    ##  7 Male     1.7  Adam Lamh…     76       0       0       0       0 Alpi… Morocco
-    ##  8 Male     1.78 Adam Zampa     80       0       0       0       0 Alpi… Slovak…
-    ##  9 Female   1.63 Adelina S…     NA       0       0       0       0 Figu… Russia…
-    ## 10 Female   1.62 Adeline B…     56       0       0       0       0 Alpi… France 
-    ## # … with 2,849 more rows, and abbreviated variable names ¹​gold_medals,
-    ## #   ²​silver_medals, ³​bronze_medals, ⁴​total_medals
+    ##    gender height name             weight gold_medals silver_medals bronze_medals
+    ##    <fct>   <dbl> <chr>             <dbl>       <dbl>         <dbl>         <dbl>
+    ##  1 Male     1.72 Aaron Blunck         68           0             0             0
+    ##  2 Male     1.85 Aaron March          85           0             0             0
+    ##  3 Male     1.78 Abzal Azhgaliyev     68           0             0             0
+    ##  4 Male     1.68 Abzal Rakimgali…     NA           0             0             0
+    ##  5 Male     1.86 Adam Barwood         82           0             0             0
+    ##  6 Male     1.75 Adam Cieslar         57           0             0             0
+    ##  7 Male     1.7  Adam Lamhamedi       76           0             0             0
+    ##  8 Male     1.78 Adam Zampa           80           0             0             0
+    ##  9 Female   1.63 Adelina Sotniko…     NA           0             0             0
+    ## 10 Female   1.62 Adeline Baud         56           0             0             0
+    ## # ℹ 2,849 more rows
+    ## # ℹ 3 more variables: total_medals <dbl>, sport <fct>, country <chr>
 
 Note that `dplyr` functions never modify their input data frames. If you
 want to save the result e.g., of the `select()`function, you need to use
@@ -875,28 +879,28 @@ select(athletes, birthdate, age)
     ##  8 1990-09-13    23
     ##  9 1996-07-01    17
     ## 10 1992-09-28    21
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 ``` r
 athletes
 ```
 
     ## # A tibble: 2,859 × 12
-    ##      age birthdate  gender height name    weight gold_…¹ silve…² bronz…³ total…⁴
-    ##    <dbl> <date>     <fct>   <dbl> <chr>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1    17 1996-04-12 Male     1.72 Aaron …     68       0       0       0       0
-    ##  2    27 1986-05-14 Male     1.85 Aaron …     85       0       0       0       0
-    ##  3    21 1992-06-30 Male     1.78 Abzal …     68       0       0       0       0
-    ##  4    21 1992-05-25 Male     1.68 Abzal …     NA       0       0       0       0
-    ##  5    21 1992-07-30 Male     1.86 Adam B…     82       0       0       0       0
-    ##  6    21 1992-12-18 Male     1.75 Adam C…     57       0       0       0       0
-    ##  7    18 1995-04-22 Male     1.7  Adam L…     76       0       0       0       0
-    ##  8    23 1990-09-13 Male     1.78 Adam Z…     80       0       0       0       0
-    ##  9    17 1996-07-01 Female   1.63 Adelin…     NA       0       0       0       0
-    ## 10    21 1992-09-28 Female   1.62 Adelin…     56       0       0       0       0
-    ## # … with 2,849 more rows, 2 more variables: sport <fct>, country <chr>, and
-    ## #   abbreviated variable names ¹​gold_medals, ²​silver_medals, ³​bronze_medals,
-    ## #   ⁴​total_medals
+    ##      age birthdate  gender height name          weight gold_medals silver_medals
+    ##    <dbl> <date>     <fct>   <dbl> <chr>          <dbl>       <dbl>         <dbl>
+    ##  1    17 1996-04-12 Male     1.72 Aaron Blunck      68           0             0
+    ##  2    27 1986-05-14 Male     1.85 Aaron March       85           0             0
+    ##  3    21 1992-06-30 Male     1.78 Abzal Azhgal…     68           0             0
+    ##  4    21 1992-05-25 Male     1.68 Abzal Rakimg…     NA           0             0
+    ##  5    21 1992-07-30 Male     1.86 Adam Barwood      82           0             0
+    ##  6    21 1992-12-18 Male     1.75 Adam Cieslar      57           0             0
+    ##  7    18 1995-04-22 Male     1.7  Adam Lamhame…     76           0             0
+    ##  8    23 1990-09-13 Male     1.78 Adam Zampa        80           0             0
+    ##  9    17 1996-07-01 Female   1.63 Adelina Sotn…     NA           0             0
+    ## 10    21 1992-09-28 Female   1.62 Adeline Baud      56           0             0
+    ## # ℹ 2,849 more rows
+    ## # ℹ 4 more variables: bronze_medals <dbl>, total_medals <dbl>, sport <fct>,
+    ## #   country <chr>
 
 And here we create a new data frame with the selected columns only:
 
@@ -918,7 +922,7 @@ athletes_age
     ##  8 1990-09-13    23
     ##  9 1996-07-01    17
     ## 10 1992-09-28    21
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 There are a number of **helper functions** you can use within
 `select()`. Try to guess what they do before executing the commands:
@@ -942,7 +946,7 @@ select(athletes, ends_with("medals"))
     ##  8           0             0             0            0
     ##  9           0             0             0            0
     ## 10           0             0             0            0
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 2.  **`contains()`**
 
@@ -963,7 +967,7 @@ select(athletes, contains("eigh"))
     ##  8   1.78     80
     ##  9   1.63     NA
     ## 10   1.62     56
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 3.  For details on other helper functions, see `?select`.
 
@@ -1037,7 +1041,7 @@ athletes_narrow
     ##  8 Adam Zampa        Male      23 Alpine Skiing      1.78     80
     ##  9 Adelina Sotnikova Female    17 Figure Skating     1.63     NA
     ## 10 Adeline Baud      Female    21 Alpine Skiing      1.62     56
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 Next, add the column BMI (body mass index). The BMI is calculated as the
 body mass (`weight`) divided by the square of the body `height`. It is
@@ -1060,7 +1064,7 @@ mutate(athletes_narrow, BMI = weight/height^2)
     ##  8 Adam Zampa        Male      23 Alpine Skiing      1.78     80  25.2
     ##  9 Adelina Sotnikova Female    17 Figure Skating     1.63     NA  NA  
     ## 10 Adeline Baud      Female    21 Alpine Skiing      1.62     56  21.3
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 Notice that `mutate` does not overwrite the existing data frame.
 
@@ -1081,7 +1085,7 @@ mutate(athletes_narrow, BMI = weight/height^2)
     ##  8 Adam Zampa        Male      23 Alpine Skiing      1.78     80  25.2
     ##  9 Adelina Sotnikova Female    17 Figure Skating     1.63     NA  NA  
     ## 10 Adeline Baud      Female    21 Alpine Skiing      1.62     56  21.3
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 ``` r
 athletes_narrow
@@ -1100,7 +1104,7 @@ athletes_narrow
     ##  8 Adam Zampa        Male      23 Alpine Skiing      1.78     80
     ##  9 Adelina Sotnikova Female    17 Figure Skating     1.63     NA
     ## 10 Adeline Baud      Female    21 Alpine Skiing      1.62     56
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 To add the new column to it permanently, you have to overwrite the
 original data frame:
@@ -1123,12 +1127,164 @@ athletes_narrow
     ##  8 Adam Zampa        Male      23 Alpine Skiing      1.78     80  25.2
     ##  9 Adelina Sotnikova Female    17 Figure Skating     1.63     NA  NA  
     ## 10 Adeline Baud      Female    21 Alpine Skiing      1.62     56  21.3
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 There are many functions for creating new variables that you can use
 with `mutate()`. Think of a function and look up
 [here](https://r4ds.had.co.nz/transform.html?q=dplyr#mutate-funs)
 (Wickham and Grolemund 2016) for possible solutions.
+
+### `summarize()`
+
+The dplyr function `summarize()` (or `summarise()`) summarizes multiple
+values in a single value.
+
+Let’s create a data frame as an [reproducible
+example](http://adv-r.had.co.nz/Reproducibility.html). What is a
+reproducible example:
+
+- <https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example>
+- <https://stackoverflow.com/help/minimal-reproducible-example>
+- <http://adv-r.had.co.nz/Reproducibility.html>
+- <https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html>
+
+``` r
+df <- data.frame(
+    color = c('blue', 'black', 'blue', 'blue', 'black'),
+    value = c(1, 2, 3, 4, 5)
+)
+
+df
+```
+
+    ##   color value
+    ## 1  blue     1
+    ## 2 black     2
+    ## 3  blue     3
+    ## 4  blue     4
+    ## 5 black     5
+
+So, let’s sum up the value column with `summarize()`.
+
+``` r
+summarize(df, total = sum(value))
+```
+
+    ##   total
+    ## 1    15
+
+We can do the same thing with the `athletes` data frame, for example,
+for gold medals.
+
+``` r
+athletes %>% summarize(totals = sum(gold_medals))
+```
+
+### `group_by()`
+
+Groups table data into groups on which some other operation may operate.
+(`ungroup()` removes grouping.) This function is usually used along with
+some other function.
+
+For example, an important function of `summarize()` is in coordination
+with the `group_by()` function. The dplyr `group_by` function take an
+existing data frame and performs an operation by group. For example,
+let’s group our data frame `df` by the color column.
+
+``` r
+df %>% group_by(color) %>% summarize(total = sum(value))
+```
+
+    ## # A tibble: 2 × 2
+    ##   color total
+    ##   <chr> <dbl>
+    ## 1 black     7
+    ## 2 blue      8
+
+You can also save the results to a new data frame.
+
+``` r
+by_color <- df %>% group_by(color) %>% summarize(total = sum(value))
+by_color
+```
+
+    ## # A tibble: 2 × 2
+    ##   color total
+    ##   <chr> <dbl>
+    ## 1 black     7
+    ## 2 blue      8
+
+We can also use `group_by` on the athletes data. For example, how many
+gold medals per country?
+
+``` r
+athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals))
+```
+
+    ## # A tibble: 88 × 2
+    ##    country    gold_medals
+    ##    <chr>            <dbl>
+    ##  1 Albania              0
+    ##  2 Andorra              0
+    ##  3 Argentina            0
+    ##  4 Armenia              0
+    ##  5 Australia            0
+    ##  6 Austria              2
+    ##  7 Azerbaijan           0
+    ##  8 Belarus              5
+    ##  9 Belgium              0
+    ## 10 Bermuda              0
+    ## # ℹ 78 more rows
+
+Maybe for viewing purposes it’s better to arrange them by number of gold
+medals instead of alphabetically by country name.
+
+``` r
+athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals)) %>% arrange(desc(gold_medals))
+```
+
+    ## # A tibble: 88 × 2
+    ##    country       gold_medals
+    ##    <chr>               <dbl>
+    ##  1 Russian Fed.           16
+    ##  2 Germany                15
+    ##  3 Sweden                  8
+    ##  4 Norway                  7
+    ##  5 Korea                   6
+    ##  6 Netherlands             6
+    ##  7 United States           6
+    ##  8 Belarus                 5
+    ##  9 Switzerland             5
+    ## 10 Canada                  4
+    ## # ℹ 78 more rows
+
+As we continue to [pipe](https://r4ds.had.co.nz/pipes.html) commands
+together, i.e., putting multiple operations (aka dplyr verbs) together –
+we can use [white
+space](https://en.wikipedia.org/wiki/Whitespace_character) to style the
+code. More on style below.
+
+``` r
+athletes %>% 
+  group_by(country) %>% 
+  summarize(gold_medals = sum(gold_medals)) %>% 
+  arrange(desc(gold_medals))
+```
+
+    ## # A tibble: 88 × 2
+    ##    country       gold_medals
+    ##    <chr>               <dbl>
+    ##  1 Russian Fed.           16
+    ##  2 Germany                15
+    ##  3 Sweden                  8
+    ##  4 Norway                  7
+    ##  5 Korea                   6
+    ##  6 Netherlands             6
+    ##  7 United States           6
+    ##  8 Belarus                 5
+    ##  9 Switzerland             5
+    ## 10 Canada                  4
+    ## # ℹ 78 more rows
 
 ### `filter()`
 
@@ -1221,21 +1377,21 @@ athletes %>% filter(is.na(height))
 ```
 
     ## # A tibble: 139 × 12
-    ##      age birthdate  gender height name    weight gold_…¹ silve…² bronz…³ total…⁴
-    ##    <dbl> <date>     <fct>   <dbl> <chr>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1    25 1988-05-12 Female     NA Aja Ev…     NA       0       0       0       0
-    ##  2    21 1992-09-21 Male       NA Aleksa…     NA       0       0       0       0
-    ##  3    24 1989-05-28 Male       NA Alexey…     NA       0       0       0       0
-    ##  4    20 1993-05-08 Female     NA Anasta…     NA       0       0       0       0
-    ##  5    22 1991-05-13 Male       NA Anders…     NA       0       0       0       0
-    ##  6    27 1986-05-22 Male       NA Anders…     NA       0       0       0       0
-    ##  7    28 1985-10-24 Female     NA Angeli…     NA       0       0       0       0
-    ##  8    31 1982-11-06 Female     NA Ann Kr…     NA       0       0       0       0
-    ##  9    15 1998-03-31 Female     NA Anna S…     43       0       0       0       0
-    ## 10    23 1991-02-05 Female     NA Anna S…     NA       0       0       0       0
-    ## # … with 129 more rows, 2 more variables: sport <fct>, country <chr>, and
-    ## #   abbreviated variable names ¹​gold_medals, ²​silver_medals, ³​bronze_medals,
-    ## #   ⁴​total_medals
+    ##      age birthdate  gender height name          weight gold_medals silver_medals
+    ##    <dbl> <date>     <fct>   <dbl> <chr>          <dbl>       <dbl>         <dbl>
+    ##  1    25 1988-05-12 Female     NA Aja Evans         NA           0             0
+    ##  2    21 1992-09-21 Male       NA Aleksander A…     NA           0             0
+    ##  3    24 1989-05-28 Male       NA Alexey Negod…     NA           0             0
+    ##  4    20 1993-05-08 Female     NA Anastasiya N…     NA           0             0
+    ##  5    22 1991-05-13 Male       NA Anders Fanne…     NA           0             0
+    ##  6    27 1986-05-22 Male       NA Anders Gloee…     NA           0             0
+    ##  7    28 1985-10-24 Female     NA Angeli Vanla…     NA           0             0
+    ##  8    31 1982-11-06 Female     NA Ann Kristin …     NA           0             0
+    ##  9    15 1998-03-31 Female     NA Anna Seidel       43           0             0
+    ## 10    23 1991-02-05 Female     NA Anna Sloan        NA           0             0
+    ## # ℹ 129 more rows
+    ## # ℹ 4 more variables: bronze_medals <dbl>, total_medals <dbl>, sport <fct>,
+    ## #   country <chr>
 
 You can also filter to **remove** `NA`s, which is often useful for when
 you want to visualize the data. Use the logical operation `!` mentioned
@@ -1246,21 +1402,21 @@ athletes %>% filter(!is.na(height))
 ```
 
     ## # A tibble: 2,720 × 12
-    ##      age birthdate  gender height name    weight gold_…¹ silve…² bronz…³ total…⁴
-    ##    <dbl> <date>     <fct>   <dbl> <chr>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1    17 1996-04-12 Male     1.72 Aaron …     68       0       0       0       0
-    ##  2    27 1986-05-14 Male     1.85 Aaron …     85       0       0       0       0
-    ##  3    21 1992-06-30 Male     1.78 Abzal …     68       0       0       0       0
-    ##  4    21 1992-05-25 Male     1.68 Abzal …     NA       0       0       0       0
-    ##  5    21 1992-07-30 Male     1.86 Adam B…     82       0       0       0       0
-    ##  6    21 1992-12-18 Male     1.75 Adam C…     57       0       0       0       0
-    ##  7    18 1995-04-22 Male     1.7  Adam L…     76       0       0       0       0
-    ##  8    23 1990-09-13 Male     1.78 Adam Z…     80       0       0       0       0
-    ##  9    17 1996-07-01 Female   1.63 Adelin…     NA       0       0       0       0
-    ## 10    21 1992-09-28 Female   1.62 Adelin…     56       0       0       0       0
-    ## # … with 2,710 more rows, 2 more variables: sport <fct>, country <chr>, and
-    ## #   abbreviated variable names ¹​gold_medals, ²​silver_medals, ³​bronze_medals,
-    ## #   ⁴​total_medals
+    ##      age birthdate  gender height name          weight gold_medals silver_medals
+    ##    <dbl> <date>     <fct>   <dbl> <chr>          <dbl>       <dbl>         <dbl>
+    ##  1    17 1996-04-12 Male     1.72 Aaron Blunck      68           0             0
+    ##  2    27 1986-05-14 Male     1.85 Aaron March       85           0             0
+    ##  3    21 1992-06-30 Male     1.78 Abzal Azhgal…     68           0             0
+    ##  4    21 1992-05-25 Male     1.68 Abzal Rakimg…     NA           0             0
+    ##  5    21 1992-07-30 Male     1.86 Adam Barwood      82           0             0
+    ##  6    21 1992-12-18 Male     1.75 Adam Cieslar      57           0             0
+    ##  7    18 1995-04-22 Male     1.7  Adam Lamhame…     76           0             0
+    ##  8    23 1990-09-13 Male     1.78 Adam Zampa        80           0             0
+    ##  9    17 1996-07-01 Female   1.63 Adelina Sotn…     NA           0             0
+    ## 10    21 1992-09-28 Female   1.62 Adeline Baud      56           0             0
+    ## # ℹ 2,710 more rows
+    ## # ℹ 4 more variables: bronze_medals <dbl>, total_medals <dbl>, sport <fct>,
+    ## #   country <chr>
 
 You can also combined the filters. For example, if you want all rows in
 `atheletes` that do not have `NA` values for `height` and `weight`.
@@ -1271,21 +1427,21 @@ athletes %>% filter(!is.na(height)) %>% filter(!is.na(weight))
 ```
 
     ## # A tibble: 2,479 × 12
-    ##      age birthdate  gender height name    weight gold_…¹ silve…² bronz…³ total…⁴
-    ##    <dbl> <date>     <fct>   <dbl> <chr>    <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ##  1    17 1996-04-12 Male     1.72 Aaron …     68       0       0       0       0
-    ##  2    27 1986-05-14 Male     1.85 Aaron …     85       0       0       0       0
-    ##  3    21 1992-06-30 Male     1.78 Abzal …     68       0       0       0       0
-    ##  4    21 1992-07-30 Male     1.86 Adam B…     82       0       0       0       0
-    ##  5    21 1992-12-18 Male     1.75 Adam C…     57       0       0       0       0
-    ##  6    18 1995-04-22 Male     1.7  Adam L…     76       0       0       0       0
-    ##  7    23 1990-09-13 Male     1.78 Adam Z…     80       0       0       0       0
-    ##  8    21 1992-09-28 Female   1.62 Adelin…     56       0       0       0       0
-    ##  9    21 1992-11-22 Male     1.86 Adrian…     75       0       0       0       0
-    ## 10    21 1992-08-07 Male     1.78 Adrien…     73       0       0       0       0
-    ## # … with 2,469 more rows, 2 more variables: sport <fct>, country <chr>, and
-    ## #   abbreviated variable names ¹​gold_medals, ²​silver_medals, ³​bronze_medals,
-    ## #   ⁴​total_medals
+    ##      age birthdate  gender height name          weight gold_medals silver_medals
+    ##    <dbl> <date>     <fct>   <dbl> <chr>          <dbl>       <dbl>         <dbl>
+    ##  1    17 1996-04-12 Male     1.72 Aaron Blunck      68           0             0
+    ##  2    27 1986-05-14 Male     1.85 Aaron March       85           0             0
+    ##  3    21 1992-06-30 Male     1.78 Abzal Azhgal…     68           0             0
+    ##  4    21 1992-07-30 Male     1.86 Adam Barwood      82           0             0
+    ##  5    21 1992-12-18 Male     1.75 Adam Cieslar      57           0             0
+    ##  6    18 1995-04-22 Male     1.7  Adam Lamhame…     76           0             0
+    ##  7    23 1990-09-13 Male     1.78 Adam Zampa        80           0             0
+    ##  8    21 1992-09-28 Female   1.62 Adeline Baud      56           0             0
+    ##  9    21 1992-11-22 Male     1.86 Adrian Krain…     75           0             0
+    ## 10    21 1992-08-07 Male     1.78 Adrien Backs…     73           0             0
+    ## # ℹ 2,469 more rows
+    ## # ℹ 4 more variables: bronze_medals <dbl>, total_medals <dbl>, sport <fct>,
+    ## #   country <chr>
 
 If you want to check if there are any `NA`s in a column, you can also
 use the `any()` function.
@@ -1301,6 +1457,8 @@ any(is.na(athletes$age))
 ```
 
     ## [1] FALSE
+
+------------------------------------------------------------------------
 
 Another useful function is called `table()`. What does it do?
 
@@ -1367,152 +1525,6 @@ Use the data frame `athletes_narrow`.
 3.  Filter all the athletes who weigh between 105 and 110 kg. How many
     are they?
 
-### `summarize()`
-
-The dplyr function `summarize()` (or `summarise()`) summarizes multiple
-values in a single value.
-
-Let’s create a data frame as an [reproducible
-example](http://adv-r.had.co.nz/Reproducibility.html). What is a
-reproducible example:
-
-- <https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example>
-- <https://stackoverflow.com/help/minimal-reproducible-example>
-- <http://adv-r.had.co.nz/Reproducibility.html>
-- <https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html>
-
-``` r
-df <- data.frame(
-    color = c('blue', 'black', 'blue', 'blue', 'black'),
-    value = c(1, 2, 3, 4, 5)
-)
-
-df
-```
-
-    ##   color value
-    ## 1  blue     1
-    ## 2 black     2
-    ## 3  blue     3
-    ## 4  blue     4
-    ## 5 black     5
-
-So, let’s sum up the value column with `summarize()`.
-
-``` r
-summarize(df, total = sum(value))
-```
-
-    ##   total
-    ## 1    15
-
-We can do the same thing with the `athletes` data frame, for example,
-for gold medals.
-
-``` r
-athletes %>% summarize(totals = sum(gold_medals))
-```
-
-An important function of `summarize()` is in coordination with the
-`group_by()` function. The dplyr `group_by` function take an existing
-data frame and performs an operation by group. For example, let’s group
-our data frame `df` by the color column.
-
-``` r
-df %>% group_by(color) %>% summarize(total = sum(value))
-```
-
-    ## # A tibble: 2 × 2
-    ##   color total
-    ##   <chr> <dbl>
-    ## 1 black     7
-    ## 2 blue      8
-
-You can also save the results to a new data frame.
-
-``` r
-by_color <- df %>% group_by(color) %>% summarize(total = sum(value))
-by_color
-```
-
-    ## # A tibble: 2 × 2
-    ##   color total
-    ##   <chr> <dbl>
-    ## 1 black     7
-    ## 2 blue      8
-
-We can also use `group_by` on the athletes data. For example, how many
-gold medals per country?
-
-``` r
-athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals))
-```
-
-    ## # A tibble: 88 × 2
-    ##    country    gold_medals
-    ##    <chr>            <dbl>
-    ##  1 Albania              0
-    ##  2 Andorra              0
-    ##  3 Argentina            0
-    ##  4 Armenia              0
-    ##  5 Australia            0
-    ##  6 Austria              2
-    ##  7 Azerbaijan           0
-    ##  8 Belarus              5
-    ##  9 Belgium              0
-    ## 10 Bermuda              0
-    ## # … with 78 more rows
-
-Maybe for viewing purposes it’s better to arrange them by number of gold
-medals instead of alphabetically by country name.
-
-``` r
-athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals)) %>% arrange(desc(gold_medals))
-```
-
-    ## # A tibble: 88 × 2
-    ##    country       gold_medals
-    ##    <chr>               <dbl>
-    ##  1 Russian Fed.           16
-    ##  2 Germany                15
-    ##  3 Sweden                  8
-    ##  4 Norway                  7
-    ##  5 Korea                   6
-    ##  6 Netherlands             6
-    ##  7 United States           6
-    ##  8 Belarus                 5
-    ##  9 Switzerland             5
-    ## 10 Canada                  4
-    ## # … with 78 more rows
-
-As we continue to [pipe](https://r4ds.had.co.nz/pipes.html) commands
-together, i.e., putting multiple operations (aka dplyr verbs) together –
-we can use [white
-space](https://en.wikipedia.org/wiki/Whitespace_character) to style the
-code. More on style below.
-
-``` r
-athletes %>% 
-  group_by(country) %>% 
-  summarize(gold_medals = sum(gold_medals)) %>% 
-  arrange(desc(gold_medals))
-```
-
-    ## # A tibble: 88 × 2
-    ##    country       gold_medals
-    ##    <chr>               <dbl>
-    ##  1 Russian Fed.           16
-    ##  2 Germany                15
-    ##  3 Sweden                  8
-    ##  4 Norway                  7
-    ##  5 Korea                   6
-    ##  6 Netherlands             6
-    ##  7 United States           6
-    ##  8 Belarus                 5
-    ##  9 Switzerland             5
-    ## 10 Canada                  4
-    ## # … with 78 more rows
-
 # Databases (advanced)
 
 ## Overview
@@ -1537,16 +1549,16 @@ head(athletes)
 ```
 
     ## # A tibble: 6 × 12
-    ##     age birthdate  gender height name     weight gold_…¹ silve…² bronz…³ total…⁴
-    ##   <dbl> <date>     <fct>   <dbl> <chr>     <dbl>   <dbl>   <dbl>   <dbl>   <dbl>
-    ## 1    17 1996-04-12 Male     1.72 Aaron B…     68       0       0       0       0
-    ## 2    27 1986-05-14 Male     1.85 Aaron M…     85       0       0       0       0
-    ## 3    21 1992-06-30 Male     1.78 Abzal A…     68       0       0       0       0
-    ## 4    21 1992-05-25 Male     1.68 Abzal R…     NA       0       0       0       0
-    ## 5    21 1992-07-30 Male     1.86 Adam Ba…     82       0       0       0       0
-    ## 6    21 1992-12-18 Male     1.75 Adam Ci…     57       0       0       0       0
-    ## # … with 2 more variables: sport <fct>, country <chr>, and abbreviated variable
-    ## #   names ¹​gold_medals, ²​silver_medals, ³​bronze_medals, ⁴​total_medals
+    ##     age birthdate  gender height name           weight gold_medals silver_medals
+    ##   <dbl> <date>     <fct>   <dbl> <chr>           <dbl>       <dbl>         <dbl>
+    ## 1    17 1996-04-12 Male     1.72 Aaron Blunck       68           0             0
+    ## 2    27 1986-05-14 Male     1.85 Aaron March        85           0             0
+    ## 3    21 1992-06-30 Male     1.78 Abzal Azhgali…     68           0             0
+    ## 4    21 1992-05-25 Male     1.68 Abzal Rakimga…     NA           0             0
+    ## 5    21 1992-07-30 Male     1.86 Adam Barwood       82           0             0
+    ## 6    21 1992-12-18 Male     1.75 Adam Cieslar       57           0             0
+    ## # ℹ 4 more variables: bronze_medals <dbl>, total_medals <dbl>, sport <fct>,
+    ## #   country <chr>
 
 What kind of data is in this cell?
 
@@ -1578,7 +1590,7 @@ athletes[,2]
     ##  8 1990-09-13
     ##  9 1996-07-01
     ## 10 1992-09-28
-    ## # … with 2,849 more rows
+    ## # ℹ 2,849 more rows
 
 Table data can be cut and spliced in various ways. But most data is
 specific to some purposes. The real power comes when data sets are
@@ -1643,19 +1655,18 @@ generally any R library with `citation()`.
 citation('gapminder')
 ```
 
-    ## 
     ## To cite package 'gapminder' in publications use:
     ## 
-    ##   Jennifer Bryan (2017). gapminder: Data from Gapminder. R package
-    ##   version 0.3.0. https://CRAN.R-project.org/package=gapminder
+    ##   Bryan J (2023). _gapminder: Data from Gapminder_. R package version
+    ##   1.0.0, <https://CRAN.R-project.org/package=gapminder>.
     ## 
     ## A BibTeX entry for LaTeX users is
     ## 
     ##   @Manual{,
     ##     title = {gapminder: Data from Gapminder},
     ##     author = {Jennifer Bryan},
-    ##     year = {2017},
-    ##     note = {R package version 0.3.0},
+    ##     year = {2023},
+    ##     note = {R package version 1.0.0},
     ##     url = {https://CRAN.R-project.org/package=gapminder},
     ##   }
 
@@ -1854,7 +1865,7 @@ each do?
 inner_join(orders, customers)
 ```
 
-    ## Joining, by = "CustomerID"
+    ## Joining with `by = join_by(CustomerID)`
 
     ##   OrderID CustomerID  OrderData CustomerName   Country
     ## 1     101          2 01.01.2021   Mary Grand Australia
@@ -1865,7 +1876,7 @@ inner_join(orders, customers)
 full_join(orders, customers)
 ```
 
-    ## Joining, by = "CustomerID"
+    ## Joining with `by = join_by(CustomerID)`
 
     ##   OrderID CustomerID  OrderData CustomerName   Country
     ## 1     101          2 01.01.2021   Mary Grand Australia
@@ -1880,7 +1891,7 @@ full_join(orders, customers)
 left_join(orders, customers)
 ```
 
-    ## Joining, by = "CustomerID"
+    ## Joining with `by = join_by(CustomerID)`
 
     ##   OrderID CustomerID  OrderData CustomerName   Country
     ## 1     101          2 01.01.2021   Mary Grand Australia
@@ -1893,7 +1904,7 @@ left_join(orders, customers)
 right_join(orders, customers)
 ```
 
-    ## Joining, by = "CustomerID"
+    ## Joining with `by = join_by(CustomerID)`
 
     ##   OrderID CustomerID  OrderData CustomerName   Country
     ## 1     101          2 01.01.2021   Mary Grand Australia
@@ -1978,7 +1989,7 @@ Now, back to the gapminder and sex ratio data. What’s going on here?
 left_join(gapminder, sex_ratios)
 ```
 
-    ## Joining, by = c("country", "year")
+    ## Joining with `by = join_by(country, year)`
 
     ## # A tibble: 1,704 × 7
     ##    country     continent  year lifeExp      pop gdpPercap sex_ratio
@@ -1993,9 +2004,14 @@ left_join(gapminder, sex_ratios)
     ##  8 Afghanistan Asia       1987    40.8 13867957      852.      104.
     ##  9 Afghanistan Asia       1992    41.7 16317921      649.      105.
     ## 10 Afghanistan Asia       1997    41.8 22227415      635.      107.
-    ## # … with 1,694 more rows
+    ## # ℹ 1,694 more rows
 
 # Code style 💩 (advanced)
+
+``` r
+# To install the emoji library use:
+# devtools::install_github("hadley/emo")
+```
 
 Let’s talk about (code) style. According to the [dictionary
 app](https://en.wikipedia.org/wiki/Dictionary_(software)) on my
@@ -2174,7 +2190,8 @@ In R, information about testing can be found here, e.g.:
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-Bryan2017" class="csl-entry">
 

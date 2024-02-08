@@ -233,11 +233,12 @@ Once you've loaded a data set into a data frame (or [tibble](https://tibble.tidy
 
 `dplyr` is super-fast on data frames. Essentially, one works with five basic "verbs" or functions:
 
-* `select()`: for subsetting variables/columns
+* `select()`: for selecting ("subsetting") variables/columns
 * `arrange()`: for re-ordering rows
 * `mutate()`: for adding new columns
-* `filter()`: for subsetting rows
 * `summarize()` (or `summarise()` if you prefer [British spelling](https://en.wikipedia.org/wiki/American_and_British_English_spelling_differences)): for reducing each group to a smaller number of summary statistics
+* `group_by()`: group an existing table into a grouped table, where operations are applied to each group (usually used in conjunction with another function, such as `summarize()`)
+* `filter()`: for filtering ("subsetting") rows
 
 Let's try them out!
 
@@ -375,7 +376,6 @@ select(athletes, contains("eigh"))
 ?select
 ```
 
-
 ### `arrange()`
 
 `arrange()` changes the order of the rows. It takes a data frame and a set of column names to order by. If you list more than one column name, each additional column is used to break ties in the values of preceding columns.
@@ -441,6 +441,76 @@ athletes_narrow
 There are many functions for creating new variables that you can use with `mutate()`. Think of a function and look up  [here](https://r4ds.had.co.nz/transform.html?q=dplyr#mutate-funs) [@WickhamGrolemund2016] for possible solutions. 
 
 
+### `summarize()`
+
+The dplyr function `summarize()` (or `summarise()`) summarizes multiple values in a single value.
+
+Let's create a data frame as an [reproducible example](http://adv-r.had.co.nz/Reproducibility.html). What is a reproducible example:
+
+* https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example
+* https://stackoverflow.com/help/minimal-reproducible-example
+* http://adv-r.had.co.nz/Reproducibility.html
+* https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html
+
+```{r}
+df <- data.frame(
+    color = c('blue', 'black', 'blue', 'blue', 'black'),
+    value = c(1, 2, 3, 4, 5)
+)
+
+df
+```
+
+So, let's sum up the value column with `summarize()`.
+
+```{r}
+summarize(df, total = sum(value))
+```
+
+We can do the same thing with the `athletes` data frame, for example, for gold medals.
+
+```{r, eval = FALSE}
+athletes %>% summarize(totals = sum(gold_medals))
+```
+
+### `group_by()`
+
+Groups table data into groups on which some other operation may operate. (`ungroup()` removes grouping.) This function is usually used along with some other function.
+
+For example, an important function of `summarize()` is in coordination with the `group_by()` function. The dplyr `group_by` function take an existing data frame and performs an operation by group. For example, let's group our data frame `df` by the color column.
+
+```{r}
+df %>% group_by(color) %>% summarize(total = sum(value))
+```
+
+You can also save the results to a new data frame.
+
+```{r}
+by_color <- df %>% group_by(color) %>% summarize(total = sum(value))
+by_color
+```
+
+We can also use `group_by` on the athletes data. For example, how many gold medals per country?
+
+```{r}
+athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals))
+```
+
+Maybe for viewing purposes it's better to arrange them by number of gold medals instead of alphabetically by country name.
+
+```{r}
+athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals)) %>% arrange(desc(gold_medals))
+```
+
+As we continue to [pipe](https://r4ds.had.co.nz/pipes.html) commands together, i.e., putting multiple operations (aka dplyr verbs) together -- we can use [white space](https://en.wikipedia.org/wiki/Whitespace_character) to style the code. More on style below.
+
+```{r}
+athletes %>% 
+  group_by(country) %>% 
+  summarize(gold_medals = sum(gold_medals)) %>% 
+  arrange(desc(gold_medals))
+```
+
 ### `filter()`
 
 Probably the most useful `dplyr` function is `filter()`. It allows you to subset observations based on their values. Or in other words, you can extract some rows from your data set on the basis of certain conditions. The first argument of this function is the name of the data frame. The second and subsequent arguments are the expressions that filter the data frame. 
@@ -501,6 +571,7 @@ any(is.na(athletes$height))
 any(is.na(athletes$age))
 ```
 
+***
 
 Another useful function is called `table()`. What does it do?
 
@@ -526,72 +597,6 @@ Use the data frame `athletes_narrow`.
 2. Filter the athletes who weigh exactly 110 or more kg. How many athletes are these? To get the answer, use the function `nrow()` for **n**umber of **row**s' in addition to `filter()` (i.e. `nrows(filter(...))`). We recommend though looking first at the filter output to be sure that it worked the way you intended before applying `nrow()`.
 
 3. Filter all the athletes who weigh between 105 and 110 kg. How many are they?
-
-
-### `summarize()`
-
-The dplyr function `summarize()` (or `summarise()`) summarizes multiple values in a single value.
-
-Let's create a data frame as an [reproducible example](http://adv-r.had.co.nz/Reproducibility.html). What is a reproducible example:
-
-* https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example
-* https://stackoverflow.com/help/minimal-reproducible-example
-* http://adv-r.had.co.nz/Reproducibility.html
-* https://xiangxing98.github.io/R_Learning/R_Reproducible.nb.html
-
-```{r}
-df <- data.frame(
-    color = c('blue', 'black', 'blue', 'blue', 'black'),
-    value = c(1, 2, 3, 4, 5)
-)
-
-df
-```
-
-So, let's sum up the value column with `summarize()`.
-
-```{r}
-summarize(df, total = sum(value))
-```
-
-We can do the same thing with the `athletes` data frame, for example, for gold medals.
-
-```{r, eval = FALSE}
-athletes %>% summarize(totals = sum(gold_medals))
-```
-
-An important function of `summarize()` is in coordination with the `group_by()` function. The dplyr `group_by` function take an existing data frame and performs an operation by group. For example, let's group our data frame `df` by the color column.
-
-```{r}
-df %>% group_by(color) %>% summarize(total = sum(value))
-```
-
-You can also save the results to a new data frame.
-
-```{r}
-by_color <- df %>% group_by(color) %>% summarize(total = sum(value))
-by_color
-```
-
-We can also use `group_by` on the athletes data. For example, how many gold medals per country?
-
-```{r}
-athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals))
-```
-
-Maybe for viewing purposes it's better to arrange them by number of gold medals instead of alphabetically by country name.
-
-```{r}
-athletes %>% group_by(country) %>% summarize(gold_medals = sum(gold_medals)) %>% arrange(desc(gold_medals))
-```
-As we continue to [pipe](https://r4ds.had.co.nz/pipes.html) commands together, i.e., putting multiple operations (aka dplyr verbs) together -- we can use [white space](https://en.wikipedia.org/wiki/Whitespace_character) to style the code. More on style below.
-
-```{r}
-athletes %>% 
-  group_by(country) %>% 
-  summarize(gold_medals = sum(gold_medals)) %>% 
-  arrange(desc(gold_medals))
-```
 
 
 # Databases (advanced)
@@ -811,8 +816,12 @@ Now, back to the gapminder and sex ratio data. What's going on here?
 left_join(gapminder, sex_ratios)
 ```
 
-
 # Code style `r emo::ji("poop")` (advanced)
+
+```{r}
+# To install the emoji library use:
+# devtools::install_github("hadley/emo")
+```
 
 Let's talk about (code) style. According to the [dictionary app](https://en.wikipedia.org/wiki/Dictionary_(software)) on my computer, style can be defined in various ways, including:
 
