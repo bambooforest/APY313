@@ -6,18 +6,8 @@ Steven Moran
 ``` r
 # Load the libraries
 library(tidyverse)
+library(knitr)
 ```
-
-    ## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-    ## ✔ dplyr     1.1.4     ✔ readr     2.1.4
-    ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
-    ## ✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-    ## ✔ lubridate 1.9.3     ✔ tidyr     1.3.0
-    ## ✔ purrr     1.0.2     
-    ## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-    ## ✖ dplyr::filter() masks stats::filter()
-    ## ✖ dplyr::lag()    masks stats::lag()
-    ## ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 
 # Introduction
 
@@ -64,236 +54,114 @@ results <- left_join(total_jobs_by_worksetting, total_jobs)
     ## Joining with `by = join_by(employee_residence)`
 
 ``` r
-# results$proportion <- results$total_jobs_by_worksetting / results$total_jobs
-
-results %>% mutate(proportion = total_jobs_by_worksetting / total_jobs)
+results <- results %>% mutate(proportion = total_jobs_by_worksetting / total_jobs)
 ```
 
-    ## # A tibble: 145 × 5
+Let’s make a stacked bar plot.
+
+``` r
+results_30 <- results %>% filter(total_jobs > 19) 
+
+ggplot(data = results_30, aes(fill = work_setting, x = employee_residence, y = proportion)) + 
+ geom_bar(position = "stack", stat = "identity")
+```
+
+![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
+
+What’s the average salary per country.
+
+``` r
+mean_salary_countries <- df %>% 
+  select(employee_residence, work_setting, salary_in_usd) %>%
+  group_by(employee_residence, work_setting) %>%
+  summarize(mean_salary = mean(salary_in_usd))
+```
+
+    ## `summarise()` has grouped output by 'employee_residence'. You can override
+    ## using the `.groups` argument.
+
+``` r
+mean_salary_countries %>% arrange(desc(mean_salary), employee_residence)
+```
+
+    ## # A tibble: 145 × 3
     ## # Groups:   employee_residence [83]
-    ##    employee_residence work_setting total_jobs_by_workset…¹ total_jobs proportion
-    ##    <chr>              <chr>                          <int>      <int>      <dbl>
-    ##  1 Algeria            Hybrid                             1          1      1    
-    ##  2 American Samoa     Hybrid                             1          1      1    
-    ##  3 Andorra            Hybrid                             1          1      1    
-    ##  4 Argentina          Remote                             9          9      1    
-    ##  5 Armenia            In-person                          1          2      0.5  
-    ##  6 Armenia            Remote                             1          2      0.5  
-    ##  7 Australia          Hybrid                             4         21      0.190
-    ##  8 Australia          In-person                          9         21      0.429
-    ##  9 Australia          Remote                             8         21      0.381
-    ## 10 Austria            Hybrid                             3          6      0.5  
+    ##    employee_residence work_setting mean_salary
+    ##    <chr>              <chr>              <dbl>
+    ##  1 Qatar              Remote           300000 
+    ##  2 Russia             Hybrid           230000 
+    ##  3 Australia          In-person        215630.
+    ##  4 Japan              In-person        214000 
+    ##  5 Malaysia           Remote           200000 
+    ##  6 Puerto Rico        Remote           167500 
+    ##  7 United States      In-person        160911.
+    ##  8 Puerto Rico        Hybrid           160000 
+    ##  9 United States      Remote           154688.
+    ## 10 Canada             In-person        154085.
     ## # ℹ 135 more rows
-    ## # ℹ abbreviated name: ¹​total_jobs_by_worksetting
 
 ``` r
-# Select first 10 objects
-# new_table %>% filter(total_jobs > 19)
+df %>% 
+  group_by(employee_residence) %>% 
+  summarize(people = n())
 ```
 
-Let’s make a table of just full-time emoployment observations.
-
-``` r
-df_only_full_time <- df %>% filter(employment_type == "Full-time")
-
-# If you want to save the table to a new csv file:
-# write_csv(df_only_full_time, file='jobs_in_data_full_time.csv')
-```
-
-``` r
-summary(df_only_full_time)
-```
-
-    ##    work_year     job_title         job_category       salary_currency   
-    ##  Min.   :2020   Length:9310        Length:9310        Length:9310       
-    ##  1st Qu.:2023   Class :character   Class :character   Class :character  
-    ##  Median :2023   Mode  :character   Mode  :character   Mode  :character  
-    ##  Mean   :2023                                                           
-    ##  3rd Qu.:2023                                                           
-    ##  Max.   :2023                                                           
-    ##      salary       salary_in_usd    employee_residence experience_level  
-    ##  Min.   : 15000   Min.   : 15000   Length:9310        Length:9310       
-    ##  1st Qu.:105700   1st Qu.:106500   Class :character   Class :character  
-    ##  Median :144000   Median :144000   Mode  :character   Mode  :character  
-    ##  Mean   :150222   Mean   :150630                                        
-    ##  3rd Qu.:187244   3rd Qu.:187000                                        
-    ##  Max.   :450000   Max.   :450000                                        
-    ##  employment_type    work_setting       company_location   company_size      
-    ##  Length:9310        Length:9310        Length:9310        Length:9310       
-    ##  Class :character   Class :character   Class :character   Class :character  
-    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-    ##                                                                             
-    ##                                                                             
-    ## 
-
-``` r
-x <- df_only_full_time %>% filter(salary_in_usd < 300001)
-```
-
-``` r
-# plot(salary_in_usd ~ employment_type, data = df)
-
-library(ggplot2)
-library(scales)
-```
-
-    ## 
-    ## Attaching package: 'scales'
-
-    ## The following object is masked from 'package:purrr':
-    ## 
-    ##     discard
-
-    ## The following object is masked from 'package:readr':
-    ## 
-    ##     col_factor
-
-``` r
-ggplot(x, aes(x=employment_type, y=salary_in_usd)) + 
-  geom_boxplot() + 
-  scale_y_continuous(labels = scales::comma)
-```
-
-![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
-
-``` r
-summary(x$salary_in_usd)
-```
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   15000  105200  142200  146893  185000  300000
-
-Summary of the data.
-
-``` r
-summary(df)
-```
-
-    ##    work_year     job_title         job_category       salary_currency   
-    ##  Min.   :2020   Length:9355        Length:9355        Length:9355       
-    ##  1st Qu.:2023   Class :character   Class :character   Class :character  
-    ##  Median :2023   Mode  :character   Mode  :character   Mode  :character  
-    ##  Mean   :2023                                                           
-    ##  3rd Qu.:2023                                                           
-    ##  Max.   :2023                                                           
-    ##      salary       salary_in_usd    employee_residence experience_level  
-    ##  Min.   : 14000   Min.   : 15000   Length:9355        Length:9355       
-    ##  1st Qu.:105200   1st Qu.:105700   Class :character   Class :character  
-    ##  Median :143860   Median :143000   Mode  :character   Mode  :character  
-    ##  Mean   :149928   Mean   :150300                                        
-    ##  3rd Qu.:187000   3rd Qu.:186723                                        
-    ##  Max.   :450000   Max.   :450000                                        
-    ##  employment_type    work_setting       company_location   company_size      
-    ##  Length:9355        Length:9355        Length:9355        Length:9355       
-    ##  Class :character   Class :character   Class :character   Class :character  
-    ##  Mode  :character   Mode  :character   Mode  :character   Mode  :character  
-    ##                                                                             
-    ##                                                                             
-    ## 
-
-``` r
-summary(df$salary_in_usd)
-```
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   15000  105700  143000  150300  186723  450000
-
-``` r
-summary(df[,6])
-```
-
-    ##  salary_in_usd   
-    ##  Min.   : 15000  
-    ##  1st Qu.:105700  
-    ##  Median :143000  
-    ##  Mean   :150300  
-    ##  3rd Qu.:186723  
-    ##  Max.   :450000
-
-``` r
-summary(df %>% select(salary_in_usd))
-```
-
-    ##  salary_in_usd   
-    ##  Min.   : 15000  
-    ##  1st Qu.:105700  
-    ##  Median :143000  
-    ##  Mean   :150300  
-    ##  3rd Qu.:186723  
-    ##  Max.   :450000
-
-Filtering.
-
-``` r
-# table(df$employment_type)
-x <- df %>% filter(employment_type == "Full-time")
-summary(x$salary_in_usd)
-```
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##   15000  106500  144000  150630  187000  450000
-
-``` r
-df %>% group_by(employee_residence) %>% summarize(median_by_residence = median(salary_in_usd), how_many_employess = n())
-```
-
-    ## # A tibble: 83 × 3
-    ##    employee_residence     median_by_residence how_many_employess
-    ##    <chr>                                <dbl>              <int>
-    ##  1 Algeria                            100000                   1
-    ##  2 American Samoa                      45555                   1
-    ##  3 Andorra                             50745                   1
-    ##  4 Argentina                           60000                   9
-    ##  5 Armenia                             33500                   2
-    ##  6 Australia                          114979                  21
-    ##  7 Austria                             68060.                  6
-    ##  8 Belgium                             83398.                  6
-    ##  9 Bolivia                             75000                   2
-    ## 10 Bosnia and Herzegovina             120000                   1
+    ## # A tibble: 83 × 2
+    ##    employee_residence     people
+    ##    <chr>                   <int>
+    ##  1 Algeria                     1
+    ##  2 American Samoa              1
+    ##  3 Andorra                     1
+    ##  4 Argentina                   9
+    ##  5 Armenia                     2
+    ##  6 Australia                  21
+    ##  7 Austria                     6
+    ##  8 Belgium                     6
+    ##  9 Bolivia                     2
+    ## 10 Bosnia and Herzegovina      1
     ## # ℹ 73 more rows
 
-On x-axis `job_category` and the y-axis `salary_in_usd`.
-
 ``` r
-table(df$job_category)
+final <- left_join(results_30, mean_salary_countries)
 ```
 
-    ## 
-    ##           BI and Visualization             Cloud and Database 
-    ##                            313                              5 
-    ##                  Data Analysis Data Architecture and Modeling 
-    ##                           1457                            259 
-    ##               Data Engineering   Data Management and Strategy 
-    ##                           2260                             61 
-    ##    Data Quality and Operations      Data Science and Research 
-    ##                             55                           3014 
-    ##      Leadership and Management        Machine Learning and AI 
-    ##                            503                           1428
+    ## Joining with `by = join_by(employee_residence, work_setting)`
+
+Our final table.
 
 ``` r
-# Graph it
-
-# library
-library(ggplot2)
- 
-# basic histogram
-ggplot(df, aes(x=job_category)) + 
-  geom_bar() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
+final %>% kable()
 ```
 
-![](README_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
-
-What’s the mean salary of a data scientist.
-
-``` r
-mean(df$salary_in_usd)
-```
-
-    ## [1] 150299.5
-
-``` r
-median(df$salary_in_usd)
-```
-
-    ## [1] 143000
+| employee_residence | work_setting | total_jobs_by_worksetting | total_jobs | proportion | mean_salary |
+|:-------------------|:-------------|--------------------------:|-----------:|-----------:|------------:|
+| Australia          | Hybrid       |                         4 |         21 |  0.1904762 |    61324.75 |
+| Australia          | In-person    |                         9 |         21 |  0.4285714 |   215630.11 |
+| Australia          | Remote       |                         8 |         21 |  0.3809524 |    90681.25 |
+| Canada             | Hybrid       |                        15 |        224 |  0.0669643 |   112649.67 |
+| Canada             | In-person    |                        99 |        224 |  0.4419643 |   154085.15 |
+| Canada             | Remote       |                       110 |        224 |  0.4910714 |   140711.45 |
+| France             | Hybrid       |                        23 |         54 |  0.4259259 |    62768.35 |
+| France             | In-person    |                         7 |         54 |  0.1296296 |   134375.29 |
+| France             | Remote       |                        24 |         54 |  0.4444444 |    82230.96 |
+| Germany            | Hybrid       |                        22 |         66 |  0.3333333 |    73471.18 |
+| Germany            | In-person    |                        20 |         66 |  0.3030303 |   118712.80 |
+| Germany            | Remote       |                        24 |         66 |  0.3636364 |   102235.83 |
+| Italy              | Hybrid       |                         4 |         20 |  0.2000000 |    31647.25 |
+| Italy              | In-person    |                         2 |         20 |  0.1000000 |    44146.50 |
+| Italy              | Remote       |                        14 |         20 |  0.7000000 |    63778.21 |
+| Netherlands        | Hybrid       |                         6 |         21 |  0.2857143 |    89908.33 |
+| Netherlands        | In-person    |                         6 |         21 |  0.2857143 |    88316.50 |
+| Netherlands        | Remote       |                         9 |         21 |  0.4285714 |    62585.56 |
+| Portugal           | Hybrid       |                         5 |         26 |  0.1923077 |    38346.40 |
+| Portugal           | In-person    |                         7 |         26 |  0.2692308 |    53361.71 |
+| Portugal           | Remote       |                        14 |         26 |  0.5384615 |    60010.43 |
+| Spain              | Hybrid       |                         5 |        117 |  0.0427350 |    47507.60 |
+| Spain              | In-person    |                        71 |        117 |  0.6068376 |    54062.97 |
+| Spain              | Remote       |                        41 |        117 |  0.3504274 |    66339.73 |
+| United Kingdom     | Hybrid       |                        21 |        442 |  0.0475113 |   105284.90 |
+| United Kingdom     | In-person    |                       271 |        442 |  0.6131222 |   107490.05 |
+| United Kingdom     | Remote       |                       150 |        442 |  0.3393665 |   100226.59 |
+| United States      | Hybrid       |                        40 |       8086 |  0.0049468 |   138567.50 |
+| United States      | In-person    |                      5169 |       8086 |  0.6392530 |   160910.61 |
+| United States      | Remote       |                      2877 |       8086 |  0.3558001 |   154688.15 |

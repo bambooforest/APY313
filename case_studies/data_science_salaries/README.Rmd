@@ -2,12 +2,13 @@
 title: "Exploring data science salaries"
 author: "Steven Moran"
 date: "2024-02-06"
-output: html_document
+output: github_document
 ---
 
-```{r}
+```{r load_libraries, message=FALSE}
 # Load the libraries
 library(tidyverse)
+library(knitr)
 ```
 
 # Introduction
@@ -46,91 +47,41 @@ total_jobs_by_worksetting <- df %>%
 
 results <- left_join(total_jobs_by_worksetting, total_jobs)
 
-# results$proportion <- results$total_jobs_by_worksetting / results$total_jobs
-
-results %>% mutate(proportion = total_jobs_by_worksetting / total_jobs)
-
-# Select first 10 objects
-# new_table %>% filter(total_jobs > 19)
+results <- results %>% mutate(proportion = total_jobs_by_worksetting / total_jobs)
 ```
 
-Let's make a table of just full-time emoployment observations.
+Let's make a stacked bar plot.
 
 ```{r}
-df_only_full_time <- df %>% filter(employment_type == "Full-time")
+results_30 <- results %>% filter(total_jobs > 19) 
 
-# If you want to save the table to a new csv file:
-# write_csv(df_only_full_time, file='jobs_in_data_full_time.csv')
+ggplot(data = results_30, aes(fill = work_setting, x = employee_residence, y = proportion)) + 
+ geom_bar(position = "stack", stat = "identity")
+
 ```
 
+What's the average salary per country.
 
 ```{r}
-summary(df_only_full_time)
-x <- df_only_full_time %>% filter(salary_in_usd < 300001)
+mean_salary_countries <- df %>% 
+  select(employee_residence, work_setting, salary_in_usd) %>%
+  group_by(employee_residence, work_setting) %>%
+  summarize(mean_salary = mean(salary_in_usd))
+
+mean_salary_countries %>% arrange(desc(mean_salary), employee_residence)
+
+df %>% 
+  group_by(employee_residence) %>% 
+  summarize(people = n())
+
+final <- left_join(results_30, mean_salary_countries)
 ```
+
+Our final table.
 
 ```{r}
-# plot(salary_in_usd ~ employment_type, data = df)
-
-library(ggplot2)
-library(scales)
-
-ggplot(x, aes(x=employment_type, y=salary_in_usd)) + 
-  geom_boxplot() + 
-  scale_y_continuous(labels = scales::comma)
-
-summary(x$salary_in_usd)
+final %>% kable()
 ```
 
-
-Summary of the data.
-
-```{r}
-summary(df)
-```
-
-```{r}
-summary(df$salary_in_usd)
-summary(df[,6])
-summary(df %>% select(salary_in_usd))
-```
-
-Filtering.
-
-```{r}
-# table(df$employment_type)
-x <- df %>% filter(employment_type == "Full-time")
-summary(x$salary_in_usd)
-```
-
-```{r}
-df %>% group_by(employee_residence) %>% summarize(median_by_residence = median(salary_in_usd), how_many_employess = n())
-```
-
-
-On x-axis `job_category` and the y-axis `salary_in_usd`.
-
-```{r}
-table(df$job_category)
-
-# Graph it
-
-# library
-library(ggplot2)
- 
-# basic histogram
-ggplot(df, aes(x=job_category)) + 
-  geom_bar() +
-  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
-```
-
-
-
-What's the mean salary of a data scientist.
-
-```{r}
-mean(df$salary_in_usd)
-median(df$salary_in_usd)
-```
 
 
