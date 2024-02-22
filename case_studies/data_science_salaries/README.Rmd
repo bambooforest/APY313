@@ -1,0 +1,136 @@
+---
+title: "Exploring data science salaries"
+author: "Steven Moran"
+date: "2024-02-06"
+output: html_document
+---
+
+```{r}
+# Load the libraries
+library(tidyverse)
+```
+
+# Introduction
+
+In this report we will explore data science salaries. The data come from Kaggle:
+
+* https://www.kaggle.com/datasets/ruchi798/data-science-job-salaries
+
+
+# Methods
+
+Let's load the data.
+
+```{r, message=FALSE}
+# Load the CSV file
+df <- read_csv('jobs_in_data.csv')
+
+# If you use Excel:
+# library(readxl)
+# df_excel <- read_excel('jobs_in_data.xls')
+```
+
+Let's get the proportion of work place setting based on country.
+
+```{r}
+# Create a new table with total number of jobs by country
+total_jobs <- df %>% 
+  select(employee_residence) %>% 
+  group_by(employee_residence) %>% 
+  summarize(total_jobs = n())
+
+total_jobs_by_worksetting <- df %>% 
+  select(employee_residence, work_setting) %>% 
+  group_by(employee_residence, work_setting) %>% 
+  summarize(total_jobs_by_worksetting = n())
+
+results <- left_join(total_jobs_by_worksetting, total_jobs)
+
+# results$proportion <- results$total_jobs_by_worksetting / results$total_jobs
+
+results %>% mutate(proportion = total_jobs_by_worksetting / total_jobs)
+
+# Select first 10 objects
+# new_table %>% filter(total_jobs > 19)
+```
+
+Let's make a table of just full-time emoployment observations.
+
+```{r}
+df_only_full_time <- df %>% filter(employment_type == "Full-time")
+
+# If you want to save the table to a new csv file:
+# write_csv(df_only_full_time, file='jobs_in_data_full_time.csv')
+```
+
+
+```{r}
+summary(df_only_full_time)
+x <- df_only_full_time %>% filter(salary_in_usd < 300001)
+```
+
+```{r}
+# plot(salary_in_usd ~ employment_type, data = df)
+
+library(ggplot2)
+library(scales)
+
+ggplot(x, aes(x=employment_type, y=salary_in_usd)) + 
+  geom_boxplot() + 
+  scale_y_continuous(labels = scales::comma)
+
+summary(x$salary_in_usd)
+```
+
+
+Summary of the data.
+
+```{r}
+summary(df)
+```
+
+```{r}
+summary(df$salary_in_usd)
+summary(df[,6])
+summary(df %>% select(salary_in_usd))
+```
+
+Filtering.
+
+```{r}
+# table(df$employment_type)
+x <- df %>% filter(employment_type == "Full-time")
+summary(x$salary_in_usd)
+```
+
+```{r}
+df %>% group_by(employee_residence) %>% summarize(median_by_residence = median(salary_in_usd), how_many_employess = n())
+```
+
+
+On x-axis `job_category` and the y-axis `salary_in_usd`.
+
+```{r}
+table(df$job_category)
+
+# Graph it
+
+# library
+library(ggplot2)
+ 
+# basic histogram
+ggplot(df, aes(x=job_category)) + 
+  geom_bar() +
+  theme(axis.text.x = element_text(angle = 45, vjust = 0.5, hjust=1))
+```
+
+
+
+What's the mean salary of a data scientist.
+
+```{r}
+mean(df$salary_in_usd)
+median(df$salary_in_usd)
+```
+
+
