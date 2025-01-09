@@ -1,7 +1,7 @@
 Anthropology 313: Data science of culture and language
 ================
 Steven Moran
-(25 January, 2024)
+(09 January, 2025)
 
 - [Overview](#overview)
 - [Course description](#course-description)
@@ -12,9 +12,13 @@ Steven Moran
 
 # Overview
 
+**This course will be hybrid, i.e., some weeks in person others
+online.**
+
 - **Lectures**: Tuesdays and Thursdays, 11:00–12:15
-- **Location**: [Communication Intl
-  4053](https://welcome.miami.edu/_assets/pdf/about-um/maps/Gables-Campus-Map-FINAL.pdf)
+- **Location**: See the schedule for details. In person will take place
+  in [Wolfson
+  2040](https://welcome.miami.edu/_assets/pdf/about-um/maps/Gables-Campus-Map-FINAL.pdf)
 - **Instructor**: [Steven
   Moran](https://people.miami.edu/profile/6addca1358c4387543a61194863933df)
   (he/him) \<<steven.moran@miami.edu>\>
@@ -61,10 +65,12 @@ will be used, in that values \>0.5% will be rounded up.
 # Schedule
 
 The
-[schedule](https://docs.google.com/spreadsheets/d/1uSFHedR_jn_bk9Ds29WcneffBbRcHR3-x-hYtJF5_uQ/edit?usp=sharing)
-is subject to change, but the most up to date schedule is always
-available under the Syllabus tab on Blackboard. (If you do not have
-access to the schedule, email me and I will give you access.)
+[schedule](https://docs.google.com/spreadsheets/d/1lNWxG5d2c-GiLp1FoU7HbgfkazoqtMDE8HaKUFQi0oQ/edit?usp=sharing)
+is retricted to email access. If you do not have access, email the
+instructor.
+
+The schedule is also subject to change, but the most up to date schedule
+is always available under the Syllabus tab on Blackboard.
 
 **Weekly Topics**
 
@@ -91,7 +97,7 @@ points where we give multiple resources on the same topic.
 
 This highlights an important learning point of this course:
 
-**Read what you need**.
+**Read what you need!**
 
 ------------------------------------------------------------------------
 
