@@ -1,9 +1,10 @@
-Introduction
+Introduction, overview, basic tools
 ================
 Steven Moran
-(21 September, 2023)
+(15 January, 2025)
 
 - [Getting started](#getting-started)
+- [JMP](#jmp)
 - [R](#r)
 - [RStudio](#rstudio)
 - [What is the difference between R and
@@ -13,12 +14,13 @@ Steven Moran
 - [Text editor (optional, but
   suggested)](#text-editor-optional-but-suggested)
 - [Other optional programs](#other-optional-programs)
-  - [GitHub (optional, but preferred)](#github-optional-but-preferred)
+  - [GitHub (optional, advanced)](#github-optional-advanced)
   - [Uploading files to GitHub
     (beginner)](#uploading-files-to-github-beginner)
   - [Accesing GitHub with RStudio
     (advanced)](#accesing-github-with-rstudio-advanced)
-  - [GitHub (advanced; optional)](#github-advanced-optional)
+  - [Understanding GitHub (advanced;
+    optional)](#understanding-github-advanced-optional)
 
 # Getting started
 
@@ -32,13 +34,26 @@ For detailed instruction, see also:
 
 - <https://moderndive.com/1-getting-started.html>
 
+# JMP
+
+[JMP](https://www.jmp.com) is a statistical analysis program that’s easy
+to use for visualizing and analyzing data. We will use it for examples
+and for fun for some rapid development.
+
+A [free student
+version](https://www.jmp.com/en_nl/academic/jmp-student-edition.html) is
+available and the University of Miami also provides a free license:
+
+- <https://www.it.miami.edu/about-umit/it-news/made-for-u/sas-jmp-pro/index.html>
+
+Please download it and install it.
+
 # R
 
-This course assumes you are familiar with the basics of the [R
-programming
-language](https://en.wikipedia.org/wiki/R_(programming_language)). If
-you are not, please familiarize yourself with the basics. There are many
-tutorials out there! Here is a free one from
+This course will use the [R programming
+language](https://en.wikipedia.org/wiki/R_(programming_language)) for
+our projects. If you are not familar with R, please have a look at the
+basics. There are many tutorials out there! Here is a free one from
 [DataCamp](https://www.datacamp.com):
 
 - <https://app.datacamp.com/learn/courses/free-introduction-to-r>
@@ -92,7 +107,8 @@ Then create an RMarkdown file.
 <figcaption aria-hidden="true">Create RMarkdown file.</figcaption>
 </figure>
 
-Give it a title or leave it “Untitled”. Hit OK.
+Give it a title or leave it “Untitled”. My suggestion call it “README”
+(all caps). Then hit OK.
 
 <figure>
 <img src="figures/3.png" alt="Give it a title." />
@@ -133,13 +149,16 @@ formats](https://en.wikipedia.org/wiki/Table_(information)). Here are
 some options:
 
 - [Microsoft Excel](https://en.wikipedia.org/wiki/Microsoft_Excel)
-- [OpenOffice](https://en.wikipedia.org/wiki/Apache_OpenOffice)
 - [Numbers](https://en.wikipedia.org/wiki/Numbers_(spreadsheet))
+- [OpenOffice](https://en.wikipedia.org/wiki/Apache_OpenOffice)
 
 Here is an excellent introduction to Excel (“You Suck at Excel with Joel
 Spolsky”):
 
 - <https://www.youtube.com/watch?v=0nbkaYsR94c>
+
+It is quite long and detailed and will be more advanced than what we
+will do.
 
 # Text editor (optional, but suggested)
 
@@ -179,7 +198,7 @@ This means, you don’t need to go further unless you want to do more
 advanced things in this course. Probably best to talk to me if you’re
 interested.
 
-## GitHub (optional, but preferred)
+## GitHub (optional, advanced)
 
 Your final data practical may be uploaded to your GitHub repository
 (your README.Rmd and README.md files along with any plots, images,
@@ -277,7 +296,7 @@ Here some information about RStudio projects:
 
 - <https://support.rstudio.com/hc/en-us/articles/200526207-Using-Projects>
 
-## GitHub (advanced; optional)
+## Understanding GitHub (advanced; optional)
 
 For those who want to know more about GitHub and [version
 control](https://en.wikipedia.org/wiki/Distributed_version_control),

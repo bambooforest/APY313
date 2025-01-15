@@ -1,19 +1,18 @@
 Anthropology 313: Data science of culture and language
 ================
 Steven Moran
-(09 January, 2025)
+(15 January, 2025)
 
 - [Overview](#overview)
 - [Course description](#course-description)
 - [Objectives](#objectives)
 - [Evaluation](#evaluation)
 - [Schedule](#schedule)
+- [Learning to code](#learning-to-code)
+- [Heads up](#heads-up)
 - [Other information](#other-information)
 
 # Overview
-
-**This course will be hybrid, i.e., some weeks in person others
-online.**
 
 - **Lectures**: Tuesdays and Thursdays, 11:00–12:15
 - **Location**: See the schedule for details. In person will take place
@@ -24,6 +23,11 @@ online.**
   (he/him) \<<steven.moran@miami.edu>\>
 - **Office**: Merrick Building, Anthropology Department
 - **Office hours**: By appointment via email
+
+Notes:
+
+- This course will be hybrid, i.e., some weeks in person others online.
+- If you do not have access to the schedule or DataCamp – email me!
 
 # Course description
 
@@ -74,32 +78,34 @@ is always available under the Syllabus tab on Blackboard.
 
 **Weekly Topics**
 
-1.  Introduction, overview, basic tools
-2.  Writing scientific reports
-3.  Data
-4.  Data wrangling
-5.  Data visualization I
-6.  Data visualization II
-7.  Data modeling
-8.  Linear models I
-9.  Linear models II
-10. Dimensionality reduction and clustering
-11. Dimensionality reduction and clustering
-12. Time series analysis
-13. Machine learning / Data mining
+1.  [Introduction, overview, basic tools](1_introduction/)
+2.  [Data](2_data/)
+3.  [Writing scientific reports](3_writing_scientific_reports/)
+4.  [Data wrangling](4_data_wrangling/)
+5.  [Data visualization I](5_data_visualization/)
+6.  [Data visualization II](6_data_visualization/)
+7.  [Data modeling](7_data_modeling/)
+8.  [Linear models I](8_linear_models_I/)
+9.  [Linear models II](9_linear_models_II/)
+10. [Dimensionality reduction and clustering
+    I](10_Dimensionality_reduction_clustering_I/)
+11. [Dimensionality reduction and clustering
+    II]()11_Dimensionality_reduction_clustering_II/
+12. [Time series analysis](12_time_series/)
+13. [Machine learning / Data mining](13_machine_learning/)
 14. Presentation of data practicals
 
 An important note about the chapters in this class. We aim to provide a
 lot of information on each topic – sometimes much more than you will
-have time to read or go through, for example, multiple different
+have time to read or go through – for example, multiple different
 readings and tutorials on the same topic. This often appears in bullet
 points where we give multiple resources on the same topic.
 
 This highlights an important learning point of this course:
 
-**Read what you need!**
+**Learn to read what you need!**
 
-------------------------------------------------------------------------
+# Learning to code
 
 A note on learning how to code. If you have no experience, it will
 likely be a steep learning curve. Search engines are your friend. If you
@@ -118,13 +124,20 @@ example:
 - <http://adv-r.had.co.nz/Reproducibility.html>
 - <https://stackoverflow.com/questions/5963269/how-to-make-a-great-r-reproducible-example>
 
-The code and the data are needed to reproduce the error or issue
+The code and the data are needed to reproduce the error or issue.
 
-Lastly, every classroom has students with different levels of
-experience. The goal is that you understand and can implement the
-learning objectives in this course. It is not the goal that you go
-through every single URL provided in each lecture in detail. But of
-course read what interests you!
+Use of [ChatGPT](https://chatgpt.com) or other
+[LLMs](https://en.wikipedia.org/wiki/Large_language_model) for coding
+and [debugging code](https://en.wikipedia.org/wiki/Debugging) is
+encouraged.
+
+# Heads up
+
+Every classroom has students with different levels of experience. The
+goal is that you understand and can implement the learning objectives in
+this course. It is not the goal that you go through every single URL
+provided in each lecture in detail. But of course read what interests
+you!
 
 **Good luck and have fun!!!**
 
