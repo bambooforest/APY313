@@ -1,7 +1,7 @@
 Linear regression example: income vs. happiness
 ================
 Steve Moran
-(20 March, 2023)
+(16 January, 2025)
 
 - [Overvierw](#overvierw)
 - [Load the data](#load-the-data)
@@ -166,7 +166,7 @@ str(df)
     ##  - attr(*, "problems")=<externalptr>
 
 Recall our discussion on [data types in
-statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 # Choose a statistical test
 

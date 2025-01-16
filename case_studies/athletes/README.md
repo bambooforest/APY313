@@ -1,7 +1,7 @@
 Linear regression example: athletes height vs. weight
 ================
 Steve Moran
-(09 March, 2023)
+(16 January, 2025)
 
 - [Overvierw](#overvierw)
 - [Load the data](#load-the-data)
@@ -46,14 +46,14 @@ head(athletes) %>%
   kable()
 ```
 
-| age | birthdate | name              | gender | height | weight | gold_medals | silver_medals | bronze_medals | total_medals | sport            | country       |
-|----:|:----------|:------------------|:-------|-------:|-------:|------------:|--------------:|--------------:|-------------:|:-----------------|:--------------|
-|  17 | 4/12/96   | Aaron Blunck      | Male   |   1.72 |     68 |           0 |             0 |             0 |            0 | Freestyle Skiing | United States |
-|  27 | 5/14/86   | Aaron March       | Male   |   1.85 |     85 |           0 |             0 |             0 |            0 | Snowboard        | Italy         |
-|  21 | 6/30/92   | Abzal Azhgaliyev  | Male   |   1.78 |     68 |           0 |             0 |             0 |            0 | Short Track      | Kazakhstan    |
-|  21 | 5/25/92   | Abzal Rakimgaliev | Male   |   1.68 |     NA |           0 |             0 |             0 |            0 | Figure Skating   | Kazakhstan    |
-|  21 | 7/30/92   | Adam Barwood      | Male   |   1.86 |     82 |           0 |             0 |             0 |            0 | Alpine Skiing    | New Zealand   |
-|  21 | 12/18/92  | Adam Cieslar      | Male   |   1.75 |     57 |           0 |             0 |             0 |            0 | Nordic Combined  | Poland        |
+| age | birthdate | name | gender | height | weight | gold_medals | silver_medals | bronze_medals | total_medals | sport | country |
+|---:|:---|:---|:---|---:|---:|---:|---:|---:|---:|:---|:---|
+| 17 | 4/12/96 | Aaron Blunck | Male | 1.72 | 68 | 0 | 0 | 0 | 0 | Freestyle Skiing | United States |
+| 27 | 5/14/86 | Aaron March | Male | 1.85 | 85 | 0 | 0 | 0 | 0 | Snowboard | Italy |
+| 21 | 6/30/92 | Abzal Azhgaliyev | Male | 1.78 | 68 | 0 | 0 | 0 | 0 | Short Track | Kazakhstan |
+| 21 | 5/25/92 | Abzal Rakimgaliev | Male | 1.68 | NA | 0 | 0 | 0 | 0 | Figure Skating | Kazakhstan |
+| 21 | 7/30/92 | Adam Barwood | Male | 1.86 | 82 | 0 | 0 | 0 | 0 | Alpine Skiing | New Zealand |
+| 21 | 12/18/92 | Adam Cieslar | Male | 1.75 | 57 | 0 | 0 | 0 | 0 | Nordic Combined | Poland |
 
 # Define your hypothesis
 
@@ -123,7 +123,7 @@ str(athletes)
     ##  - attr(*, "problems")=<externalptr>
 
 Recall our discussion on [data types in
-statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 # Choose a statistical test
 
@@ -145,7 +145,8 @@ ggplot(athletes, aes(height, weight)) +
   geom_point()
 ```
 
-    ## Warning: Removed 380 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 380 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
@@ -161,9 +162,11 @@ ggplot(athletes, aes(height, weight)) +
 
     ## `geom_smooth()` using formula = 'y ~ x'
 
-    ## Warning: Removed 380 rows containing non-finite values (`stat_smooth()`).
+    ## Warning: Removed 380 rows containing non-finite outside the scale range
+    ## (`stat_smooth()`).
 
-    ## Warning: Removed 380 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 380 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 

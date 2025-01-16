@@ -4,28 +4,28 @@ Steven Moran
 2022-10-14
 
 Recall the lecture on [data types in computer
-programming](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-computer-programming)
+programming](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-computer-programming)
 and [data types in
-statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 In sum:
 
--   Data in software is classified by type
--   These types signal the operations that the software can do on these
-    data (e.g., sort text, do arithmetic on numbers)
--   Data types can overlap between software and statistical data types
+- Data in software is classified by type
+- These types signal the operations that the software can do on these
+  data (e.g., sort text, do arithmetic on numbers)
+- Data types can overlap between software and statistical data types
 
 All programming languages have basic data types. In R, these include:
 
--   Numeric
--   Integer
--   Complex
--   Logical
--   Character
+- Numeric
+- Integer
+- Complex
+- Logical
+- Character
 
 Read more about them here:
 
--   <http://www.r-tutor.com/r-introduction/basic-data-types>
+- <http://www.r-tutor.com/r-introduction/basic-data-types>
 
 There is also the data type `vector` in R. A vector contains a sequence
 of items of the same type (from above). Because software needs to
@@ -92,8 +92,8 @@ class(Student)
 The data frame in R is for storing data in table format. Recall our
 lectures on tabular data:
 
--   <https://github.com/bambooforest/IntroDataScience/tree/main/3_data#tabular-data>
--   <https://github.com/bambooforest/IntroDataScience/tree/main/5_data_visualization#tabular-data>
+- <https://github.com/bambooforest/IntroDataScience/tree/main/2_data#tabular-data>
+- <https://github.com/bambooforest/IntroDataScience/tree/main/5_data_visualization#tabular-data>
 
 Much data in R – or loaded into R – comes in a tabular format and is
 loaded into a data frame data type with functions such as `read_csv()`,
@@ -196,11 +196,11 @@ Let’s look at an example.
 
 Recall the list of built in datasets in R:
 
--   <https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html>
+- <https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/00Index.html>
 
 Let’s look at the one called Titanic. Here is the description.
 
--   <https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/Titanic.html>
+- <https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/Titanic.html>
 
 You can load the data into the R working space with the `data()`
 function.
@@ -320,9 +320,12 @@ What do we see in the mosaic plot above from the Titanic data?
 Not all plots are easy to read. Consider this mosaic plot comparing the
 survival rates by passenger and class:
 
-![Titanic survival rates](titanic_survival_rates.png)
+<figure>
+<img src="titanic_survival_rates.png" alt="Titanic survival rates" />
+<figcaption aria-hidden="true">Titanic survival rates</figcaption>
+</figure>
 
--   <https://www.jmp.com/en_us/statistics-knowledge-portal/exploratory-data-analysis/mosaic-plot.html>
+- <https://www.jmp.com/en_us/statistics-knowledge-portal/exploratory-data-analysis/mosaic-plot.html>
 
 Now what patterns do you see? Are they meaningful?
 
@@ -345,53 +348,53 @@ in cross-tabulated available within R?
 
 Search for it!
 
--   [r titantic data convert to
-    dataframe](https://www.google.com/search?q=r+titanic+data+convert+to+dataframe)
+- [r titantic data convert to
+  dataframe](https://www.google.com/search?q=r+titanic+data+convert+to+dataframe)
 
 Well, there are lots of potentially useful results for one to look
 through!
 
--   [Data Wrangling the Titanic
-    Dataset](https://rpubs.com/CBezz/DataWranglingTheTitanicDataset)
--   [How to transform the Titanic data
-    set](https://stackoverflow.com/questions/59447399/how-to-transform-the-titanic-data-set)
--   [explore
-    Titanic](https://cran.r-project.org/web/packages/explore/vignettes/explore_titanic.html)
--   [A beginner’s guide to learning R with the Titanic
-    dataset](https://medium.com/analytics-vidhya/a-beginners-guide-to-learning-r-with-the-titanic-dataset-a630bc5495a8)
--   [Diving into the tidyverse Using Titanic
-    Data](https://towardsdatascience.com/diving-into-the-tidyverse-using-the-titanic-data-83f54295d5df)
+- [Data Wrangling the Titanic
+  Dataset](https://rpubs.com/CBezz/DataWranglingTheTitanicDataset)
+- [How to transform the Titanic data
+  set](https://stackoverflow.com/questions/59447399/how-to-transform-the-titanic-data-set)
+- [explore
+  Titanic](https://cran.r-project.org/web/packages/explore/vignettes/explore_titanic.html)
+- [A beginner’s guide to learning R with the Titanic
+  dataset](https://medium.com/analytics-vidhya/a-beginners-guide-to-learning-r-with-the-titanic-dataset-a630bc5495a8)
+- [Diving into the tidyverse Using Titanic
+  Data](https://towardsdatascience.com/diving-into-the-tidyverse-using-the-titanic-data-83f54295d5df)
 
 And if you look through these reports a bit – and/or search for raw data
 – you will find it!
 
--   [titanic raw
-    dataset](https://www.google.com/search?q=titanic+raw+dataset)
+- [titanic raw
+  dataset](https://www.google.com/search?q=titanic+raw+dataset)
 
 Lots of data out there:
 
--   <https://github.com/datasciencedojo/datasets/blob/master/titanic.csv>
--   <https://osf.io/aupb4>
--   <https://github.com/bio304-class/bio304-course-notes/blob/master/datasets/titanic_data.csv>
+- <https://github.com/datasciencedojo/datasets/blob/master/titanic.csv>
+- <https://osf.io/aupb4>
+- <https://github.com/bio304-class/bio304-course-notes/blob/master/datasets/titanic_data.csv>
 
 And of course if you need ideas or what to see what’s already been done,
 come up with some searches based on what you read and what you’re
 interested in knowing.
 
--   [r titantic passenger surival by class and
-    sex](https://www.google.com/search?q=r+titantic+passenger+surival+by+class+and+sex)
+- [r titantic passenger surival by class and
+  sex](https://www.google.com/search?q=r+titantic+passenger+surival+by+class+and+sex)
 
 Lots of studies with reproducible code and data. Learning to read code
 and understanding what visualizations and statistical analyses make
 sense given the data at hand is a skill that is developed through study
 and practice. Here are some examples:
 
--   [Titanic Survivability Analysis with
-    R](https://rpubs.com/dharmendrapuri/titanic)
--   [Surviving the Titanic Disaster as a Function of Sex and Passenger
-    Class](https://rstudio-pubs-static.s3.amazonaws.com/430395_6ae5b146bbed4dbfa1efecec212d0332.html)
--   [Data Exploration: The
-    Titanic](https://bio304-class.github.io/bio304-fall2017/data-story-titanic.html)
+- [Titanic Survivability Analysis with
+  R](https://rpubs.com/dharmendrapuri/titanic)
+- [Surviving the Titanic Disaster as a Function of Sex and Passenger
+  Class](https://rstudio-pubs-static.s3.amazonaws.com/430395_6ae5b146bbed4dbfa1efecec212d0332.html)
+- [Data Exploration: The
+  Titanic](https://bio304-class.github.io/bio304-fall2017/data-story-titanic.html)
 
 Lastly, just because there is a built in data set in R in the `datasets`
 package, doesn’t mean there aren’t **other** ways of accessing the data
@@ -401,7 +404,7 @@ reasons – has been studied for more than 120 years).
 Recall that there are lots of R packages that include methods and
 sometimes also code. They are available here:
 
--   <https://cran.r-project.org/web/packages/available_packages_by_name.html>
+- <https://cran.r-project.org/web/packages/available_packages_by_name.html>
 
 Of course you need to do the usual install the package(s) (once) and
 then load them with the `library()` function (each time you run your
@@ -428,8 +431,8 @@ must have a reference manual – note may also not be so helpful, but
 usually gives more information than the brief description on the
 package’s page:
 
--   <https://cran.r-project.org/web/packages/titanic/index.html>
--   <https://cran.r-project.org/web/packages/titanic/titanic.pdf>
+- <https://cran.r-project.org/web/packages/titanic/index.html>
+- <https://cran.r-project.org/web/packages/titanic/titanic.pdf>
 
 So does it have the data you’re interested in? Or maybe better to use
 other data?

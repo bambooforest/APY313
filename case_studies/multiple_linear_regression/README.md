@@ -1,7 +1,7 @@
 Multiple linear regression example: heart disease
 ================
 Steve Moran
-(23 March, 2023)
+(16 January, 2025)
 
 - [Overview](#overview)
 - [Load the data](#load-the-data)
@@ -125,7 +125,7 @@ str(df)
     ##  - attr(*, "problems")=<externalptr>
 
 Recall our discussion on [data types in
-statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 If we are interested in the effects of biking and smoking on heart
 disease, what would be our:

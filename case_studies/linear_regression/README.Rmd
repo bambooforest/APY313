@@ -100,7 +100,7 @@ We have data already, let's look at what data types that we have. And here's its
 str(df)
 ```
 
-Recall our discussion on [data types in statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+Recall our discussion on [data types in statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 
 # Choose a statistical test

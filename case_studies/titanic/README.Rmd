@@ -5,7 +5,7 @@ date: "2022-10-14"
 output: github_document
 ---
 
-Recall the lecture on [data types in computer programming](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-computer-programming) and [data types in statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+Recall the lecture on [data types in computer programming](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-computer-programming) and [data types in statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 In sum:
 
@@ -63,7 +63,7 @@ class(Student)
 
 The data frame in R is for storing data in table format. Recall our lectures on tabular data:
 
-* https://github.com/bambooforest/IntroDataScience/tree/main/3_data#tabular-data
+* https://github.com/bambooforest/IntroDataScience/tree/main/2_data#tabular-data
 * https://github.com/bambooforest/IntroDataScience/tree/main/5_data_visualization#tabular-data
 
 Much data in R -- or loaded into R -- comes in a tabular format and is loaded into a data frame data type with functions such as `read_csv()`, `read_excel()`, etc.
