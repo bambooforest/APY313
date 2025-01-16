@@ -139,7 +139,7 @@ The file extension is [.Rmd](https://fileinfo.com/extension/rmd). Together with 
 
 You can also use the same file to generate other output formats!
 
-In the setup chunk above (not shown in this .md file; only in the [.Rmd file](https://github.com/bambooforest/IntroDataScience/blob/main/2_writing_scientific_reports/README.Rmd#L1-L9) that you will work with and edit directly), I have defined in the [file header](https://en.wikipedia.org/wiki/File_format#File_header) the [metadata](https://en.wikipedia.org/wiki/Metadata) that specifies for example the `title`, `author`, `date`, and `output` format for generating this report. R Markdown uses [YAML](https://en.wikipedia.org/wiki/YAML) to [configure](https://en.wikipedia.org/wiki/Configuration_file) how this file should be generated, e.g., I am telling it to produce a [github_document](https://rmarkdown.rstudio.com/github_document_format.html):
+In the setup chunk above (not shown in this .md file; only in the [.Rmd file](https://github.com/bambooforest/IntroDataScience/blob/main/3_writing_scientific_reports/README.Rmd#L1-L9) that you will work with and edit directly), I have defined in the [file header](https://en.wikipedia.org/wiki/File_format#File_header) the [metadata](https://en.wikipedia.org/wiki/Metadata) that specifies for example the `title`, `author`, `date`, and `output` format for generating this report. R Markdown uses [YAML](https://en.wikipedia.org/wiki/YAML) to [configure](https://en.wikipedia.org/wiki/Configuration_file) how this file should be generated, e.g., I am telling it to produce a [github_document](https://rmarkdown.rstudio.com/github_document_format.html):
 
 ```
 ---

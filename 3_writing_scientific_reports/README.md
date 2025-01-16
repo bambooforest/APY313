@@ -243,7 +243,7 @@ nicely in GitHub](README.md).
 You can also use the same file to generate other output formats!
 
 In the setup chunk above (not shown in this .md file; only in the [.Rmd
-file](https://github.com/bambooforest/IntroDataScience/blob/main/2_writing_scientific_reports/README.Rmd#L1-L9)
+file](https://github.com/bambooforest/IntroDataScience/blob/main/3_writing_scientific_reports/README.Rmd#L1-L9)
 that you will work with and edit directly), I have defined in the [file
 header](https://en.wikipedia.org/wiki/File_format#File_header) the
 [metadata](https://en.wikipedia.org/wiki/Metadata) that specifies for

@@ -9,7 +9,7 @@ output:
 
 # Overview
 
-For your "final" data practical, you will create a ["scientific" report](../2_writing_scientific_reports). This report must be in R Markdown with an accompanying output file, whether PDF, HTML, or Github markdown.
+For your "final" data practical, you will create a ["scientific" report](../3_writing_scientific_reports). This report must be in R Markdown with an accompanying output file, whether PDF, HTML, or Github markdown.
 
 You "knit" this output file from your working file, i.e., your `Rmd` file. 
 
@@ -63,12 +63,12 @@ The learning objectives for your data practical include:
   * [Insert pictures](https://stackoverflow.com/questions/25166624/insert-picture-table-in-r-markdown)
   * Etc.
   
-* You must cite your sources and you must have a [bibliography](../2_writing_scientific_reports) of references cited -- this can be done by hand (but if it is not compliant with a specific [citation style](https://www.scribbr.com/citing-sources/citation-styles/)), you will lose points.
+* You must cite your sources and you must have a [bibliography](../3_writing_scientific_reports) of references cited -- this can be done by hand (but if it is not compliant with a specific [citation style](https://www.scribbr.com/citing-sources/citation-styles/)), you will lose points.
 
 Alternatively, you can learn how to use a [reference management software](https://en.wikipedia.org/wiki/Reference_management_software) and automatically generate your references cited.
 
 * Your scientific report must contain R code blocks, i.e., you will have to implement code in R including:
-  * [Loading and displaying the data](../3_data)
+  * [Loading and displaying the data](../2_data)
   * [Transforming (aka "wrangling") data](../4_data_wrangling)
 
 * You must find and use some dataset(s) for your scientific report. You must describe the data, e.g., in terms of its R vs statistical data types. Knowing the data types will help you visualize the data.
@@ -92,7 +92,7 @@ Alternatively, you can learn how to use a [reference management software](https:
 
 * You must present and discuss your results in a discussion or conclusion section.
 
-If you need structure, follow the [IMRAD model](https://github.com/bambooforest/IntroDataScience/tree/main/2_writing_scientific_reports#scientific-reports-why).
+If you need structure, follow the [IMRAD model](https://github.com/bambooforest/IntroDataScience/tree/main/3_writing_scientific_reports#scientific-reports-why).
 
 
 # Where do I find data?

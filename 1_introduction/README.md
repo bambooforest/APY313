@@ -1,7 +1,7 @@
 Introduction, overview, basic tools
 ================
 Steven Moran
-(15 January, 2025)
+(16 January, 2025)
 
 - [Getting started](#getting-started)
 - [JMP](#jmp)
@@ -28,7 +28,7 @@ To get started with this course, you will need to
 [install](https://en.wikipedia.org/wiki/Installation_(computer_programs))
 several software packages and get to know how to use them. Follow all
 the steps that you need below, before moving on to [chapter
-2](https://github.com/bambooforest/IntroDataScience/2_writing_scientific_reports).
+2](https://github.com/bambooforest/IntroDataScience/3_writing_scientific_reports).
 
 For detailed instruction, see also:
 

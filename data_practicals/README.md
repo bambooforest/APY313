@@ -1,7 +1,7 @@
 Instructions for your data practical
 ================
 Steven Moran
-(16 January, 2024)
+(16 January, 2025)
 
 - [Overview](#overview)
 - [Learning objectives](#learning-objectives)
@@ -12,7 +12,7 @@ Steven Moran
 # Overview
 
 For your “final” data practical, you will create a [“scientific”
-report](../2_writing_scientific_reports). This report must be in R
+report](../3_writing_scientific_reports). This report must be in R
 Markdown with an accompanying output file, whether PDF, HTML, or Github
 markdown.
 
@@ -90,7 +90,7 @@ The learning objectives for your data practical include:
   - Etc.
 
 - You must cite your sources and you must have a
-  [bibliography](../2_writing_scientific_reports) of references cited –
+  [bibliography](../3_writing_scientific_reports) of references cited –
   this can be done by hand (but if it is not compliant with a specific
   [citation
   style](https://www.scribbr.com/citing-sources/citation-styles/)), you
@@ -103,7 +103,7 @@ and automatically generate your references cited.
 - Your scientific report must contain R code blocks, i.e., you will have
   to implement code in R including:
 
-  - [Loading and displaying the data](../3_data)
+  - [Loading and displaying the data](../2_data)
   - [Transforming (aka “wrangling”) data](../4_data_wrangling)
 
 - You must find and use some dataset(s) for your scientific report. You
@@ -138,7 +138,7 @@ and automatically generate your references cited.
   conclusion section.
 
 If you need structure, follow the [IMRAD
-model](https://github.com/bambooforest/IntroDataScience/tree/main/2_writing_scientific_reports#scientific-reports-why).
+model](https://github.com/bambooforest/IntroDataScience/tree/main/3_writing_scientific_reports#scientific-reports-why).
 
 # Where do I find data?
 
