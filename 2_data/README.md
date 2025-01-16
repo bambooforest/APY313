@@ -1,7 +1,7 @@
 Data
 ================
 Steven Moran
-(04 May, 2023)
+(16 January, 2025)
 
 - [What is data?](#what-is-data)
 - [Structured versus unstructured
@@ -84,10 +84,10 @@ the data, etc.
 
 - <https://www.diffen.com/difference/Data_vs_Information>
 
-| Data                                         | Information                                              |
-|----------------------------------------------|----------------------------------------------------------|
-| Raw facts, statistics                        | Processed data, organized                                |
-| No context, unorganized                      | Data with context to facts, statistics                   |
+| Data | Information |
+|----|----|
+| Raw facts, statistics | Processed data, organized |
+| No context, unorganized | Data with context to facts, statistics |
 | Numbers, text, etc. with no inherent meaning | Value-added data (e.g., summarized, organized, analyzed) |
 
 Or
@@ -856,13 +856,13 @@ types of [data types in
 statistics](https://en.wikipedia.org/wiki/Statistical_data_type) – or
 how else would we use computer programs to do statistics? For example:
 
-| Programming                                                                                                             | Statistics                                                                                                                                                          |
-|-------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Integer](https://en.wikipedia.org/wiki/Integer_(computer_science))                                                     | [Count data](https://en.wikipedia.org/wiki/Count_data)                                                                                                              |
-| [Boolean](https://en.wikipedia.org/wiki/Boolean_data_type)                                                              | [Binary data](https://en.wikipedia.org/wiki/Binary_data)                                                                                                            |
-| [Floating-point](https://en.wikipedia.org/wiki/Floating-point_arithmetic)                                               | [Interval scale](https://en.wikipedia.org/wiki/Level_of_measurement#Interval_scale), [Ratio scale](https://en.wikipedia.org/wiki/Positive_real_numbers#Ratio_scale) |
-| [Enumerated type](https://en.wikipedia.org/wiki/Enumerated_type)                                                        | [Categorical variable](https://en.wikipedia.org/wiki/Categorical_variable)                                                                                          |
-| [List](https://en.wikipedia.org/wiki/List_(abstract_data_type)), [Array](https://en.wikipedia.org/wiki/Array_data_type) | [Random vector](https://en.wikipedia.org/wiki/Multivariate_random_variable)                                                                                         |
+| Programming | Statistics |
+|----|----|
+| [Integer](https://en.wikipedia.org/wiki/Integer_(computer_science)) | [Count data](https://en.wikipedia.org/wiki/Count_data) |
+| [Boolean](https://en.wikipedia.org/wiki/Boolean_data_type) | [Binary data](https://en.wikipedia.org/wiki/Binary_data) |
+| [Floating-point](https://en.wikipedia.org/wiki/Floating-point_arithmetic) | [Interval scale](https://en.wikipedia.org/wiki/Level_of_measurement#Interval_scale), [Ratio scale](https://en.wikipedia.org/wiki/Positive_real_numbers#Ratio_scale) |
+| [Enumerated type](https://en.wikipedia.org/wiki/Enumerated_type) | [Categorical variable](https://en.wikipedia.org/wiki/Categorical_variable) |
+| [List](https://en.wikipedia.org/wiki/List_(abstract_data_type)), [Array](https://en.wikipedia.org/wiki/Array_data_type) | [Random vector](https://en.wikipedia.org/wiki/Multivariate_random_variable) |
 
 Why is important to keep this in mind? How you can programmatically
 access, perform functions or statistics on these data types – whether in
@@ -973,22 +973,22 @@ df <- readr::read_csv('data/variables_quiz.csv', na=character())
 knitr::kable(df)
 ```
 
-| Variable                                            | qualitative | quantitative…3 | quantitative…4 |
-|:----------------------------------------------------|:------------|:---------------|:---------------|
-|                                                     | discrete    | discrete       | continuous     |
-| a\. shoe size (as bought in a store)                |             |                |                |
-| b\. price of a salad in a salad bar                 |             |                |                |
-| c. vote for a political party                       |             |                |                |
-| d. travelling time to a holiday destination         |             |                |                |
-| e\. color of eyes                                   |             |                |                |
-| f. gender                                           |             |                |                |
-| g\. reaction time in a lexical recognition task     |             |                |                |
-| h\. customers’ satisfaction on a scale from 1 to 10 |             |                |                |
-| i\. number of words in a written sentence           |             |                |                |
-| j\. spoken utterance length                         |             |                |                |
-| k\. number of goals per player in a football event  |             |                |                |
-| l\. body height of a person                         |             |                |                |
-| m\. number of vowels in a language                  |             |                |                |
+| Variable | qualitative | quantitative…3 | quantitative…4 |
+|:---|:---|:---|:---|
+|  | discrete | discrete | continuous |
+| a\. shoe size (as bought in a store) |  |  |  |
+| b\. price of a salad in a salad bar |  |  |  |
+| c. vote for a political party |  |  |  |
+| d. travelling time to a holiday destination |  |  |  |
+| e\. color of eyes |  |  |  |
+| f. gender |  |  |  |
+| g\. reaction time in a lexical recognition task |  |  |  |
+| h\. customers’ satisfaction on a scale from 1 to 10 |  |  |  |
+| i\. number of words in a written sentence |  |  |  |
+| j\. spoken utterance length |  |  |  |
+| k\. number of goals per player in a football event |  |  |  |
+| l\. body height of a person |  |  |  |
+| m\. number of vowels in a language |  |  |  |
 
 Answers are available [here](data/variables_quiz_answers.csv).
 
@@ -1074,12 +1074,12 @@ df <- readr::read_csv('data/comparison_of_levels.csv')
 knitr::kable(df)
 ```
 
-| Incrementalprogress | Measure property           | Mathematicaloperators | Advancedoperations       | Centraltendency               | Variability                                 |
-|:--------------------|:---------------------------|:----------------------|:-------------------------|:------------------------------|:--------------------------------------------|
-| Nominal             | Classification, membership | =, ≠                  | Grouping                 | Mode                          | Qualitative variation                       |
-| Ordinal             | Comparison, level          | \>, \<                | Sorting                  | Median                        | Range, Interquartile range                  |
-| Interval            | Difference, affinity       | +, −                  | Comparison to a standard | Arithmetic mean               | Deviation                                   |
-| Ratio               | Magnitude, amount          | ×, /                  | Ratio                    | Geometric mean, Harmonic mean | Coefficient of variation, Studentized range |
+| Incrementalprogress | Measure property | Mathematicaloperators | Advancedoperations | Centraltendency | Variability |
+|:---|:---|:---|:---|:---|:---|
+| Nominal | Classification, membership | =, ≠ | Grouping | Mode | Qualitative variation |
+| Ordinal | Comparison, level | \>, \< | Sorting | Median | Range, Interquartile range |
+| Interval | Difference, affinity | +, − | Comparison to a standard | Arithmetic mean | Deviation |
+| Ratio | Magnitude, amount | ×, / | Ratio | Geometric mean, Harmonic mean | Coefficient of variation, Studentized range |
 
 And yet another way of looking at the differences between scales (Spatz
 2008). <!-- page 11 -->
@@ -1090,11 +1090,11 @@ knitr::kable(df)
 ```
 
 | Scale of measurment | Different numbers for different things | Numbers convey greater than and less than | Equal differences mean equal amounts | Zero means none what was measured was detected |
-|:--------------------|:---------------------------------------|:------------------------------------------|:-------------------------------------|:-----------------------------------------------|
-| Nominal             | Yes                                    | No                                        | No                                   | No                                             |
-| Ordinal             | Yes                                    | Yes                                       | No                                   | No                                             |
-| Interval            | Yes                                    | Yes                                       | Yes                                  | No                                             |
-| Ratio               | Yes                                    | Yes                                       | Yes                                  | Yes                                            |
+|:---|:---|:---|:---|:---|
+| Nominal | Yes | No | No | No |
+| Ordinal | Yes | Yes | No | No |
+| Interval | Yes | Yes | Yes | No |
+| Ratio | Yes | Yes | Yes | Yes |
 
 ------------------------------------------------------------------------
 
@@ -1682,7 +1682,8 @@ plots](../case_studies/data_behind_the_plot/).
 
 # References and footnotes
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-Michell1986" class="csl-entry">
 

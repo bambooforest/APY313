@@ -1,7 +1,7 @@
 Writing scientific reports
 ================
 Steven Moran
-(25 January, 2024)
+(16 January, 2025)
 
 - [Scientific reports: why?](#scientific-reports-why)
 - [R Markdown: overview](#r-markdown-overview)
@@ -257,7 +257,7 @@ file should be generated, e.g., I am telling it to produce a
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(25 January, 2024)"
+    date: "(16 January, 2025)"
     output:
       github_document
     ---
@@ -274,7 +274,7 @@ document](https://bookdown.org/yihui/rmarkdown/html-document.html):
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(25 January, 2024)"
+    date: "(16 January, 2025)"
     output:
       html_document
     ---
@@ -286,7 +286,7 @@ this report, e.g., so that you can submit it for publication?
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(25 January, 2024)"
+    date: "(16 January, 2025)"
     output:
       pdf_document
     ---
@@ -299,7 +299,7 @@ one of my old professors):
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(25 January, 2024)"
+    date: "(16 January, 2025)"
     output:
       word_document
     ---
@@ -310,7 +310,7 @@ You can even create for example slides, such as in
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(25 January, 2024)"
+    date: "(16 January, 2025)"
     output:
       powerpoint_presentation
     ---
@@ -324,7 +324,7 @@ below). So, for example, this file specifies the header as:
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(25 January, 2024)"
+    date: "(16 January, 2025)"
     output:
       github_document:
           toc: true
@@ -584,7 +584,7 @@ header in the .Rmd file:
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(25 January, 2024)"
+    date: "(16 January, 2025)"
     output:
       github_document
     bibliography: 'references.bib'

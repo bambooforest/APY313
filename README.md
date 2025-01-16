@@ -1,7 +1,7 @@
 Anthropology 313: Data science of culture and language
 ================
 Steven Moran
-(15 January, 2025)
+(16 January, 2025)
 
 - [Overview](#overview)
 - [Course description](#course-description)
