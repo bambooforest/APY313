@@ -2,7 +2,7 @@ Data wrangling
 ================
 Steven Moran
 
-08 February, 2024
+16 January, 2025
 
 - [Overview](#overview)
 - [Data wrangling in R](#data-wrangling-in-r)
@@ -18,7 +18,7 @@ Steven Moran
 - [Databases (advanced)](#databases-advanced)
   - [Overview](#overview-1)
   - [Joining tables](#joining-tables)
-- [Code style 💩 (advanced)](#code-style--advanced)
+- [Code style 💩 (advanced)](#code-style-shit-advanced)
   - [Code style in R](#code-style-in-r)
   - [stylr and lintr](#stylr-and-lintr)
   - [Tests](#tests)
@@ -125,6 +125,7 @@ in mind: you do not need to be an expert coder, or programmer, to do
 data science!
 
 <!-- and to some extent -- if we are trying to follow [coding best practices](https://en.wikipedia.org/wiki/Coding_best_practices); see also [here](https://www.cs.utexas.edu/~mitra/csSummer2014/cs312/lectures/bestPractices.html) -- [software engineering](https://en.wikipedia.org/wiki/Software_engineering). -->
+
 <!-- 
 ## Loading data
 &#10;When working with data you first have to have some data. What about this data for example?
@@ -423,13 +424,13 @@ There are numerous ways to load data into R. The `readr` is the
 `tidyverse` library that lets us read in plain text data in various
 formats:
 
-| Function   | Format                                          | Filename typically ends with |
-|------------|-------------------------------------------------|------------------------------|
-| read_table | white space separated values                    | txt                          |
-| read_csv   | comma separated values                          | csv                          |
-| read_csv2  | semicolon separated values                      | csv                          |
-| read_tsv   | tab delimited separated values                  | tsv                          |
-| read_delim | general text file format, must define delimiter | txt                          |
+| Function | Format | Filename typically ends with |
+|----|----|----|
+| read_table | white space separated values | txt |
+| read_csv | comma separated values | csv |
+| read_csv2 | semicolon separated values | csv |
+| read_tsv | tab delimited separated values | tsv |
+| read_delim | general text file format, must define delimiter | txt |
 
 Below we will load some csv data and have a look at it.
 
@@ -679,9 +680,9 @@ str(athletes)
     ##  - attr(*, "problems")=<externalptr>
 
 Recall our discussion about [data types for computer
-programming](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-for-computer-programming)
+programming](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-for-computer-programming)
 and [data types for
-statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 **What kind of variables do we have in our data set?**
 
@@ -734,7 +735,7 @@ str(athletes)
     ##  - attr(*, "problems")=<externalptr>
 
 Also, recall our discussion about [tabular
-data](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#tabular-data).
+data](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#tabular-data).
 
 What are the variables in `athletes`?
 
@@ -1787,7 +1788,7 @@ str(sex_ratios)
 
 Which columns are shared between the two data sets? Notice again the
 [data
-types](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-for-computer-programming).
+types](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-for-computer-programming).
 
 So how do we combine the tables / data frames? Dplyr has several
 functions for **joining** tables. Often [Venn

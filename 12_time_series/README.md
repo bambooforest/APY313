@@ -1,16 +1,13 @@
 Time series analysis: basics
 ================
 Steven Moran & Marco Maiolini
-23 November, 2022
+16 January, 2025
 
--   <a href="#overview" id="toc-overview">Overview</a>
--   <a href="#case-study-covid-19" id="toc-case-study-covid-19">Case study:
-    COVID-19</a>
--   <a href="#case-study-species-in-italy"
-    id="toc-case-study-species-in-italy">Case study: Species in Italy</a>
--   <a href="#helpful-hints" id="toc-helpful-hints">Helpful hints</a>
--   <a href="#where-to-find-more-data"
-    id="toc-where-to-find-more-data">Where to find more data</a>
+- [Overview](#overview)
+- [Case study: COVID-19](#case-study-covid-19)
+- [Case study: Species in Italy](#case-study-species-in-italy)
+- [Helpful hints](#helpful-hints)
+- [Where to find more data](#where-to-find-more-data)
 
 # Overview
 
@@ -58,7 +55,7 @@ head(data)
 str(data)
 ```
 
-    ## spec_tbl_df [21,836 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
+    ## spc_tbl_ [21,836 × 3] (S3: spec_tbl_df/tbl_df/tbl/data.frame)
     ##  $ Date     : Date[1:21836], format: "2022-02-22" "2022-02-21" ...
     ##  $ Cases    : num [1:21836] 33374 23783 21601 22058 26153 ...
     ##  $ Countries: chr [1:21836] "Austria" "Austria" "Austria" "Austria" ...
@@ -107,12 +104,12 @@ data %>% filter(Countries == "Sweden")
     ##  8 2022-02-15  4882 Sweden   
     ##  9 2022-02-14  2548 Sweden   
     ## 10 2022-02-13  1177 Sweden   
-    ## # … with 740 more rows
+    ## # ℹ 740 more rows
 
 Let’s formulate a hypothesis.
 
--   H0: The covid cases will decrease (not increase)
--   H1: The covid cases will increase
+- H0: The covid cases will decrease (not increase)
+- H1: The covid cases will increase
 
 ------------------------------------------------------------------------
 
@@ -405,8 +402,8 @@ BIC(data_MA)
 
 # Case study: Species in Italy
 
--   H0: Different species have different trend
--   H1: Both species have similar trend
+- H0: Different species have different trend
+- H1: Both species have similar trend
 
 Load the R libraries.
 
@@ -968,21 +965,21 @@ data.ts <- ts(data$Cases, start = c(2020, 2), end = c(2022, 2), frequency = 365)
 is.ts(data.ts)
 ```
 
--   Plot your time series and the Autocorrelation plot
--   Fit your time series object in the models that we saw in class
--   Using the Autoregressive and the Simple moving average models try to
-    forecast how your time series will develop in the future.
--   Which is the best model for your data?
--   Evaluate your results, there are limits using time series models?
-    Motivate your answer.
+- Plot your time series and the Autocorrelation plot
+- Fit your time series object in the models that we saw in class
+- Using the Autoregressive and the Simple moving average models try to
+  forecast how your time series will develop in the future.
+- Which is the best model for your data?
+- Evaluate your results, there are limits using time series models?
+  Motivate your answer.
 
 # Where to find more data
 
 Here are some other sources of time series data:
 
--   Epidemiology - <https://www.ecdc.europa.eu/en/covid-19/data>
--   Finance - <https://unibit.ai/solution> (It requires a login)
--   Demography - <https://fred.stlouisfed.org/>
--   Miscellaneous - <https://db.nomics.world/>
--   Species presence - <https://www.inaturalist.org/>
--   R dataset - type “Nile”, “eu_stocks” or “AirPassengers” in R
+- Epidemiology - <https://www.ecdc.europa.eu/en/covid-19/data>
+- Finance - <https://unibit.ai/solution> (It requires a login)
+- Demography - <https://fred.stlouisfed.org/>
+- Miscellaneous - <https://db.nomics.world/>
+- Species presence - <https://www.inaturalist.org/>
+- R dataset - type “Nile”, “eu_stocks” or “AirPassengers” in R

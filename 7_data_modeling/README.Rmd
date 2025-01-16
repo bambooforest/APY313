@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   github_document:
       toc: true
-bibliography: '../2_writing_scientific_reports/references.bib'
+bibliography: '../3_writing_scientific_reports/references.bib'
 ---
 
 ***

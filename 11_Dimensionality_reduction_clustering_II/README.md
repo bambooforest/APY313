@@ -1,22 +1,17 @@
 Dimensionality reduction and clustering II
 ================
 Tiena Danner & Steven Moran
-(30 November, 2022)
+(16 January, 2025)
 
--   <a href="#pca--so-what" id="toc-pca--so-what">PCA – so what?</a>
--   <a href="#data" id="toc-data">Data</a>
--   <a href="#k-means-clustering-in-r"
-    id="toc-k-means-clustering-in-r">K-means clustering in R</a>
-    -   <a href="#k-means-clustering-in-r-code"
-        id="toc-k-means-clustering-in-r-code">K-means clustering in R-code</a>
-    -   <a href="#how-many-clusters-to-choose-in-the-end"
-        id="toc-how-many-clusters-to-choose-in-the-end">How many clusters to
-        choose in the end?</a>
--   <a href="#hierarchical-clustering-in-r"
-    id="toc-hierarchical-clustering-in-r">Hierarchical clustering in R</a>
--   <a href="#clustering-in-essence"
-    id="toc-clustering-in-essence">Clustering in essence</a>
--   <a href="#references" id="toc-references">References</a>
+- [PCA – so what?](#pca--so-what)
+- [Data](#data)
+- [K-means clustering in R](#k-means-clustering-in-r)
+  - [K-means clustering in R-code](#k-means-clustering-in-r-code)
+  - [How many clusters to choose in the
+    end?](#how-many-clusters-to-choose-in-the-end)
+- [Hierarchical clustering in R](#hierarchical-clustering-in-r)
+- [Clustering in essence](#clustering-in-essence)
+- [References](#references)
 
 ------------------------------------------------------------------------
 
@@ -67,9 +62,9 @@ but instead focus on their practical applications. The main purpose of
 clustering can be summarized as follows
 ([source](https://en.wikipedia.org/wiki/Cluster_analysis)):
 
--   **Clustering may be used for grouping objects (or subjects,
-    specimens, etc.), such that objects in the same group (or cluster)
-    are more similar to each other than objects in other clusters.**
+- **Clustering may be used for grouping objects (or subjects, specimens,
+  etc.), such that objects in the same group (or cluster) are more
+  similar to each other than objects in other clusters.**
 
 The basic idea of this chapter is;
 
@@ -122,14 +117,14 @@ head(iris) %>% kable()
 head(howells_mean) %>% kable()
 ```
 
-|   X | SEX | POPULATION | longitude | longitude2 | latitude |      GOL |      NOL |       BNL |      BBH |      XCB |      XFB |      ZYB |      AUB |      WCB |       ASB |       BPL |      NPH |      NLH |      JUB |      NLB |      MAB |      MDH |      MDB |      OBH |      OBB |      DKB |       NDS |      WNB |      SIS |       ZMB |      SSS |       FMB |      NAS |       EKB |       DKS |      IML |      XML |      MLS |      WMH |      SOS |      BLS |      STB |      FRC |      FRS |      FRF |      PAC |      PAS |      PAF |       OCC |      OCS |      OCF |      FOL | cosine.latitude |
-|----:|:----|:-----------|----------:|-----------:|---------:|---------:|---------:|----------:|---------:|---------:|---------:|---------:|---------:|---------:|----------:|----------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|----------:|---------:|---------:|----------:|---------:|----------:|---------:|----------:|----------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|---------:|----------:|---------:|---------:|---------:|----------------:|
-|   1 | F   | AINU       |       140 |        140 |       50 | 178.7368 | 177.0000 |  99.92105 | 132.4737 | 137.1053 | 114.8947 | 128.2368 | 118.4474 | 71.78947 | 106.71053 |  97.42105 | 64.00000 | 48.18421 | 114.6316 | 26.44737 | 62.26316 | 24.76316 | 11.28947 | 34.23684 | 39.94737 | 20.57895 |  9.236842 | 8.078947 | 2.684210 |  93.71053 | 21.76316 |  95.68421 | 15.73684 |  97.65789 |  9.973684 | 32.23684 | 48.50000 | 10.44737 | 22.18421 | 4.473684 | 2.710526 | 111.9211 | 108.7368 | 26.71053 | 48.71053 | 110.7368 | 22.81579 | 56.94737 |  97.26316 | 27.44737 | 45.63158 | 34.73684 |       0.6427876 |
-|   2 | M   | AINU       |       140 |        140 |       50 | 189.9792 | 187.0417 | 106.60417 | 138.5625 | 142.9583 | 119.6458 | 138.9375 | 125.7500 | 75.68750 | 112.45833 | 104.56250 | 67.50000 | 50.95833 | 122.7500 | 27.72917 | 66.77083 | 29.93750 | 13.93750 | 34.14583 | 41.75000 | 21.75000 | 10.250000 | 8.729167 | 3.718750 |  99.16667 | 22.64583 | 100.81250 | 16.39583 | 102.50000 |  9.979167 | 35.60417 | 53.79167 | 11.95833 | 23.89583 | 5.416667 | 4.229167 | 115.0833 | 112.4375 | 26.97917 | 50.85417 | 115.6042 | 23.47917 | 60.54167 | 100.41667 | 28.75000 | 47.77083 | 37.62500 |       0.6427876 |
-|   3 | F   | ANDAMAN    |        70 |         70 |        0 | 160.1143 | 159.4286 |  89.42857 | 123.5143 | 131.0857 | 106.1143 | 117.6000 | 108.5143 | 65.77143 |  95.74286 |  90.85714 | 56.62857 | 43.71429 | 106.3143 | 24.14286 | 58.11429 | 22.80000 | 10.31429 | 32.20000 | 36.40000 | 20.82857 |  8.885714 | 8.942857 | 2.214286 |  90.00000 | 22.54286 |  89.22857 | 14.88571 |  90.54286 |  9.685714 | 33.71429 | 48.00000 | 10.40000 | 18.57143 | 4.857143 | 1.628571 | 103.5143 | 101.5714 | 23.71429 | 46.00000 | 102.3429 | 22.91429 | 55.42857 |  89.60000 | 22.51429 | 42.22857 | 32.11429 |       1.0000000 |
-|   4 | M   | ANDAMAN    |        70 |         70 |        0 | 168.8571 | 167.5429 |  93.85714 | 129.4000 | 135.6571 | 110.5429 | 123.8286 | 113.3429 | 69.17143 | 100.25714 |  92.82857 | 60.68571 | 46.85714 | 111.8286 | 24.71429 | 60.80000 | 25.54286 | 11.31429 | 32.71429 | 37.57143 | 21.28571 |  9.657143 | 8.142857 | 2.334286 |  93.20000 | 24.02857 |  92.40000 | 15.74286 |  93.17143 | 10.314286 | 35.91429 | 51.20000 | 11.42857 | 20.22857 | 5.828571 | 2.457143 | 107.9714 | 106.6571 | 24.82857 | 48.71429 | 107.5429 | 24.82857 | 57.74286 |  91.68571 | 24.28571 | 43.77143 | 33.65714 |       1.0000000 |
-|   5 | M   | ANYANG     |       120 |        120 |       40 | 181.0000 | 178.8571 | 101.28571 | 140.2619 | 138.7857 | 114.8095 | 135.9524 | 125.6905 | 74.19048 | 108.23810 |  97.50000 | 69.42857 | 52.47619 | 121.2143 | 28.28571 | 66.69048 | 30.59524 | 13.92857 | 32.78571 | 39.04762 | 22.45238 |  7.857143 | 7.809524 | 2.380952 | 100.83333 | 22.38095 |  97.38095 | 14.28571 |  98.78571 |  8.500000 | 36.07143 | 54.88095 | 12.66667 | 26.45238 | 6.023809 | 3.142857 | 110.2143 | 113.5238 | 26.02381 | 51.45238 | 113.8810 | 24.35714 | 60.26190 |  99.42857 | 27.61905 | 48.61905 | 36.66667 |       0.7660444 |
-|   6 | F   | ARIKARA    |      -100 |        260 |       50 | 171.1111 | 170.2222 |  97.51852 | 126.8148 | 136.4815 | 112.8148 | 130.6667 | 123.8889 | 71.25926 | 105.40741 |  95.14815 | 67.62963 | 50.51852 | 115.0000 | 25.81481 | 62.07407 | 24.88889 | 11.11111 | 34.62963 | 39.22222 | 20.14815 |  9.481481 | 8.592593 | 3.481482 |  94.81481 | 23.62963 |  94.77778 | 16.29630 |  95.96296 | 10.259259 | 34.85185 | 50.66667 | 10.70370 | 22.25926 | 4.740741 | 2.259259 | 107.9259 | 105.6296 | 23.37037 | 46.77778 | 104.0741 | 22.59259 | 53.37037 |  91.03704 | 26.55556 | 44.14815 | 35.44444 |       0.6427876 |
+| X | SEX | POPULATION | longitude | longitude2 | latitude | GOL | NOL | BNL | BBH | XCB | XFB | ZYB | AUB | WCB | ASB | BPL | NPH | NLH | JUB | NLB | MAB | MDH | MDB | OBH | OBB | DKB | NDS | WNB | SIS | ZMB | SSS | FMB | NAS | EKB | DKS | IML | XML | MLS | WMH | SOS | BLS | STB | FRC | FRS | FRF | PAC | PAS | PAF | OCC | OCS | OCF | FOL | cosine.latitude |
+|---:|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | F | AINU | 140 | 140 | 50 | 178.7368 | 177.0000 | 99.92105 | 132.4737 | 137.1053 | 114.8947 | 128.2368 | 118.4474 | 71.78947 | 106.71053 | 97.42105 | 64.00000 | 48.18421 | 114.6316 | 26.44737 | 62.26316 | 24.76316 | 11.28947 | 34.23684 | 39.94737 | 20.57895 | 9.236842 | 8.078947 | 2.684210 | 93.71053 | 21.76316 | 95.68421 | 15.73684 | 97.65789 | 9.973684 | 32.23684 | 48.50000 | 10.44737 | 22.18421 | 4.473684 | 2.710526 | 111.9211 | 108.7368 | 26.71053 | 48.71053 | 110.7368 | 22.81579 | 56.94737 | 97.26316 | 27.44737 | 45.63158 | 34.73684 | 0.6427876 |
+| 2 | M | AINU | 140 | 140 | 50 | 189.9792 | 187.0417 | 106.60417 | 138.5625 | 142.9583 | 119.6458 | 138.9375 | 125.7500 | 75.68750 | 112.45833 | 104.56250 | 67.50000 | 50.95833 | 122.7500 | 27.72917 | 66.77083 | 29.93750 | 13.93750 | 34.14583 | 41.75000 | 21.75000 | 10.250000 | 8.729167 | 3.718750 | 99.16667 | 22.64583 | 100.81250 | 16.39583 | 102.50000 | 9.979167 | 35.60417 | 53.79167 | 11.95833 | 23.89583 | 5.416667 | 4.229167 | 115.0833 | 112.4375 | 26.97917 | 50.85417 | 115.6042 | 23.47917 | 60.54167 | 100.41667 | 28.75000 | 47.77083 | 37.62500 | 0.6427876 |
+| 3 | F | ANDAMAN | 70 | 70 | 0 | 160.1143 | 159.4286 | 89.42857 | 123.5143 | 131.0857 | 106.1143 | 117.6000 | 108.5143 | 65.77143 | 95.74286 | 90.85714 | 56.62857 | 43.71429 | 106.3143 | 24.14286 | 58.11429 | 22.80000 | 10.31429 | 32.20000 | 36.40000 | 20.82857 | 8.885714 | 8.942857 | 2.214286 | 90.00000 | 22.54286 | 89.22857 | 14.88571 | 90.54286 | 9.685714 | 33.71429 | 48.00000 | 10.40000 | 18.57143 | 4.857143 | 1.628571 | 103.5143 | 101.5714 | 23.71429 | 46.00000 | 102.3429 | 22.91429 | 55.42857 | 89.60000 | 22.51429 | 42.22857 | 32.11429 | 1.0000000 |
+| 4 | M | ANDAMAN | 70 | 70 | 0 | 168.8571 | 167.5429 | 93.85714 | 129.4000 | 135.6571 | 110.5429 | 123.8286 | 113.3429 | 69.17143 | 100.25714 | 92.82857 | 60.68571 | 46.85714 | 111.8286 | 24.71429 | 60.80000 | 25.54286 | 11.31429 | 32.71429 | 37.57143 | 21.28571 | 9.657143 | 8.142857 | 2.334286 | 93.20000 | 24.02857 | 92.40000 | 15.74286 | 93.17143 | 10.314286 | 35.91429 | 51.20000 | 11.42857 | 20.22857 | 5.828571 | 2.457143 | 107.9714 | 106.6571 | 24.82857 | 48.71429 | 107.5429 | 24.82857 | 57.74286 | 91.68571 | 24.28571 | 43.77143 | 33.65714 | 1.0000000 |
+| 5 | M | ANYANG | 120 | 120 | 40 | 181.0000 | 178.8571 | 101.28571 | 140.2619 | 138.7857 | 114.8095 | 135.9524 | 125.6905 | 74.19048 | 108.23810 | 97.50000 | 69.42857 | 52.47619 | 121.2143 | 28.28571 | 66.69048 | 30.59524 | 13.92857 | 32.78571 | 39.04762 | 22.45238 | 7.857143 | 7.809524 | 2.380952 | 100.83333 | 22.38095 | 97.38095 | 14.28571 | 98.78571 | 8.500000 | 36.07143 | 54.88095 | 12.66667 | 26.45238 | 6.023809 | 3.142857 | 110.2143 | 113.5238 | 26.02381 | 51.45238 | 113.8810 | 24.35714 | 60.26190 | 99.42857 | 27.61905 | 48.61905 | 36.66667 | 0.7660444 |
+| 6 | F | ARIKARA | -100 | 260 | 50 | 171.1111 | 170.2222 | 97.51852 | 126.8148 | 136.4815 | 112.8148 | 130.6667 | 123.8889 | 71.25926 | 105.40741 | 95.14815 | 67.62963 | 50.51852 | 115.0000 | 25.81481 | 62.07407 | 24.88889 | 11.11111 | 34.62963 | 39.22222 | 20.14815 | 9.481481 | 8.592593 | 3.481482 | 94.81481 | 23.62963 | 94.77778 | 16.29630 | 95.96296 | 10.259259 | 34.85185 | 50.66667 | 10.70370 | 22.25926 | 4.740741 | 2.259259 | 107.9259 | 105.6296 | 23.37037 | 46.77778 | 104.0741 | 22.59259 | 53.37037 | 91.03704 | 26.55556 | 44.14815 | 35.44444 | 0.6427876 |
 
 ## K-means clustering in R
 
@@ -137,10 +132,10 @@ If you want to know in detail how clustering algorithms (specifically
 the K-means algorithm) works, you can consult these great resources that
 show the complete implementation in R:
 
--   [Data flair
-    training](https://data-flair.training/blogs/clustering-in-r-tutorial/)
--   [Geeks for
-    geeks](https://www.geeksforgeeks.org/clustering-in-r-programming/)
+- [Data flair
+  training](https://data-flair.training/blogs/clustering-in-r-tutorial/)
+- [Geeks for
+  geeks](https://www.geeksforgeeks.org/clustering-in-r-programming/)
 
 To get an overview of how the method theoretically works, watch [this
 video](figures/StatQuest_K-means_clustering.mp4) (**attention**: if you
@@ -153,17 +148,16 @@ directly on GitHub). If you want the YouTube URL,
 In **summary**, the K-means algorithm works as follows
 ([source](https://www.geeksforgeeks.org/clustering-in-r-programming/)):
 
--   First, the **number of clusters** (groups) must be specified. The
-    simplest case is two clusters.
--   Second, each data point is **randomly assigned** to one of the two
-    clusters.
--   Third, the **centroids** of each data cluster are computed. The
-    centroid is the “midpoint” of each of the cluster’s data scatter.
--   Then, the data points are **re-allocated to their closest
-    centroid**, e.g., points are added to other clusters if they happen
-    to be closer to another centroid (calculated via sum of squared
-    distances).
--   Then the new centroids are re-calculated.
+- First, the **number of clusters** (groups) must be specified. The
+  simplest case is two clusters.
+- Second, each data point is **randomly assigned** to one of the two
+  clusters.
+- Third, the **centroids** of each data cluster are computed. The
+  centroid is the “midpoint” of each of the cluster’s data scatter.
+- Then, the data points are **re-allocated to their closest centroid**,
+  e.g., points are added to other clusters if they happen to be closer
+  to another centroid (calculated via sum of squared distances).
+- Then the new centroids are re-calculated.
 
 Steps 3-4 are **repeated (aka iterated) until a global optimum has been
 reached**, i.e., no points can be re-allocated to other clusters.
@@ -190,18 +184,18 @@ fviz_cluster(km, data = iris_mod, ggtheme = theme_pubr(border = TRUE, margin = T
 
 OK – so what happened in the code above?
 
--   First we used indexing in R to remove the species name of the flower
-    from the data with the command: `iris_mod <- iris[,1:4]`.
--   Then we scaled the numerical variables to mean = 0 and standard
-    deviation = 1 with the command: `iris_mod <- scale(iris_mod)`.
--   Next we computed the K-means algorithm with the code snippet:
-    `km <- kmeans(iris_mod, centers = 3, nstart = 25)`. We used 3
-    clusters for a start and the number of random sets = 25 (i.e., a
-    random set of points for initializing the algorithm).
--   The plot we produce with the command:
-    `fviz_cluster(km, data = iris_mod, ggtheme = theme_pubr(border = TRUE, margin = TRUE))`,
-    which shows a PCA plot of the first two PCs and indicates the
-    clusters that the algorithm found with different colors.
+- First we used indexing in R to remove the species name of the flower
+  from the data with the command: `iris_mod <- iris[,1:4]`.
+- Then we scaled the numerical variables to mean = 0 and standard
+  deviation = 1 with the command: `iris_mod <- scale(iris_mod)`.
+- Next we computed the K-means algorithm with the code snippet:
+  `km <- kmeans(iris_mod, centers = 3, nstart = 25)`. We used 3 clusters
+  for a start and the number of random sets = 25 (i.e., a random set of
+  points for initializing the algorithm).
+- The plot we produce with the command:
+  `fviz_cluster(km, data = iris_mod, ggtheme = theme_pubr(border = TRUE, margin = TRUE))`,
+  which shows a PCA plot of the first two PCs and indicates the clusters
+  that the algorithm found with different colors.
 
 What if we want to compare different numbers of clusters? No problem.
 Here we go.
@@ -268,9 +262,9 @@ There are three main methods to find out how many clusters make sense to
 plot
 ([source](https://www.datanovia.com/en/lessons/determining-the-optimal-number-of-clusters-3-must-know-methods/)):
 
--   The Elbow method
--   The Silhouette method
--   The Gap statistic method
+- The Elbow method
+- The Silhouette method
+- The Gap statistic method
 
 The **Elbow method** looks at the total WSS (within-cluster sums of
 squares) as a function of the number of clusters. It chooses the number
@@ -320,26 +314,26 @@ print(gap_stat, method = "firstmax")
     ## clusGap(x = iris_mod, FUNcluster = kmeans, K.max = 10, B = 10, nstart = 25)
     ## B=10 simulated reference sets, k = 1..10; spaceH0="scaledPCA"
     ##  --> Number of clusters (method 'firstmax'): 3
-    ##           logW   E.logW       gap      SE.sim
-    ##  [1,] 4.534565 4.745781 0.2112157 0.024271468
-    ##  [2,] 4.021316 4.481045 0.4597287 0.023247363
-    ##  [3,] 3.806577 4.287108 0.4805310 0.022005009
-    ##  [4,] 3.699263 4.138042 0.4387785 0.022976513
-    ##  [5,] 3.589284 4.046911 0.4576270 0.018998839
-    ##  [6,] 3.522810 3.971789 0.4489795 0.013118375
-    ##  [7,] 3.448288 3.906691 0.4584031 0.011975368
-    ##  [8,] 3.379870 3.851128 0.4712584 0.008759733
-    ##  [9,] 3.310088 3.801559 0.4914709 0.007393207
-    ## [10,] 3.278659 3.757545 0.4788863 0.009164325
+    ##           logW   E.logW       gap     SE.sim
+    ##  [1,] 4.534565 4.746748 0.2121831 0.02187799
+    ##  [2,] 4.021316 4.486616 0.4653000 0.02815593
+    ##  [3,] 3.806577 4.288898 0.4823209 0.02543880
+    ##  [4,] 3.699263 4.150768 0.4515046 0.02179957
+    ##  [5,] 3.589284 4.055038 0.4657541 0.02092906
+    ##  [6,] 3.520895 3.973850 0.4529551 0.01494014
+    ##  [7,] 3.448288 3.905080 0.4567920 0.01449667
+    ##  [8,] 3.379758 3.848180 0.4684227 0.01722469
+    ##  [9,] 3.310088 3.799296 0.4892080 0.01828591
+    ## [10,] 3.255712 3.757070 0.5013575 0.01867189
 
 We can interpret the results as follows:
 
--   In the **elbow plot**, cluster number 4 does not really improve the
-    total within sum of squares any more.
--   The **Silhouette** method yields an optimal silhouette width for 2
-    clusters.
--   The output of the **gap statistic** yields the largest gap statistic
-    for 3 clusters `(--> Number of clusters (method 'firstmax'): 3)`
+- In the **elbow plot**, cluster number 4 does not really improve the
+  total within sum of squares any more.
+- The **Silhouette** method yields an optimal silhouette width for 2
+  clusters.
+- The output of the **gap statistic** yields the largest gap statistic
+  for 3 clusters `(--> Number of clusters (method 'firstmax'): 3)`
 
 Given these results, we should probably choose **2-3 clusters**, which
 makes sense since there are three species in the `iris` data!
@@ -390,13 +384,13 @@ the different methods
 
 ## Clustering in essence
 
--   Clustering is a statistical procedure that finds grouping patterns
-    within a set of data by finding similarities between data points in
-    the data.
--   Clustering will help you to find potential distinct groups or
-    clusters within a set of data. That is, clustering algorithms will
-    create groups where data entries in a similar group will potentially
-    have similar characteristics to each other.
+- Clustering is a statistical procedure that finds grouping patterns
+  within a set of data by finding similarities between data points in
+  the data.
+- Clustering will help you to find potential distinct groups or clusters
+  within a set of data. That is, clustering algorithms will create
+  groups where data entries in a similar group will potentially have
+  similar characteristics to each other.
 
 **BUT** (there is always a but!): Keep in mind that clustering
 algorithms are statistical procedures and that the resulting patterns do
@@ -410,33 +404,33 @@ analyses!
 Here are some points and pitfalls to consider when doing clustering
 ([source](https://towardsdatascience.com/common-mistakes-in-cluster-analysis-and-how-to-avoid-them-eb960116d773)):
 
--   Make sure not to skip the step of **exploratory data analysis**
-    (look at your data!) and do data cleaning if needed. Then consider:
-    -   What effects do cleaning steps have on the outcome of the
-        clustering?
-    -   What impacts do the outliers have on the clustering?
--   Use **scaled input variables**!
-    -   Never forget to scale your data input variables before the
-        clustering procedure.
-    -   Especially if your input variables have different measurement
-        units!
-    -   If you forget this step, it will mess with the outcome of the
-        clustering.
--   Be careful of **arbitrary clustering**!
-    -   Make sure to choose a reasonable number of clusters that make
-        scientific sense.
-    -   Use methods to determine the optimal number of clusters (e.g.,
-        see [section](#how-many-clusters-to-choose)).
-    -   It is a good rule of thumb to have about similar number of data
-        points in each cluster (but this depends on your original data
-        structure).
--   Make sure to **describe the cluster patterns comprehensibly**!
-    -   Which characteristics represent each of the clusters?
-    -   Which characteristics distinguish your clusters?
+- Make sure not to skip the step of **exploratory data analysis** (look
+  at your data!) and do data cleaning if needed. Then consider:
+  - What effects do cleaning steps have on the outcome of the
+    clustering?
+  - What impacts do the outliers have on the clustering?
+- Use **scaled input variables**!
+  - Never forget to scale your data input variables before the
+    clustering procedure.
+  - Especially if your input variables have different measurement units!
+  - If you forget this step, it will mess with the outcome of the
+    clustering.
+- Be careful of **arbitrary clustering**!
+  - Make sure to choose a reasonable number of clusters that make
+    scientific sense.
+  - Use methods to determine the optimal number of clusters (e.g., see
+    [section](#how-many-clusters-to-choose)).
+  - It is a good rule of thumb to have about similar number of data
+    points in each cluster (but this depends on your original data
+    structure).
+- Make sure to **describe the cluster patterns comprehensibly**!
+  - Which characteristics represent each of the clusters?
+  - Which characteristics distinguish your clusters?
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-gridExtra" class="csl-entry">
 

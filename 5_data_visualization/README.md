@@ -2,40 +2,27 @@ Data visualization I
 ================
 Steven Moran & Alena Witzlack-Makarevich
 
-26 October, 2022
+16 January, 2025
 
--   <a href="#data-formats-for-visualization"
-    id="toc-data-formats-for-visualization">Data formats for
-    visualization</a>
-    -   <a href="#tabular-data" id="toc-tabular-data">Tabular data</a>
-    -   <a href="#wide-vs-long-table-formats"
-        id="toc-wide-vs-long-table-formats">Wide vs long table formats</a>
-        -   <a href="#wide" id="toc-wide">Wide</a>
-        -   <a href="#long" id="toc-long">Long</a>
-    -   <a href="#tidy-data" id="toc-tidy-data">Tidy data</a>
-    -   <a href="#reshaping-data" id="toc-reshaping-data">Reshaping data</a>
-        -   <a href="#gather--pivot_longer"
-            id="toc-gather--pivot_longer"><code>gather()</code> /
-            <code>pivot_longer()</code></a>
-        -   <a href="#separate" id="toc-separate"><code>separate()</code></a>
-        -   <a href="#spread--pivot_wider"
-            id="toc-spread--pivot_wider"><code>spread()</code> /
-            <code>pivot_wider()</code></a>
-        -   <a href="#unite" id="toc-unite"><code>unite()</code></a>
--   <a href="#visualizing-data" id="toc-visualizing-data">Visualizing
-    data</a>
-    -   <a href="#workflow" id="toc-workflow">Workflow</a>
-    -   <a href="#layered-graphics" id="toc-layered-graphics">Layered
-        graphics</a>
-        -   <a href="#example-fertility-data"
-            id="toc-example-fertility-data">Example: fertility data</a>
-        -   <a href="#example-diamonds-data" id="toc-example-diamonds-data">Example:
-            diamonds data</a>
--   <a href="#additional-resources" id="toc-additional-resources">Additional
-    resources</a>
--   <a href="#exercises" id="toc-exercises">Exercises</a>
--   <a href="#references-and-footnotes"
-    id="toc-references-and-footnotes">References and footnotes</a>
+- [Data formats for visualization](#data-formats-for-visualization)
+  - [Tabular data](#tabular-data)
+  - [Wide vs long table formats](#wide-vs-long-table-formats)
+    - [Wide](#wide)
+    - [Long](#long)
+  - [Tidy data](#tidy-data)
+  - [Reshaping data](#reshaping-data)
+    - [`gather()` / `pivot_longer()`](#gather--pivot_longer)
+    - [`separate()`](#separate)
+    - [`spread()` / `pivot_wider()`](#spread--pivot_wider)
+    - [`unite()`](#unite)
+- [Visualizing data](#visualizing-data)
+  - [Workflow](#workflow)
+  - [Layered graphics](#layered-graphics)
+    - [Example: fertility data](#example-fertility-data)
+    - [Example: diamonds data](#example-diamonds-data)
+- [Additional resources](#additional-resources)
+- [Exercises](#exercises)
+- [References and footnotes](#references-and-footnotes)
 
 ------------------------------------------------------------------------
 
@@ -55,7 +42,7 @@ library(dslabs)
 ## Tabular data
 
 Recall our discussion about [tabular
-data](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#tabular-data)
+data](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#tabular-data)
 formats. In a table data format, every column represents a particular
 variable (e.g., a person’s height, number of of vowels) and each
 row/record corresponds to a given member of the data set in question
@@ -65,12 +52,12 @@ particular column, a missing value (`NA`) is stored in that cell.
 
 Tabular data come in various formats and go by various names, e.g.:
 
--   Table
--   Data set (if rectangular)
--   Data frame (e.g., a data type in R)
--   Data matrix
--   CSV plain text file
--   Spreadsheet
+- Table
+- Data set (if rectangular)
+- Data frame (e.g., a data type in R)
+- Data matrix
+- CSV plain text file
+- Spreadsheet
 
 For most people working with small amounts of data, the data table is
 the fundamental unit of organization because it is both a way of
@@ -93,8 +80,8 @@ formats, so that you can easily feed into the method.
 
 There are two basic presentations of tabular data:
 
--   Wide
--   Long (aka narrow)
+- Wide
+- Long (aka narrow)
 
 ### Wide
 
@@ -117,14 +104,12 @@ df_wide %>% kable()
 | Steve  |  64 |    144 |    165 |
 
 <!-- if you want to do it by hand in .md insert this:
-
-| Person | Age | Weight | Height |
+&#10;| Person | Age | Weight | Height |
 |----------|--------|---| 
 | Bob | 32 | 168 | 180 |
 | Alice | 24 | 150 | 175 |
 | Steve | 64 | 144 | 165 |
-
--->
+&#10;-->
 
 ### Long
 
@@ -286,8 +271,8 @@ ggplot(temp, aes(Person, Value)) +
   geom_line(aes(colour = Variable))
 ```
 
-    ## geom_path: Each group consists of only one observation. Do you need to adjust
-    ## the group aesthetic?
+    ## `geom_line()`: Each group consists of only one observation.
+    ## ℹ Do you need to adjust the group aesthetic?
 
 ![](README_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
 
@@ -299,8 +284,8 @@ ggplot(df_wide, aes(Age, Weight)) +
   geom_line(aes(colour = Person))
 ```
 
-    ## geom_path: Each group consists of only one observation. Do you need to adjust
-    ## the group aesthetic?
+    ## `geom_line()`: Each group consists of only one observation.
+    ## ℹ Do you need to adjust the group aesthetic?
 
 ![](README_files/figure-gfm/unnamed-chunk-9-1.png)<!-- -->
 
@@ -332,18 +317,18 @@ And sometimes you will encounter both issues in the same data set!
 To resolve such issues, there are four very useful functions for tidying
 data:
 
--   `gather()` – makes wide data longer
--   `spread()` – males long data wider
--   `separate()`– splits a column into multiple columns
--   `unite()` – combines multiple columns into one column
+- `gather()` – makes wide data longer
+- `spread()` – males long data wider
+- `separate()`– splits a column into multiple columns
+- `unite()` – combines multiple columns into one column
 
 The first two are probably the most important for reshaping your data.
 Like many developments in programming languages and programming
 libraries, the first two functions (and although they still work) have
 been recently renamed:
 
--   `pivot_longer()` – pivots data into a longer format
--   `pivot_wider()` – pivots data into a wider format
+- `pivot_longer()` – pivots data into a longer format
+- `pivot_wider()` – pivots data into a wider format
 
 Let’s look at each in turn.
 
@@ -361,10 +346,10 @@ fertility_wide <- read_csv(url('https://raw.githubusercontent.com/rafalab/dslabs
 fertility_wide %>% kable() # cool trick to make the table show up nicely!
 ```
 
-| country     | 1960_fertility | 1960_life_expectancy | 1961_fertility | 1961_life_expectancy | 1962_fertility | 1962_life_expectancy | 1963_fertility | 1963_life_expectancy | 1964_fertility | 1964_life_expectancy | 1965_fertility | 1965_life_expectancy | 1966_fertility | 1966_life_expectancy | 1967_fertility | 1967_life_expectancy | 1968_fertility | 1968_life_expectancy | 1969_fertility | 1969_life_expectancy | 1970_fertility | 1970_life_expectancy | 1971_fertility | 1971_life_expectancy | 1972_fertility | 1972_life_expectancy | 1973_fertility | 1973_life_expectancy | 1974_fertility | 1974_life_expectancy | 1975_fertility | 1975_life_expectancy | 1976_fertility | 1976_life_expectancy | 1977_fertility | 1977_life_expectancy | 1978_fertility | 1978_life_expectancy | 1979_fertility | 1979_life_expectancy | 1980_fertility | 1980_life_expectancy | 1981_fertility | 1981_life_expectancy | 1982_fertility | 1982_life_expectancy | 1983_fertility | 1983_life_expectancy | 1984_fertility | 1984_life_expectancy | 1985_fertility | 1985_life_expectancy | 1986_fertility | 1986_life_expectancy | 1987_fertility | 1987_life_expectancy | 1988_fertility | 1988_life_expectancy | 1989_fertility | 1989_life_expectancy | 1990_fertility | 1990_life_expectancy | 1991_fertility | 1991_life_expectancy | 1992_fertility | 1992_life_expectancy | 1993_fertility | 1993_life_expectancy | 1994_fertility | 1994_life_expectancy | 1995_fertility | 1995_life_expectancy | 1996_fertility | 1996_life_expectancy | 1997_fertility | 1997_life_expectancy | 1998_fertility | 1998_life_expectancy | 1999_fertility | 1999_life_expectancy | 2000_fertility | 2000_life_expectancy | 2001_fertility | 2001_life_expectancy | 2002_fertility | 2002_life_expectancy | 2003_fertility | 2003_life_expectancy | 2004_fertility | 2004_life_expectancy | 2005_fertility | 2005_life_expectancy | 2006_fertility | 2006_life_expectancy | 2007_fertility | 2007_life_expectancy | 2008_fertility | 2008_life_expectancy | 2009_fertility | 2009_life_expectancy | 2010_fertility | 2010_life_expectancy | 2011_fertility | 2011_life_expectancy | 2012_fertility | 2012_life_expectancy | 2013_fertility | 2013_life_expectancy | 2014_fertility | 2014_life_expectancy | 2015_fertility | 2015_life_expectancy |
-|:------------|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|---------------:|---------------------:|
-| Germany     |           2.41 |                69.26 |           2.44 |                69.85 |           2.47 |                70.01 |           2.49 |                70.10 |           2.49 |                70.66 |           2.48 |                70.65 |           2.44 |                70.77 |           2.37 |                70.99 |           2.28 |                70.64 |           2.17 |                70.48 |           2.04 |                70.72 |           1.92 |                70.94 |           1.80 |                71.16 |           1.70 |                71.41 |           1.62 |                71.71 |           1.56 |                71.56 |           1.53 |                72.02 |           1.50 |                72.63 |           1.49 |                72.60 |           1.48 |                72.96 |           1.47 |                73.14 |           1.47 |                73.37 |           1.46 |                73.69 |           1.46 |                73.97 |           1.46 |                74.44 |           1.45 |                74.55 |           1.44 |                74.75 |           1.43 |                75.15 |           1.41 |                75.33 |           1.38 |                75.51 |           1.36 |                 75.4 |           1.34 |                 75.6 |           1.32 |                 76.0 |           1.31 |                 76.1 |           1.31 |                 76.4 |           1.31 |                 76.6 |           1.32 |                 76.9 |           1.33 |                 77.3 |           1.34 |                 77.6 |           1.35 |                 77.8 |           1.35 |                 78.1 |           1.35 |                 78.4 |           1.35 |                 78.6 |           1.35 |                 78.8 |           1.35 |                 79.2 |           1.35 |                 79.4 |           1.36 |                 79.7 |           1.36 |                 79.9 |           1.37 |                 80.0 |           1.38 |                 80.1 |           1.39 |                 80.3 |           1.40 |                 80.5 |           1.41 |                 80.6 |           1.42 |                 80.7 |           1.43 |                 80.7 |           1.44 |                 80.8 |
-| South Korea |           6.16 |                53.02 |           5.99 |                53.75 |           5.79 |                54.51 |           5.57 |                55.27 |           5.36 |                56.04 |           5.16 |                56.84 |           4.99 |                57.67 |           4.85 |                58.54 |           4.73 |                59.44 |           4.62 |                60.35 |           4.53 |                61.22 |           4.41 |                62.02 |           4.27 |                62.73 |           4.09 |                63.34 |           3.87 |                63.84 |           3.62 |                64.26 |           3.36 |                64.62 |           3.11 |                64.95 |           2.88 |                65.31 |           2.69 |                65.70 |           2.52 |                66.15 |           2.38 |                66.66 |           2.24 |                67.21 |           2.11 |                67.78 |           1.98 |                68.37 |           1.86 |                68.98 |           1.75 |                69.58 |           1.67 |                70.18 |           1.63 |                70.75 |           1.61 |                71.29 |           1.61 |                 71.8 |           1.63 |                 72.2 |           1.65 |                 72.7 |           1.66 |                 73.1 |           1.65 |                 73.6 |           1.63 |                 74.0 |           1.59 |                 74.5 |           1.54 |                 74.9 |           1.48 |                 75.4 |           1.41 |                 75.8 |           1.35 |                 76.3 |           1.30 |                 76.7 |           1.25 |                 77.1 |           1.22 |                 77.7 |           1.20 |                 78.2 |           1.20 |                 78.7 |           1.20 |                 79.1 |           1.21 |                 79.4 |           1.23 |                 79.8 |           1.25 |                 80.1 |           1.27 |                 80.4 |           1.29 |                 80.6 |           1.30 |                 80.7 |           1.32 |                 80.9 |           1.34 |                 80.9 |           1.36 |                 81.0 |
+| country | 1960_fertility | 1960_life_expectancy | 1961_fertility | 1961_life_expectancy | 1962_fertility | 1962_life_expectancy | 1963_fertility | 1963_life_expectancy | 1964_fertility | 1964_life_expectancy | 1965_fertility | 1965_life_expectancy | 1966_fertility | 1966_life_expectancy | 1967_fertility | 1967_life_expectancy | 1968_fertility | 1968_life_expectancy | 1969_fertility | 1969_life_expectancy | 1970_fertility | 1970_life_expectancy | 1971_fertility | 1971_life_expectancy | 1972_fertility | 1972_life_expectancy | 1973_fertility | 1973_life_expectancy | 1974_fertility | 1974_life_expectancy | 1975_fertility | 1975_life_expectancy | 1976_fertility | 1976_life_expectancy | 1977_fertility | 1977_life_expectancy | 1978_fertility | 1978_life_expectancy | 1979_fertility | 1979_life_expectancy | 1980_fertility | 1980_life_expectancy | 1981_fertility | 1981_life_expectancy | 1982_fertility | 1982_life_expectancy | 1983_fertility | 1983_life_expectancy | 1984_fertility | 1984_life_expectancy | 1985_fertility | 1985_life_expectancy | 1986_fertility | 1986_life_expectancy | 1987_fertility | 1987_life_expectancy | 1988_fertility | 1988_life_expectancy | 1989_fertility | 1989_life_expectancy | 1990_fertility | 1990_life_expectancy | 1991_fertility | 1991_life_expectancy | 1992_fertility | 1992_life_expectancy | 1993_fertility | 1993_life_expectancy | 1994_fertility | 1994_life_expectancy | 1995_fertility | 1995_life_expectancy | 1996_fertility | 1996_life_expectancy | 1997_fertility | 1997_life_expectancy | 1998_fertility | 1998_life_expectancy | 1999_fertility | 1999_life_expectancy | 2000_fertility | 2000_life_expectancy | 2001_fertility | 2001_life_expectancy | 2002_fertility | 2002_life_expectancy | 2003_fertility | 2003_life_expectancy | 2004_fertility | 2004_life_expectancy | 2005_fertility | 2005_life_expectancy | 2006_fertility | 2006_life_expectancy | 2007_fertility | 2007_life_expectancy | 2008_fertility | 2008_life_expectancy | 2009_fertility | 2009_life_expectancy | 2010_fertility | 2010_life_expectancy | 2011_fertility | 2011_life_expectancy | 2012_fertility | 2012_life_expectancy | 2013_fertility | 2013_life_expectancy | 2014_fertility | 2014_life_expectancy | 2015_fertility | 2015_life_expectancy |
+|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Germany | 2.41 | 69.26 | 2.44 | 69.85 | 2.47 | 70.01 | 2.49 | 70.10 | 2.49 | 70.66 | 2.48 | 70.65 | 2.44 | 70.77 | 2.37 | 70.99 | 2.28 | 70.64 | 2.17 | 70.48 | 2.04 | 70.72 | 1.92 | 70.94 | 1.80 | 71.16 | 1.70 | 71.41 | 1.62 | 71.71 | 1.56 | 71.56 | 1.53 | 72.02 | 1.50 | 72.63 | 1.49 | 72.60 | 1.48 | 72.96 | 1.47 | 73.14 | 1.47 | 73.37 | 1.46 | 73.69 | 1.46 | 73.97 | 1.46 | 74.44 | 1.45 | 74.55 | 1.44 | 74.75 | 1.43 | 75.15 | 1.41 | 75.33 | 1.38 | 75.51 | 1.36 | 75.4 | 1.34 | 75.6 | 1.32 | 76.0 | 1.31 | 76.1 | 1.31 | 76.4 | 1.31 | 76.6 | 1.32 | 76.9 | 1.33 | 77.3 | 1.34 | 77.6 | 1.35 | 77.8 | 1.35 | 78.1 | 1.35 | 78.4 | 1.35 | 78.6 | 1.35 | 78.8 | 1.35 | 79.2 | 1.35 | 79.4 | 1.36 | 79.7 | 1.36 | 79.9 | 1.37 | 80.0 | 1.38 | 80.1 | 1.39 | 80.3 | 1.40 | 80.5 | 1.41 | 80.6 | 1.42 | 80.7 | 1.43 | 80.7 | 1.44 | 80.8 |
+| South Korea | 6.16 | 53.02 | 5.99 | 53.75 | 5.79 | 54.51 | 5.57 | 55.27 | 5.36 | 56.04 | 5.16 | 56.84 | 4.99 | 57.67 | 4.85 | 58.54 | 4.73 | 59.44 | 4.62 | 60.35 | 4.53 | 61.22 | 4.41 | 62.02 | 4.27 | 62.73 | 4.09 | 63.34 | 3.87 | 63.84 | 3.62 | 64.26 | 3.36 | 64.62 | 3.11 | 64.95 | 2.88 | 65.31 | 2.69 | 65.70 | 2.52 | 66.15 | 2.38 | 66.66 | 2.24 | 67.21 | 2.11 | 67.78 | 1.98 | 68.37 | 1.86 | 68.98 | 1.75 | 69.58 | 1.67 | 70.18 | 1.63 | 70.75 | 1.61 | 71.29 | 1.61 | 71.8 | 1.63 | 72.2 | 1.65 | 72.7 | 1.66 | 73.1 | 1.65 | 73.6 | 1.63 | 74.0 | 1.59 | 74.5 | 1.54 | 74.9 | 1.48 | 75.4 | 1.41 | 75.8 | 1.35 | 76.3 | 1.30 | 76.7 | 1.25 | 77.1 | 1.22 | 77.7 | 1.20 | 78.2 | 1.20 | 78.7 | 1.20 | 79.1 | 1.21 | 79.4 | 1.23 | 79.8 | 1.25 | 80.1 | 1.27 | 80.4 | 1.29 | 80.6 | 1.30 | 80.7 | 1.32 | 80.9 | 1.34 | 80.9 | 1.36 | 81.0 |
 
 What are the variables? What are the observations? How do we get the
 data into tidy format?
@@ -418,8 +403,8 @@ fertility_tidy %>% head() %>% kable()
 fertility_tidy %>% separate(year_variable, into=c("year", "variable"), sep="_")
 ```
 
-    ## Warning: Expected 2 pieces. Additional pieces discarded in 112 rows [2, 4, 6, 8,
-    ## 10, 12, 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, ...].
+    ## Warning: Expected 2 pieces. Additional pieces discarded in 112 rows [2, 4, 6, 8, 10, 12,
+    ## 14, 16, 18, 20, 22, 24, 26, 28, 30, 32, 34, 36, 38, 40, ...].
 
     ## # A tibble: 224 × 4
     ##    country year  variable  fertility
@@ -434,7 +419,7 @@ fertility_tidy %>% separate(year_variable, into=c("year", "variable"), sep="_")
     ##  8 Germany 1963  life          70.1 
     ##  9 Germany 1964  fertility      2.49
     ## 10 Germany 1964  life          70.7 
-    ## # … with 214 more rows
+    ## # ℹ 214 more rows
 
 What happened? What did we lose?
 
@@ -466,11 +451,11 @@ fertility_wide <- fertility_tidy %>%
 fertility_wide %>% kable() # one way to display nicely tables 
 ```
 
-| country     | variable        |  1960 |  1961 |  1962 |  1963 |  1964 |  1965 |  1966 |  1967 |  1968 |  1969 |  1970 |  1971 |  1972 |  1973 |  1974 |  1975 |  1976 |  1977 |  1978 |  1979 |  1980 |  1981 |  1982 |  1983 |  1984 |  1985 |  1986 |  1987 |  1988 |  1989 |  1990 |  1991 |  1992 |  1993 |  1994 |  1995 |  1996 |  1997 |  1998 |  1999 |  2000 |  2001 |  2002 |  2003 |  2004 |  2005 |  2006 |  2007 |  2008 |  2009 |  2010 |  2011 |  2012 |  2013 |  2014 |  2015 |
-|:------------|:----------------|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|
-| Germany     | fertility       |  2.41 |  2.44 |  2.47 |  2.49 |  2.49 |  2.48 |  2.44 |  2.37 |  2.28 |  2.17 |  2.04 |  1.92 |  1.80 |  1.70 |  1.62 |  1.56 |  1.53 |  1.50 |  1.49 |  1.48 |  1.47 |  1.47 |  1.46 |  1.46 |  1.46 |  1.45 |  1.44 |  1.43 |  1.41 |  1.38 |  1.36 |  1.34 |  1.32 |  1.31 |  1.31 |  1.31 |  1.32 |  1.33 |  1.34 |  1.35 |  1.35 |  1.35 |  1.35 |  1.35 |  1.35 |  1.35 |  1.36 |  1.36 |  1.37 |  1.38 |  1.39 |  1.40 |  1.41 |  1.42 |  1.43 |  1.44 |
-| Germany     | life_expectancy | 69.26 | 69.85 | 70.01 | 70.10 | 70.66 | 70.65 | 70.77 | 70.99 | 70.64 | 70.48 | 70.72 | 70.94 | 71.16 | 71.41 | 71.71 | 71.56 | 72.02 | 72.63 | 72.60 | 72.96 | 73.14 | 73.37 | 73.69 | 73.97 | 74.44 | 74.55 | 74.75 | 75.15 | 75.33 | 75.51 | 75.40 | 75.60 | 76.00 | 76.10 | 76.40 | 76.60 | 76.90 | 77.30 | 77.60 | 77.80 | 78.10 | 78.40 | 78.60 | 78.80 | 79.20 | 79.40 | 79.70 | 79.90 | 80.00 | 80.10 | 80.30 | 80.50 | 80.60 | 80.70 | 80.70 | 80.80 |
-| South Korea | fertility       |  6.16 |  5.99 |  5.79 |  5.57 |  5.36 |  5.16 |  4.99 |  4.85 |  4.73 |  4.62 |  4.53 |  4.41 |  4.27 |  4.09 |  3.87 |  3.62 |  3.36 |  3.11 |  2.88 |  2.69 |  2.52 |  2.38 |  2.24 |  2.11 |  1.98 |  1.86 |  1.75 |  1.67 |  1.63 |  1.61 |  1.61 |  1.63 |  1.65 |  1.66 |  1.65 |  1.63 |  1.59 |  1.54 |  1.48 |  1.41 |  1.35 |  1.30 |  1.25 |  1.22 |  1.20 |  1.20 |  1.20 |  1.21 |  1.23 |  1.25 |  1.27 |  1.29 |  1.30 |  1.32 |  1.34 |  1.36 |
+| country | variable | 1960 | 1961 | 1962 | 1963 | 1964 | 1965 | 1966 | 1967 | 1968 | 1969 | 1970 | 1971 | 1972 | 1973 | 1974 | 1975 | 1976 | 1977 | 1978 | 1979 | 1980 | 1981 | 1982 | 1983 | 1984 | 1985 | 1986 | 1987 | 1988 | 1989 | 1990 | 1991 | 1992 | 1993 | 1994 | 1995 | 1996 | 1997 | 1998 | 1999 | 2000 | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 |
+|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Germany | fertility | 2.41 | 2.44 | 2.47 | 2.49 | 2.49 | 2.48 | 2.44 | 2.37 | 2.28 | 2.17 | 2.04 | 1.92 | 1.80 | 1.70 | 1.62 | 1.56 | 1.53 | 1.50 | 1.49 | 1.48 | 1.47 | 1.47 | 1.46 | 1.46 | 1.46 | 1.45 | 1.44 | 1.43 | 1.41 | 1.38 | 1.36 | 1.34 | 1.32 | 1.31 | 1.31 | 1.31 | 1.32 | 1.33 | 1.34 | 1.35 | 1.35 | 1.35 | 1.35 | 1.35 | 1.35 | 1.35 | 1.36 | 1.36 | 1.37 | 1.38 | 1.39 | 1.40 | 1.41 | 1.42 | 1.43 | 1.44 |
+| Germany | life_expectancy | 69.26 | 69.85 | 70.01 | 70.10 | 70.66 | 70.65 | 70.77 | 70.99 | 70.64 | 70.48 | 70.72 | 70.94 | 71.16 | 71.41 | 71.71 | 71.56 | 72.02 | 72.63 | 72.60 | 72.96 | 73.14 | 73.37 | 73.69 | 73.97 | 74.44 | 74.55 | 74.75 | 75.15 | 75.33 | 75.51 | 75.40 | 75.60 | 76.00 | 76.10 | 76.40 | 76.60 | 76.90 | 77.30 | 77.60 | 77.80 | 78.10 | 78.40 | 78.60 | 78.80 | 79.20 | 79.40 | 79.70 | 79.90 | 80.00 | 80.10 | 80.30 | 80.50 | 80.60 | 80.70 | 80.70 | 80.80 |
+| South Korea | fertility | 6.16 | 5.99 | 5.79 | 5.57 | 5.36 | 5.16 | 4.99 | 4.85 | 4.73 | 4.62 | 4.53 | 4.41 | 4.27 | 4.09 | 3.87 | 3.62 | 3.36 | 3.11 | 2.88 | 2.69 | 2.52 | 2.38 | 2.24 | 2.11 | 1.98 | 1.86 | 1.75 | 1.67 | 1.63 | 1.61 | 1.61 | 1.63 | 1.65 | 1.66 | 1.65 | 1.63 | 1.59 | 1.54 | 1.48 | 1.41 | 1.35 | 1.30 | 1.25 | 1.22 | 1.20 | 1.20 | 1.20 | 1.21 | 1.23 | 1.25 | 1.27 | 1.29 | 1.30 | 1.32 | 1.34 | 1.36 |
 | South Korea | life_expectancy | 53.02 | 53.75 | 54.51 | 55.27 | 56.04 | 56.84 | 57.67 | 58.54 | 59.44 | 60.35 | 61.22 | 62.02 | 62.73 | 63.34 | 63.84 | 64.26 | 64.62 | 64.95 | 65.31 | 65.70 | 66.15 | 66.66 | 67.21 | 67.78 | 68.37 | 68.98 | 69.58 | 70.18 | 70.75 | 71.29 | 71.80 | 72.20 | 72.70 | 73.10 | 73.60 | 74.00 | 74.50 | 74.90 | 75.40 | 75.80 | 76.30 | 76.70 | 77.10 | 77.70 | 78.20 | 78.70 | 79.10 | 79.40 | 79.80 | 80.10 | 80.40 | 80.60 | 80.70 | 80.90 | 80.90 | 81.00 |
 
 And now with `pivot_wider`. You might use such a transformation to
@@ -486,11 +471,11 @@ fertility_tidy %>%
   kable()
 ```
 
-| country     | variable        |  1960 |  1961 |  1962 |  1963 |  1964 |  1965 |  1966 |  1967 |  1968 |  1969 |  1970 |  1971 |  1972 |  1973 |  1974 |  1975 |  1976 |  1977 |  1978 |  1979 |  1980 |  1981 |  1982 |  1983 |  1984 |  1985 |  1986 |  1987 |  1988 |  1989 |  1990 |  1991 |  1992 |  1993 |  1994 |  1995 |  1996 |  1997 |  1998 |  1999 |  2000 |  2001 |  2002 |  2003 |  2004 |  2005 |  2006 |  2007 |  2008 |  2009 |  2010 |  2011 |  2012 |  2013 |  2014 |  2015 |
-|:------------|:----------------|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|------:|
-| Germany     | fertility       |  2.41 |  2.44 |  2.47 |  2.49 |  2.49 |  2.48 |  2.44 |  2.37 |  2.28 |  2.17 |  2.04 |  1.92 |  1.80 |  1.70 |  1.62 |  1.56 |  1.53 |  1.50 |  1.49 |  1.48 |  1.47 |  1.47 |  1.46 |  1.46 |  1.46 |  1.45 |  1.44 |  1.43 |  1.41 |  1.38 |  1.36 |  1.34 |  1.32 |  1.31 |  1.31 |  1.31 |  1.32 |  1.33 |  1.34 |  1.35 |  1.35 |  1.35 |  1.35 |  1.35 |  1.35 |  1.35 |  1.36 |  1.36 |  1.37 |  1.38 |  1.39 |  1.40 |  1.41 |  1.42 |  1.43 |  1.44 |
-| Germany     | life_expectancy | 69.26 | 69.85 | 70.01 | 70.10 | 70.66 | 70.65 | 70.77 | 70.99 | 70.64 | 70.48 | 70.72 | 70.94 | 71.16 | 71.41 | 71.71 | 71.56 | 72.02 | 72.63 | 72.60 | 72.96 | 73.14 | 73.37 | 73.69 | 73.97 | 74.44 | 74.55 | 74.75 | 75.15 | 75.33 | 75.51 | 75.40 | 75.60 | 76.00 | 76.10 | 76.40 | 76.60 | 76.90 | 77.30 | 77.60 | 77.80 | 78.10 | 78.40 | 78.60 | 78.80 | 79.20 | 79.40 | 79.70 | 79.90 | 80.00 | 80.10 | 80.30 | 80.50 | 80.60 | 80.70 | 80.70 | 80.80 |
-| South Korea | fertility       |  6.16 |  5.99 |  5.79 |  5.57 |  5.36 |  5.16 |  4.99 |  4.85 |  4.73 |  4.62 |  4.53 |  4.41 |  4.27 |  4.09 |  3.87 |  3.62 |  3.36 |  3.11 |  2.88 |  2.69 |  2.52 |  2.38 |  2.24 |  2.11 |  1.98 |  1.86 |  1.75 |  1.67 |  1.63 |  1.61 |  1.61 |  1.63 |  1.65 |  1.66 |  1.65 |  1.63 |  1.59 |  1.54 |  1.48 |  1.41 |  1.35 |  1.30 |  1.25 |  1.22 |  1.20 |  1.20 |  1.20 |  1.21 |  1.23 |  1.25 |  1.27 |  1.29 |  1.30 |  1.32 |  1.34 |  1.36 |
+| country | variable | 1960 | 1961 | 1962 | 1963 | 1964 | 1965 | 1966 | 1967 | 1968 | 1969 | 1970 | 1971 | 1972 | 1973 | 1974 | 1975 | 1976 | 1977 | 1978 | 1979 | 1980 | 1981 | 1982 | 1983 | 1984 | 1985 | 1986 | 1987 | 1988 | 1989 | 1990 | 1991 | 1992 | 1993 | 1994 | 1995 | 1996 | 1997 | 1998 | 1999 | 2000 | 2001 | 2002 | 2003 | 2004 | 2005 | 2006 | 2007 | 2008 | 2009 | 2010 | 2011 | 2012 | 2013 | 2014 | 2015 |
+|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| Germany | fertility | 2.41 | 2.44 | 2.47 | 2.49 | 2.49 | 2.48 | 2.44 | 2.37 | 2.28 | 2.17 | 2.04 | 1.92 | 1.80 | 1.70 | 1.62 | 1.56 | 1.53 | 1.50 | 1.49 | 1.48 | 1.47 | 1.47 | 1.46 | 1.46 | 1.46 | 1.45 | 1.44 | 1.43 | 1.41 | 1.38 | 1.36 | 1.34 | 1.32 | 1.31 | 1.31 | 1.31 | 1.32 | 1.33 | 1.34 | 1.35 | 1.35 | 1.35 | 1.35 | 1.35 | 1.35 | 1.35 | 1.36 | 1.36 | 1.37 | 1.38 | 1.39 | 1.40 | 1.41 | 1.42 | 1.43 | 1.44 |
+| Germany | life_expectancy | 69.26 | 69.85 | 70.01 | 70.10 | 70.66 | 70.65 | 70.77 | 70.99 | 70.64 | 70.48 | 70.72 | 70.94 | 71.16 | 71.41 | 71.71 | 71.56 | 72.02 | 72.63 | 72.60 | 72.96 | 73.14 | 73.37 | 73.69 | 73.97 | 74.44 | 74.55 | 74.75 | 75.15 | 75.33 | 75.51 | 75.40 | 75.60 | 76.00 | 76.10 | 76.40 | 76.60 | 76.90 | 77.30 | 77.60 | 77.80 | 78.10 | 78.40 | 78.60 | 78.80 | 79.20 | 79.40 | 79.70 | 79.90 | 80.00 | 80.10 | 80.30 | 80.50 | 80.60 | 80.70 | 80.70 | 80.80 |
+| South Korea | fertility | 6.16 | 5.99 | 5.79 | 5.57 | 5.36 | 5.16 | 4.99 | 4.85 | 4.73 | 4.62 | 4.53 | 4.41 | 4.27 | 4.09 | 3.87 | 3.62 | 3.36 | 3.11 | 2.88 | 2.69 | 2.52 | 2.38 | 2.24 | 2.11 | 1.98 | 1.86 | 1.75 | 1.67 | 1.63 | 1.61 | 1.61 | 1.63 | 1.65 | 1.66 | 1.65 | 1.63 | 1.59 | 1.54 | 1.48 | 1.41 | 1.35 | 1.30 | 1.25 | 1.22 | 1.20 | 1.20 | 1.20 | 1.21 | 1.23 | 1.25 | 1.27 | 1.29 | 1.30 | 1.32 | 1.34 | 1.36 |
 | South Korea | life_expectancy | 53.02 | 53.75 | 54.51 | 55.27 | 56.04 | 56.84 | 57.67 | 58.54 | 59.44 | 60.35 | 61.22 | 62.02 | 62.73 | 63.34 | 63.84 | 64.26 | 64.62 | 64.95 | 65.31 | 65.70 | 66.15 | 66.66 | 67.21 | 67.78 | 68.37 | 68.98 | 69.58 | 70.18 | 70.75 | 71.29 | 71.80 | 72.20 | 72.70 | 73.10 | 73.60 | 74.00 | 74.50 | 74.90 | 75.40 | 75.80 | 76.30 | 76.70 | 77.10 | 77.70 | 78.20 | 78.70 | 79.10 | 79.40 | 79.80 | 80.10 | 80.40 | 80.60 | 80.70 | 80.90 | 80.90 | 81.00 |
 
 ### `unite()`
@@ -518,7 +503,7 @@ fertility_tidy %>% unite(name, year, variable)
     ##  8 Germany 1963_life_expectancy     70.1 
     ##  9 Germany 1964_fertility            2.49
     ## 10 Germany 1964_life_expectancy     70.7 
-    ## # … with 214 more rows
+    ## # ℹ 214 more rows
 
 ``` r
 fertility_tidy %>% head() %>% kable() # one way to display nicely tables 
@@ -594,7 +579,10 @@ A nice illustration of the data exploration process (or pipeline) is
 given [here](https://r4ds.had.co.nz/explore-intro.html) and in the
 screen shot:
 
-![Data exploration.](figures/data_exploration.png)
+<figure>
+<img src="figures/data_exploration.png" alt="Data exploration." />
+<figcaption aria-hidden="true">Data exploration.</figcaption>
+</figure>
 
 In the blue highlighted portion “Explore”, you can seen a circle from
 “Transform” -\> “Visualize” -\> “Model” (then repeat).
@@ -620,26 +608,31 @@ journalism](https://en.wikipedia.org/wiki/Data_journalism).
 
 Consider for example you have some data:
 
--   What you are trying to visualize with your data?
--   What kind of (statistical) data types do you have?
--   How are the data types usually visualized (including if more than
-    one – in relation to each other)?
--   On which axes should they be plotted?
+- What you are trying to visualize with your data?
+- What kind of (statistical) data types do you have?
+- How are the data types usually visualized (including if more than one
+  – in relation to each other)?
+- On which axes should they be plotted?
 
 Or are you trying to visualize – or model – a [statistical
 distribution](https://en.wikipedia.org/wiki/Probability_distribution)?
 Then you might ask:
 
--   How many variables are there?
--   What are your independent and dependent variables?
--   Do you have any? Do you have a hypothesis?
+- How many variables are there?
+- What are your independent and dependent variables?
+- Do you have any? Do you have a hypothesis?
 
 A picture of the workflow with `tidyverse` libraries (`readr`, `tidyr`,
 etc.) is given below. For “model” it will depend on what type of
 statistical *model(s)* you are using – there are numerous libraries for
 statistical modeling in R!
 
-![Work flow annotated with Tidyverse libraries.](figures/workflow.png)
+<figure>
+<img src="figures/workflow.png"
+alt="Work flow annotated with Tidyverse libraries." />
+<figcaption aria-hidden="true">Work flow annotated with Tidyverse
+libraries.</figcaption>
+</figure>
 
 ## Layered graphics
 
@@ -652,7 +645,11 @@ and typology, of graphic design into R.[^1]
 Each layer/component of the *Grammar of Graphics* has a special name in
 `ggplot2`, visualized as:
 
-![A layered grammar of graphics.](figures/layers.png)
+<figure>
+<img src="figures/layers.png" alt="A layered grammar of graphics." />
+<figcaption aria-hidden="true">A layered grammar of
+graphics.</figcaption>
+</figure>
 
 A statistical graphic according to this layered grammar of graphics is a
 mapping from **data** to **aesthetic attributes** (e.g., color, shape,
@@ -661,15 +658,13 @@ size) to geometric objects (e.g., points, lines, bars).
 The basic idea is that you can build data visualizations from the same
 components:
 
--   The data
--   A [coordinate
-    system](https://en.wikipedia.org/wiki/Coordinate_system)
--   Geoms (functions that represent data points in the coordinate
-    system)
+- The data
+- A [coordinate system](https://en.wikipedia.org/wiki/Coordinate_system)
+- Geoms (functions that represent data points in the coordinate system)
 
 Here is a cheat sheet:
 
--   <https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf>
+- <https://github.com/rstudio/cheatsheets/blob/main/data-visualization-2.1.pdf>
 
 ------------------------------------------------------------------------
 
@@ -688,7 +683,10 @@ In sum, it is the combination of these independent components that make
 up a graphic, including layers, scales, the coordinate system, and
 faceting, that one needs to familiarize themself with.
 
-![Components.](figures/components.png)
+<figure>
+<img src="figures/components.png" alt="Components." />
+<figcaption aria-hidden="true">Components.</figcaption>
+</figure>
 
 With ggplot2, you begin a plot with the function `ggplot()`. Then
 `ggplot()` creates a coordinate system that you can add layers to.
@@ -698,13 +696,16 @@ The first argument of `ggplot()` is the dataset to use in the graph. So
 
 However, a simple plot with `ggplot2()` needs:
 
--   Data (a data frame or tibble!)
--   Aesthetics (mapping to variables)
--   Geometry (e.g., dots, lines, boxes)
+- Data (a data frame or tibble!)
+- Aesthetics (mapping to variables)
+- Geometry (e.g., dots, lines, boxes)
 
 These essential ingredients are illustrated below.
 
-![Essentials.](figures/essential_ingredients.png)
+<figure>
+<img src="figures/essential_ingredients.png" alt="Essentials." />
+<figcaption aria-hidden="true">Essentials.</figcaption>
+</figure>
 
 Let’s look at some examples!
 
@@ -904,7 +905,7 @@ geom_point() +
 
 # Additional resources
 
--   <https://clauswilke.com/dataviz/>
+- <https://clauswilke.com/dataviz/>
 
 # Exercises
 
@@ -914,7 +915,8 @@ plots](../case_studies/data_behind_the_plot/).
 
 # References and footnotes
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-IrizarryGill2021" class="csl-entry">
 

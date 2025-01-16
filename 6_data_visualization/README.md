@@ -2,7 +2,7 @@ Data visualization II
 ================
 Steven Moran & Alena Witzlack-Makarevich
 
-21 February, 2023
+16 January, 2025
 
 - [Visualizing data](#visualizing-data)
   - [Recap](#recap)
@@ -89,7 +89,7 @@ But let’s go through each in detail – but from bottom up.
 
 A plot is the information you wish to visualized from some source of
 data. Recall our discussion about the difference between [data and
-information](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#what-is-data).
+information](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#what-is-data).
 
 Let’s use the integrated `diamonds` data set in R. What does a data
 scientist do? First have a look at the data!
@@ -426,7 +426,8 @@ ggplot(data=df, aes(x=longitude,y=latitude)) +
   geom_point()
 ```
 
-    ## Warning: Removed 323 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 323 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-20-1.png)<!-- --> Want to add
 some color? You need a variable for that.
@@ -437,7 +438,8 @@ ggplot(data=df, aes(x=longitude,y=latitude, color=macroarea)) +
   geom_point()
 ```
 
-    ## Warning: Removed 323 rows containing missing values (`geom_point()`).
+    ## Warning: Removed 323 rows containing missing values or values outside the scale range
+    ## (`geom_point()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
 
@@ -469,7 +471,8 @@ ggplot(data=atheletes, aes(x = gender, y = weight)) +
   geom_boxplot()
 ```
 
-    ## Warning: Removed 378 rows containing non-finite values (`stat_boxplot()`).
+    ## Warning: Removed 378 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-22-1.png)<!-- -->
 
@@ -481,7 +484,8 @@ ggplot(data=atheletes, aes(x = gender, y = weight)) +
   theme_minimal()
 ```
 
-    ## Warning: Removed 378 rows containing non-finite values (`stat_boxplot()`).
+    ## Warning: Removed 378 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-23-1.png)<!-- -->
 
@@ -491,7 +495,8 @@ ggplot(data=atheletes, aes(x = gender, y = weight)) +
   theme_dark()
 ```
 
-    ## Warning: Removed 378 rows containing non-finite values (`stat_boxplot()`).
+    ## Warning: Removed 378 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
@@ -501,7 +506,8 @@ ggplot(data=atheletes, aes(x = gender, y = weight)) +
   theme_classic()
 ```
 
-    ## Warning: Removed 378 rows containing non-finite values (`stat_boxplot()`).
+    ## Warning: Removed 378 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-25-1.png)<!-- -->
 
@@ -512,7 +518,8 @@ ggplot(data=atheletes, aes(x = gender, y = weight)) +
   theme_tufte(ticks = FALSE)
 ```
 
-    ## Warning: Removed 378 rows containing non-finite values (`stat_boxplot()`).
+    ## Warning: Removed 378 rows containing non-finite outside the scale range
+    ## (`stat_boxplot()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
@@ -535,7 +542,8 @@ ggplot(atheletes, aes(x=weight, fill=gender)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-    ## Warning: Removed 378 rows containing non-finite values (`stat_bin()`).
+    ## Warning: Removed 378 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 
@@ -547,7 +555,8 @@ ggplot(atheletes, aes(x=weight)) +
 
     ## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
 
-    ## Warning: Removed 378 rows containing non-finite values (`stat_bin()`).
+    ## Warning: Removed 378 rows containing non-finite outside the scale range
+    ## (`stat_bin()`).
 
 ![](README_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
@@ -704,7 +713,8 @@ plots](../case_studies/data_behind_the_plot/).
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-ggthemes" class="csl-entry">
 

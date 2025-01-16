@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   github_document:
       toc: true
-bibliography: '../2_writing_scientific_reports/references.bib'
+bibliography: '../3_writing_scientific_reports/references.bib'
 ---
 
 ***
@@ -55,7 +55,7 @@ But let's go through each in detail -- but from bottom up.
 
 ## Data
 
-A plot is the information you wish to visualized from some source of data. Recall our discussion about the difference between [data and information](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#what-is-data).
+A plot is the information you wish to visualized from some source of data. Recall our discussion about the difference between [data and information](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#what-is-data).
 
 Let's use the integrated `diamonds` data set in R. What does a data scientist do? First have a look at the data!
 

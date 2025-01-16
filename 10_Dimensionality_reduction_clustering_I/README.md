@@ -1,33 +1,25 @@
 Dimensionality reduction and clustering I
 ================
 Tiena Danner & Steven Moran
-(30 November, 2022)
+(16 January, 2025)
 
--   <a href="#bivariate-data--a-story-thats-all-too-simple"
-    id="toc-bivariate-data--a-story-thats-all-too-simple">Bivariate data – a
-    story that’s all too simple?</a>
-    -   <a href="#data" id="toc-data">Data</a>
-    -   <a href="#plotting-multivariate-data"
-        id="toc-plotting-multivariate-data">Plotting multivariate data</a>
-        -   <a
-            href="#ok-but-how-do-we-plot-more-than-two-variables-in-a-single-plot"
-            id="toc-ok-but-how-do-we-plot-more-than-two-variables-in-a-single-plot">Ok,
-            but how do we plot more than two variables in a single plot?</a>
-        -   <a href="#the-last-resort-3d-plots"
-            id="toc-the-last-resort-3d-plots">The last resort: 3D plots…</a>
-    -   <a href="#what-is-a-pca" id="toc-what-is-a-pca">What is a PCA?</a>
-        -   <a href="#why-pca" id="toc-why-pca">Why PCA?</a>
-        -   <a href="#how-does-pca-work" id="toc-how-does-pca-work">How does PCA
-            work?</a>
-        -   <a href="#pca-in-essence" id="toc-pca-in-essence">PCA in essence</a>
-    -   <a href="#computing-a-pca-in-r" id="toc-computing-a-pca-in-r">Computing
-        a PCA in R</a>
-        -   <a href="#pca-statistics" id="toc-pca-statistics">PCA statistics</a>
-        -   <a href="#plotting-a-pca" id="toc-plotting-a-pca">Plotting a PCA</a>
-    -   <a href="#correlation-between-pcs-and-other-variables"
-        id="toc-correlation-between-pcs-and-other-variables">Correlation between
-        PCs and other variables</a>
--   <a href="#references" id="toc-references">References</a>
+- [Bivariate data – a story that’s all too
+  simple?](#bivariate-data--a-story-thats-all-too-simple)
+  - [Data](#data)
+  - [Plotting multivariate data](#plotting-multivariate-data)
+    - [Ok, but how do we plot more than two variables in a single
+      plot?](#ok-but-how-do-we-plot-more-than-two-variables-in-a-single-plot)
+    - [The last resort: 3D plots…](#the-last-resort-3d-plots)
+  - [What is a PCA?](#what-is-a-pca)
+    - [Why PCA?](#why-pca)
+    - [How does PCA work?](#how-does-pca-work)
+    - [PCA in essence](#pca-in-essence)
+  - [Computing a PCA in R](#computing-a-pca-in-r)
+    - [PCA statistics](#pca-statistics)
+    - [Plotting a PCA](#plotting-a-pca)
+  - [Correlation between PCs and other
+    variables](#correlation-between-pcs-and-other-variables)
+- [References](#references)
 
 ------------------------------------------------------------------------
 
@@ -45,8 +37,8 @@ library(knitr)
 library(ggpubr)
 library(plot3D)
 library(plotly)
-library(devtools)
-install_github("vqv/ggbiplot") # to install an R library from source
+# library(devtools)
+# install_github("vqv/ggbiplot") # to install an R library from source
 library(ggbiplot)
 library(PerformanceAnalytics)
 library(mlbench)
@@ -62,7 +54,12 @@ between only two variables, such as the relationship between brain- and
 body size in the animal kingdom. This is totally fine for answering a
 lot of scientific questions.
 
-![correlation between brain- and body size](figures/brainbodysize.png)
+<figure>
+<img src="figures/brainbodysize.png"
+alt="correlation between brain- and body size" />
+<figcaption aria-hidden="true">correlation between brain- and body
+size</figcaption>
+</figure>
 
 **But what if we have to deal with many more independent variables,
 potentially hundreds of them?**
@@ -86,11 +83,10 @@ pattern in potentially hundreds (or sometimes thousands) of numerical
 variables. We may summarize the aims of multivariate analysis as
 follows:
 
--   Find trends (covariation) in large data sets and big data
--   Reduce number of variables to a few significant ones (that is where
-    PCA comes into play)
--   Discriminate between groups (like different populations, sexes,
-    etc.)
+- Find trends (covariation) in large data sets and big data
+- Reduce number of variables to a few significant ones (that is where
+  PCA comes into play)
+- Discriminate between groups (like different populations, sexes, etc.)
 
 The basic idea of this chapter is that you can implement a PCA, a very
 fine instrument to do patterns extraction, and interpret the results.
@@ -104,9 +100,13 @@ Now let’s go through a **PCA** in detail – from bottom up!
 Let’s use a large data set with many independent measurements. We will
 utilize the [Howells Data](https://web.utk.edu/~auerbach/HOWL.htm). This
 data consists of hundreds of standard [craniometric
-measurements](https://en.wikipedia.org/wiki/Craniometry) of the [human
-skull](figures/craniometry.pdf) of different populations all around the
-globe (Howells 1973, 1989, 1995).
+measurements](https://en.wikipedia.org/wiki/Craniometry) of the human
+skull:
+
+![](figures/craniometry.pdf)
+
+from different populations all around the globe (Howells 1973, 1989,
+1995).
 
 Here is an overview of the different populations that were analyzed for
 this data set:
@@ -127,14 +127,14 @@ howells <- read_csv("data/howells_data.csv")
 head(howells) %>% kable()
 ```
 
-|  ID | SEX | POPULATION | POP | longitude | longitude2 | latitude | GOL | NOL | BNL | BBH | XCB | XFB | ZYB | AUB | WCB | ASB | BPL | NPH | NLH | JUB | NLB | MAB | MDH | MDB | OBH | OBB | DKB | NDS | WNB | SIS | ZMB | SSS | FMB | NAS | EKB | DKS | IML | XML | MLS | WMH | SOS | BLS | STB | FRC | FRS | FRF | PAC | PAS | PAF | OCC | OCS | OCF | FOL |
-|----:|:----|:-----------|----:|----------:|-----------:|---------:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|----:|
-|   1 | M   | NORSE      |   1 |        15 |         15 |       60 | 189 | 185 | 100 | 135 | 143 | 120 | 133 | 119 |  70 | 112 |  96 |  66 |  50 | 118 |  26 |  63 |  31 |  13 |  31 |  42 |  22 |  12 |  10 |   5 |  83 |  20 | 100 |  19 | 100 |   8 |  42 |  57 |  13 |  24 |   7 |   4 | 115 | 118 |  25 |  53 | 119 |  26 |  62 |  98 |  30 |  51 |  34 |
-|   2 | M   | NORSE      |   1 |        15 |         15 |       60 | 182 | 178 | 102 | 139 | 145 | 120 | 137 | 125 |  66 | 113 | 108 |  64 |  48 | 118 |  25 |  72 |  19 |  13 |  28 |  39 |  21 |   9 |  11 |   4 | 101 |  27 |  95 |  17 |  96 |   9 |  32 |  53 |  10 |  23 |   6 |   4 | 117 | 116 |  28 |  55 | 113 |  24 |  59 |  93 |  27 |  39 |  34 |
-|   3 | M   | NORSE      |   1 |        15 |         15 |       60 | 191 | 187 | 102 | 123 | 140 | 114 | 134 | 125 |  74 | 112 | 102 |  67 |  53 | 112 |  23 |  65 |  28 |  14 |  33 |  41 |  20 |  13 |   8 |   4 |  90 |  24 |  98 |  19 |  97 |  10 |  35 |  56 |  10 |  24 |   6 |   4 | 112 | 107 |  25 |  47 | 118 |  23 |  59 |  88 |  30 |  45 |  41 |
-|   4 | M   | NORSE      |   1 |        15 |         15 |       60 | 191 | 188 | 100 | 127 | 141 | 123 | 135 | 127 |  71 | 113 |  95 |  76 |  53 | 114 |  26 |  62 |  25 |  12 |  35 |  40 |  23 |  10 |   9 |   4 |  94 |  23 |  98 |  16 |  99 |   8 |  34 |  52 |  11 |  22 |   8 |   3 | 116 | 109 |  26 |  47 | 116 |  24 |  57 |  94 |  34 |  50 |  38 |
-|   5 | M   | NORSE      |   1 |        15 |         15 |       60 | 178 | 177 |  97 | 128 | 138 | 117 | 129 | 121 |  69 | 111 |  90 |  67 |  51 | 115 |  24 |  64 |  26 |  14 |  32 |  39 |  21 |  11 |   9 |   5 |  91 |  21 |  96 |  18 |  97 |  10 |  35 |  52 |  12 |  27 |   5 |   2 | 116 | 102 |  22 |  45 | 113 |  26 |  62 |  94 |  32 |  40 |  34 |
-|   6 | M   | NORSE      |   1 |        15 |         15 |       60 | 194 | 191 | 106 | 132 | 139 | 118 | 136 | 128 |  76 | 112 | 102 |  69 |  50 | 117 |  25 |  65 |  29 |  13 |  33 |  40 |  22 |  13 |   8 |   3 |  91 |  22 | 101 |  20 |  98 |  11 |  38 |  57 |  10 |  23 |   6 |   3 | 115 | 107 |  23 |  49 | 115 |  26 |  58 | 103 |  34 |  47 |  35 |
+| ID | SEX | POPULATION | POP | longitude | longitude2 | latitude | GOL | NOL | BNL | BBH | XCB | XFB | ZYB | AUB | WCB | ASB | BPL | NPH | NLH | JUB | NLB | MAB | MDH | MDB | OBH | OBB | DKB | NDS | WNB | SIS | ZMB | SSS | FMB | NAS | EKB | DKS | IML | XML | MLS | WMH | SOS | BLS | STB | FRC | FRS | FRF | PAC | PAS | PAF | OCC | OCS | OCF | FOL |
+|---:|:---|:---|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
+| 1 | M | NORSE | 1 | 15 | 15 | 60 | 189 | 185 | 100 | 135 | 143 | 120 | 133 | 119 | 70 | 112 | 96 | 66 | 50 | 118 | 26 | 63 | 31 | 13 | 31 | 42 | 22 | 12 | 10 | 5 | 83 | 20 | 100 | 19 | 100 | 8 | 42 | 57 | 13 | 24 | 7 | 4 | 115 | 118 | 25 | 53 | 119 | 26 | 62 | 98 | 30 | 51 | 34 |
+| 2 | M | NORSE | 1 | 15 | 15 | 60 | 182 | 178 | 102 | 139 | 145 | 120 | 137 | 125 | 66 | 113 | 108 | 64 | 48 | 118 | 25 | 72 | 19 | 13 | 28 | 39 | 21 | 9 | 11 | 4 | 101 | 27 | 95 | 17 | 96 | 9 | 32 | 53 | 10 | 23 | 6 | 4 | 117 | 116 | 28 | 55 | 113 | 24 | 59 | 93 | 27 | 39 | 34 |
+| 3 | M | NORSE | 1 | 15 | 15 | 60 | 191 | 187 | 102 | 123 | 140 | 114 | 134 | 125 | 74 | 112 | 102 | 67 | 53 | 112 | 23 | 65 | 28 | 14 | 33 | 41 | 20 | 13 | 8 | 4 | 90 | 24 | 98 | 19 | 97 | 10 | 35 | 56 | 10 | 24 | 6 | 4 | 112 | 107 | 25 | 47 | 118 | 23 | 59 | 88 | 30 | 45 | 41 |
+| 4 | M | NORSE | 1 | 15 | 15 | 60 | 191 | 188 | 100 | 127 | 141 | 123 | 135 | 127 | 71 | 113 | 95 | 76 | 53 | 114 | 26 | 62 | 25 | 12 | 35 | 40 | 23 | 10 | 9 | 4 | 94 | 23 | 98 | 16 | 99 | 8 | 34 | 52 | 11 | 22 | 8 | 3 | 116 | 109 | 26 | 47 | 116 | 24 | 57 | 94 | 34 | 50 | 38 |
+| 5 | M | NORSE | 1 | 15 | 15 | 60 | 178 | 177 | 97 | 128 | 138 | 117 | 129 | 121 | 69 | 111 | 90 | 67 | 51 | 115 | 24 | 64 | 26 | 14 | 32 | 39 | 21 | 11 | 9 | 5 | 91 | 21 | 96 | 18 | 97 | 10 | 35 | 52 | 12 | 27 | 5 | 2 | 116 | 102 | 22 | 45 | 113 | 26 | 62 | 94 | 32 | 40 | 34 |
+| 6 | M | NORSE | 1 | 15 | 15 | 60 | 194 | 191 | 106 | 132 | 139 | 118 | 136 | 128 | 76 | 112 | 102 | 69 | 50 | 117 | 25 | 65 | 29 | 13 | 33 | 40 | 22 | 13 | 8 | 3 | 91 | 22 | 101 | 20 | 98 | 11 | 38 | 57 | 10 | 23 | 6 | 3 | 115 | 107 | 23 | 49 | 115 | 26 | 58 | 103 | 34 | 47 | 35 |
 
 ``` r
 nrow(howells)
@@ -166,7 +166,7 @@ ggplot(howells, aes(x = GOL, y = BNL)) +
 
 ![](README_files/figure-gfm/unnamed-chunk-3-1.png)<!-- -->
 
-What did we do here? We simply plotted two variables (BNL \~ GOL), which
+What did we do here? We simply plotted two variables (BNL ~ GOL), which
 gives us a bivariate plot. You can already see that these two
 measurements appear to be
 **[correlated](https://en.wikipedia.org/wiki/Correlation)**. This is
@@ -179,16 +179,16 @@ You might wonder why we used the commands `cord_equal()` and
 `theme_pubr(border = TRUE, margin = TRUE)` in our `ggplot()` statement.
 Here’s why:
 
--   `cord_equal()` produces isometrically scaled axes. This is very
-    important when plotting data that have similar scale on both axes
-    (e.g,. mm here). A distance in X should always be equal to a
-    distance in Y! (Always do this for a PCA!)
--   `theme_pubr(border = TRUE, margin = TRUE)` produces a nice
-    “publication ready” theme from the
-    [ggpubr](https://cran.r-project.org/web/packages/ggpubr/index.html)
-    package. Maybe you like it, maybe not. It’s totally up to you if you
-    want to use this theme or not! Recall themes from our lecture on
-    [data visualizations](../6_data_visualization#theme).
+- `cord_equal()` produces isometrically scaled axes. This is very
+  important when plotting data that have similar scale on both axes
+  (e.g,. mm here). A distance in X should always be equal to a distance
+  in Y! (Always do this for a PCA!)
+- `theme_pubr(border = TRUE, margin = TRUE)` produces a nice
+  “publication ready” theme from the
+  [ggpubr](https://cran.r-project.org/web/packages/ggpubr/index.html)
+  package. Maybe you like it, maybe not. It’s totally up to you if you
+  want to use this theme or not! Recall themes from our lecture on [data
+  visualizations](../6_data_visualization#theme).
 
 ### Ok, but how do we plot more than two variables in a single plot?
 
@@ -232,9 +232,9 @@ scatter3D(howells$GOL, howells$BBH, howells$BNL, col = c("#1B9E77"), bty = "g", 
 
 Static 3D plots are often not a good choice, due to these reasons:
 
--   Hard to define the exact X,Y & Z position of a specific data point.
--   Data points often obscure each other.
--   The plot cannot be rotated.
+- Hard to define the exact X,Y & Z position of a specific data point.
+- Data points often obscure each other.
+- The plot cannot be rotated.
 
 Interactive 3D plots can be created with the package
 [plotly](https://plotly.com/r/) and may address some of these issues.
@@ -285,23 +285,22 @@ chunk of this script for an example.
 Here are some **important** reasons why PCA is often a good choice to
 analyze multivariate data sets (Zelditch, Swiderski, and Sheets 2012):
 
--   Principal components analysis is a commonly used **dimensionality
-    reduction technique**.
--   The purpose of PCA is to **simplify patterns** where we have
-    multivariate data sets, and to make them easily visible by
-    **replacing** the original variables with a few **new ones** (so
-    called principal components, or simply ‘PCs’).
--   These resulting PCs are linear combinations of the original
-    variables and are **statistically independent** of each other.
--   Only with a **few variables** (e.g., the PCs), **most of the
-    variation** in a given sample can be explained. This means, that
-    only by plotting PC1 & PC2 (a bivariate plot!) we may have over 50%
-    of variation in a sample visualized in a simple graph.
--   PCA simplifies the description of **differences between
-    individuals**. In PC plots, we will often see patterns of
-    **clustering of different groups**. Finding these groups can be very
-    valuable, even if they do not represent statistically different
-    entities.
+- Principal components analysis is a commonly used **dimensionality
+  reduction technique**.
+- The purpose of PCA is to **simplify patterns** where we have
+  multivariate data sets, and to make them easily visible by
+  **replacing** the original variables with a few **new ones** (so
+  called principal components, or simply ‘PCs’).
+- These resulting PCs are linear combinations of the original variables
+  and are **statistically independent** of each other.
+- Only with a **few variables** (e.g., the PCs), **most of the
+  variation** in a given sample can be explained. This means, that only
+  by plotting PC1 & PC2 (a bivariate plot!) we may have over 50% of
+  variation in a sample visualized in a simple graph.
+- PCA simplifies the description of **differences between individuals**.
+  In PC plots, we will often see patterns of **clustering of different
+  groups**. Finding these groups can be very valuable, even if they do
+  not represent statistically different entities.
 
 ### How does PCA work?
 
@@ -312,7 +311,10 @@ geometric (visual) point of view.
 
 That take a look at the following **graphic**:
 
-![image](figures/PC.png)
+<figure>
+<img src="figures/PC.png" alt="image" />
+<figcaption aria-hidden="true">image</figcaption>
+</figure>
 
 What you see here is a simple **3D plot** of three observed traits
 (let’s call them X1, X2 and X3). These traits may be simple distance
@@ -339,15 +341,15 @@ they describe each in a different pattern of variation in the sample.
 
 ### PCA in essence
 
--   PCA is a statistical procedure that converts a set of observations
-    of possibly correlated variables into a set of values of linearly
-    uncorrelated variables called principal components.
-    ([Wikipedia](https://en.wikipedia.org/wiki/Principal_component_analysis))
--   PCA will help us to find a reduced number of features that will
-    represent our original data set in a compressed way, capturing up to
-    a certain portion of its variance depending on the number of new
-    features we end up selecting
-    ([Towardsdatascience](https://towardsdatascience.com/the-most-gentle-introduction-to-principal-component-analysis-9ffae371e93b)).
+- PCA is a statistical procedure that converts a set of observations of
+  possibly correlated variables into a set of values of linearly
+  uncorrelated variables called principal components.
+  ([Wikipedia](https://en.wikipedia.org/wiki/Principal_component_analysis))
+- PCA will help us to find a reduced number of features that will
+  represent our original data set in a compressed way, capturing up to a
+  certain portion of its variance depending on the number of new
+  features we end up selecting
+  ([Towardsdatascience](https://towardsdatascience.com/the-most-gentle-introduction-to-principal-component-analysis-9ffae371e93b)).
 
 ------------------------------------------------------------------------
 
@@ -367,7 +369,7 @@ exploration.
 For computing the PCA in R, we will use the function `prcomp`, which is
 in the core package `stats`. Note that PCA will only work with
 **numerical input**. So make sure not to include [categorical
-variables](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics)!
+variables](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics)!
 The argument `scale = FALSE` means that the PCA is performed on the
 variance-covariance matrix. This is advisable when all variables have
 the same measurement dimensions (in the Howells data: millimeters). The
@@ -461,19 +463,18 @@ addition to the observations, the biplot shows the **original
 variables** (input variables) as vectors (red arrows). These vectors may
 be interpreted as follows (Rossiter 2014):
 
--   The **orientation** (direction) of the vector, with respect to the
-    principal component space, in particular, its angle with the
-    principal component axes: *the more parallel to a principal
-    component axis a vector is, the more it contributes only to that
-    PC.*
--   The **length** in the space: *the longer the vector, the more
-    variability of this variable is represented by the two displayed
-    principal components; short vectors are thus better represented in
-    other dimensions.*
--   The **angles** between vectors of different variables show their
-    correlation in this space: *small angles represent high positive
-    correlation, right angles represent lack of correlation, opposite
-    angles represent high negative correlation.*
+- The **orientation** (direction) of the vector, with respect to the
+  principal component space, in particular, its angle with the principal
+  component axes: *the more parallel to a principal component axis a
+  vector is, the more it contributes only to that PC.*
+- The **length** in the space: *the longer the vector, the more
+  variability of this variable is represented by the two displayed
+  principal components; short vectors are thus better represented in
+  other dimensions.*
+- The **angles** between vectors of different variables show their
+  correlation in this space: *small angles represent high positive
+  correlation, right angles represent lack of correlation, opposite
+  angles represent high negative correlation.*
 
 #### Which PCs are relevant for further investigation?
 
@@ -490,9 +491,9 @@ become “statistical practice”, just like setting the significance
 threshold of the p-value to 0.05… but that is another story, see e.g.,
 if you’re interested:
 
--   <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5017929/>
--   <https://sites.uw.edu/stlab/2016/03/09/the-arbitrary-magic-of-p-0-05/>
--   <https://towardsdatascience.com/p-values-explained-by-data-scientist-f40a746cfc8>
+- <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5017929/>
+- <https://sites.uw.edu/stlab/2016/03/09/the-arbitrary-magic-of-p-0-05/>
+- <https://towardsdatascience.com/p-values-explained-by-data-scientist-f40a746cfc8>
 
 ### Plotting a PCA
 
@@ -621,13 +622,14 @@ ggplot(howells_PCA_mean, aes(x = latitude, y = PC2)) +
   theme_pubr(border = TRUE, margin = TRUE)
 ```
 
-    ## `geom_smooth()` using formula 'y ~ x'
+    ## `geom_smooth()` using formula = 'y ~ x'
 
 ![](README_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-ggthemes" class="csl-entry">
 

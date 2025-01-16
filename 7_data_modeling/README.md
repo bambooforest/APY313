@@ -2,7 +2,7 @@ Data modeling and statistical testing
 ================
 Steven Moran & Alena Witzlack-Makarevich
 
-11 April, 2023
+16 January, 2025
 
 - [Data modeling](#data-modeling)
 - [Descriptive statistics](#descriptive-statistics)
@@ -322,25 +322,16 @@ undertaking **statistical inference**.
     your reasoning.
 
 - 1.  The height of each player on a school’s basketball team
-
 - 2.  The amount of energy collected from every wind turbine on a wind
       farm
-
 - 3.  A survey of 500 spectators from a stadium with 42,000 spectators
-
 - 4.  The annual salary of each pharmacist at a pharmacy
-
 - 5.  The cholesterol levels of 20 patients in a hospital with 100
       patients
-
 - 6.  The number of televisions in each U.S. household
-
 - 7.  The final score of each golfer in a tournament
-
 - 8.  The age of every third person entering a clothing store
-
 - 9.  The political party of every U.S. president
-
 - 10. The soil contamination levels at 10 locations near a landfill
 
 # Hypothesis testing
@@ -843,7 +834,8 @@ What are:
 
 # References
 
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent"
+entry-spacing="0">
 
 <div id="ref-Janert2010" class="csl-entry">
 

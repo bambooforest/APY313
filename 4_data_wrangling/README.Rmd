@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   github_document:
       toc: true
-bibliography: '../2_writing_scientific_reports/references.bib'
+bibliography: '../3_writing_scientific_reports/references.bib'
 ---
 
 ***
@@ -283,7 +283,7 @@ Now that you've loaded the `athletes.csv` data, let's have a look at its structu
 str(athletes)
 ```
 
-Recall our discussion about [data types for computer programming](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-for-computer-programming) and [data types for statistics](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics).
+Recall our discussion about [data types for computer programming](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-for-computer-programming) and [data types for statistics](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics).
 
 **What kind of variables do we have in our data set?**
 
@@ -300,7 +300,7 @@ Now note the change in data type:
 str(athletes)
 ```
 
-Also, recall our discussion about [tabular data](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#tabular-data).
+Also, recall our discussion about [tabular data](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#tabular-data).
 
 What are the variables in `athletes`?
 
@@ -706,7 +706,7 @@ str(gapminder)
 str(sex_ratios)
 ```
 
-Which columns are shared between the two data sets? Notice again the [data types](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-for-computer-programming).
+Which columns are shared between the two data sets? Notice again the [data types](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-for-computer-programming).
 
 So how do we combine the tables / data frames? Dplyr has several functions for **joining** tables. Often [Venn diagrams](https://en.wikipedia.org/wiki/Venn_diagram) are used to show the logical relationships described by different join functions. The following image is taken from [here](https://en.wikipedia.org/wiki/Venn_diagram).
 

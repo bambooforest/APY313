@@ -6,7 +6,7 @@ always_allow_html: true
 output:
   github_document:
       toc: true
-bibliography: '../2_writing_scientific_reports/references.bib'
+bibliography: '../3_writing_scientific_reports/references.bib'
 ---
 
 ***
@@ -187,7 +187,7 @@ In sum, the resulting PCs describe the major directions of largest proportions o
 
 **Now let's get our hands dirty and do that PCA in R!**
 
-For computing the PCA in R, we will use the function `prcomp`, which is in the core package `stats`. Note that PCA will only work with **numerical input**. So make sure not to include [categorical variables](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#data-types-in-statistics)! The argument `scale = FALSE` means that the PCA is performed on the variance-covariance matrix. This is advisable when all variables have the same measurement dimensions (in the Howells data: millimeters). The argument `scale=TRUE` means that the PCA is performed on the correlation matrix, i.e., all variances are scaled to 1. This is advisable when variables have different dimensions (such as length, temperature, mass, etc.).
+For computing the PCA in R, we will use the function `prcomp`, which is in the core package `stats`. Note that PCA will only work with **numerical input**. So make sure not to include [categorical variables](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#data-types-in-statistics)! The argument `scale = FALSE` means that the PCA is performed on the variance-covariance matrix. This is advisable when all variables have the same measurement dimensions (in the Howells data: millimeters). The argument `scale=TRUE` means that the PCA is performed on the correlation matrix, i.e., all variances are scaled to 1. This is advisable when variables have different dimensions (such as length, temperature, mass, etc.).
 
 ```{r}
 data.pca <- prcomp(data.frame(howells[, 8:54]), scale = FALSE)

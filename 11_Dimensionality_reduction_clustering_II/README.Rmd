@@ -6,7 +6,7 @@ always_allow_html: true
 output:
   github_document:
       toc: true
-bibliography: '../2_writing_scientific_reports/references.bib'
+bibliography: '../3_writing_scientific_reports/references.bib'
 ---
 
 ***

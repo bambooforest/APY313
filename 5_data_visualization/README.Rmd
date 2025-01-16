@@ -5,7 +5,7 @@ date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   github_document:
       toc: true
-bibliography: '../2_writing_scientific_reports/references.bib'
+bibliography: '../3_writing_scientific_reports/references.bib'
 ---
 
 ***
@@ -23,7 +23,7 @@ library(dslabs)
 
 ## Tabular data
 
-Recall our discussion about [tabular data](https://github.com/bambooforest/IntroDataScience/tree/main/3_data#tabular-data) formats. In a table data format, every column represents a particular variable (e.g., a person's height, number of of vowels) and each row/record corresponds to a given member of the data set in question (e.g. a person, in a language). Tabular data are inherently rectangular and cannot have "ragged rows". If any row is lacking information for a particular column, a missing value (`NA`) is stored in that cell.
+Recall our discussion about [tabular data](https://github.com/bambooforest/IntroDataScience/tree/main/2_data#tabular-data) formats. In a table data format, every column represents a particular variable (e.g., a person's height, number of of vowels) and each row/record corresponds to a given member of the data set in question (e.g. a person, in a language). Tabular data are inherently rectangular and cannot have "ragged rows". If any row is lacking information for a particular column, a missing value (`NA`) is stored in that cell.
 
 Tabular data come in various formats and go by various names, e.g.:
 
