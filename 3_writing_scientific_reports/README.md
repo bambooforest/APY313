@@ -1,14 +1,14 @@
 Writing scientific reports
 ================
 Steven Moran
-(16 January, 2025)
+(30 January, 2025)
 
 - [Scientific reports: why?](#scientific-reports-why)
 - [R Markdown: overview](#r-markdown-overview)
 - [Title](#title)
   - [Subtitle](#subtitle)
 - [Cheat sheets](#cheat-sheets)
-- [Automatic referencing](#automatic-referencing)
+- [Automatic referencing (advanced)](#automatic-referencing-advanced)
 - [Additional resources](#additional-resources)
   - [R Markdown](#r-markdown)
   - [Reference management software](#reference-management-software)
@@ -257,7 +257,7 @@ file should be generated, e.g., I am telling it to produce a
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(16 January, 2025)"
+    date: "(30 January, 2025)"
     output:
       github_document
     ---
@@ -274,7 +274,7 @@ document](https://bookdown.org/yihui/rmarkdown/html-document.html):
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(16 January, 2025)"
+    date: "(30 January, 2025)"
     output:
       html_document
     ---
@@ -286,7 +286,7 @@ this report, e.g., so that you can submit it for publication?
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(16 January, 2025)"
+    date: "(30 January, 2025)"
     output:
       pdf_document
     ---
@@ -299,7 +299,7 @@ one of my old professors):
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(16 January, 2025)"
+    date: "(30 January, 2025)"
     output:
       word_document
     ---
@@ -310,7 +310,7 @@ You can even create for example slides, such as in
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(16 January, 2025)"
+    date: "(30 January, 2025)"
     output:
       powerpoint_presentation
     ---
@@ -324,7 +324,7 @@ below). So, for example, this file specifies the header as:
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(16 January, 2025)"
+    date: "(30 January, 2025)"
     output:
       github_document:
           toc: true
@@ -367,12 +367,16 @@ like this in R Markdown\]:
 
 # Cheat sheets
 
+Here is an overview of RMarkdown:
+
+- <https://rstudio.github.io/cheatsheets/html/rmarkdown.html>
+
 A good thing to keep near when you are learning R Markdown are [cheat
 sheets](https://en.wikipedia.org/wiki/Cheat_sheet). [Let me google some
 for you](https://www.dictionary.com/e/slang/lmgtfy/):
 
-- <https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf>
-- <https://ethz.ch/content/dam/ethz/special-interest/math/statistics/sfs/Education/Advanced%20Studies%20in%20Applied%20Statistics/course-material-1719/Datenanalyse/rmarkdown-2.pdf>
+- <https://rstudio.github.io/cheatsheets/rmarkdown.pdf>
+- <https://www.gdc-docs.ethz.ch/MDA/help/RMarkdownChaetSheet_2-16_red.pdf>
 
 These cheat sheets are condense visualizations and explain the R
 Markdown workflow. Please have a look at them.
@@ -398,7 +402,7 @@ Or this:
     1. Item 1
     2. Item 2
 
-# Automatic referencing
+# Automatic referencing (advanced)
 
 Scientific reports and scientific publications require that you cite
 (aka reference) your sources, e.g.:
@@ -584,7 +588,7 @@ header in the .Rmd file:
     ---
     title: "Writing scientific reports"
     author: "Steven Moran"
-    date: "(16 January, 2025)"
+    date: "(30 January, 2025)"
     output:
       github_document
     bibliography: 'references.bib'
