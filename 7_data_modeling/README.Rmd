@@ -210,7 +210,6 @@ When properties of the population are inferred from a sample, we are undertaking
 [Hypothesis testing](https://en.wikipedia.org/wiki/Statistical_hypothesis_testing) is a way to interpret and draw conclusions about the [population](https://en.wikipedia.org/wiki/Statistical_population) of a [sample](https://en.wikipedia.org/wiki/Sample_(statistics)) of data.
 
 * https://www.scribbr.com/statistics/hypothesis-testing/
-* https://towardsdatascience.com/hypothesis-testing-in-real-life-47f42420b1f7
 * http://www.biostathandbook.com/hypothesistesting.html
 
 The logic of hypothesis testing is as follows. After we have identified the H0 and H1, we can do only one of two things:

@@ -2,7 +2,7 @@ Data modeling and statistical testing
 ================
 Steven Moran & Alena Witzlack-Makarevich
 
-16 January, 2025
+25 March, 2025
 
 - [Data modeling](#data-modeling)
 - [Descriptive statistics](#descriptive-statistics)
@@ -345,7 +345,6 @@ is a way to interpret and draw conclusions about the
 [sample](https://en.wikipedia.org/wiki/Sample_(statistics)) of data.
 
 - <https://www.scribbr.com/statistics/hypothesis-testing/>
-- <https://towardsdatascience.com/hypothesis-testing-in-real-life-47f42420b1f7>
 - <http://www.biostathandbook.com/hypothesistesting.html>
 
 The logic of hypothesis testing is as follows. After we have identified
