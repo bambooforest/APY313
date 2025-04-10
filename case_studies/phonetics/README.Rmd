@@ -1,9 +1,15 @@
 ---
-title: ""
+title: "T-test for comparing the means of two groups (based on Johnson (2008))"
 author: "Steve Moran"
 date: "2022-10-14"
-output: html_document
+output: github_document
 ---
+
+```{r}
+library(tidyverse)
+library(knitr)
+```
+
 
 # Comparing two groups
 
@@ -38,7 +44,7 @@ Let's go through an example.
 We have some data from @Johnson2008 called `F1_data.txt`. Let's have a look:
 
 ```{r, message=FALSE}
-f1 <- read_csv('data/F1_data.txt')
+f1 <- read_csv('F1_data.csv')
 str(f1)
 head(f1) %>% kable()
 ```
